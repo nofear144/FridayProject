@@ -7,16 +7,19 @@ import {Registration} from "../../../n2-features/f1-auth/m2-registration/Registr
 import {ResetPassword} from "../../../n2-features/f1-auth/m3-reset-password/ResetPassword";
 import {NewPassword} from "../../../n2-features/f1-auth/m4-new-password/NewPassword";
 import {Header} from "../header/Header";
+import {Test} from "../../../n2-features/f0-test/Test";
+import {NotFound404} from "../../../n2-features/f1-auth/m5-404/NotFound404";
+import {Profile} from "../../../n2-features/f2-profile/Profile";
 
 
 
 export const PATH = {
-    HEADER:'/header',
     LOGIN: '/login',
     REGISTRATION: '/registration',
     RESET_PASSWORD: '/recoveryPass',
     NEW_PASSWORD: '/newPass',
     TEST: '/test',
+    PROFILE:'/FridayProject'
 
 
 }
@@ -26,13 +29,14 @@ export function RoutesPage() {
 
         <div>
             <Routes>
-                <Route path={'/'}  element={<Header/>}/>
+                <Route path={'/'}  element={<Profile/>}/>
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
                 <Route path={PATH.RESET_PASSWORD} element={<ResetPassword/>}/>
                 <Route path={PATH.NEW_PASSWORD} element={<NewPassword/>}/>
-                {/*<Route path={PATH.TEST} element={}/>
-                <Route element={}/>*/}
+                <Route path={PATH.TEST} element={<Test/>}/>
+                <Route path={PATH.PROFILE} element={<Profile/>}/>
+                <Route path={"*"} element={<NotFound404/>}/>
             </Routes>
 
         </div>

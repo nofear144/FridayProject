@@ -1,10 +1,10 @@
 import React from "react";
 
 
-export function Registration() {
+export function Profile() {
     return(
         <div>
-          <h1>Registration</h1>
+            <h1>Profile</h1>
         </div>
     )
 }

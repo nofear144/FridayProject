@@ -4,7 +4,7 @@ import React from "react";
 export function ResetPassword() {
     return(
         <div>
-            <h1>LOGIN</h1>
+            <h1>Reset Password</h1>
         </div>
     )
 }
