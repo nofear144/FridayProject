@@ -1,5 +1,5 @@
 import React,{ButtonHTMLAttributes, DetailedHTMLProps} from "react"
-import s from './SuperButton.module.css'
+import s from './SuperButton.module.scss'
 
 
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
@@ -14,13 +14,13 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
         ...restProps// все остальные пропсы попадут в объект restProps, там же будет children
     }
 ) => {
-    const finalClassName = `${red ? s.red : s.default} ${className}`
+
 
     return (
-        <button
-            className={finalClassName}
-            {...restProps} // отдаём кнопке остальные пропсы если они есть (children там внутри)
-        >button</button>
+        <div className={s.btnBox}>
+            <button className={`${s.btn} ${s.btnSubmit}`} type="submit">submit</button>
+        </div>
+
     )
 }
 

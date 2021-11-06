@@ -1,0 +1,58 @@
+$bg-color: #424242;
+$hl-color: #2196F3;
+$muted-color: mix(white, $bg-color, 70%);
+$trans-time: 300ms;
+$width: 320px;
+
+.btn {
+  background: #fff;
+  color: mix(black, $muted-color, 25%);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+
+  &:hover {
+    color: mix(black, $muted-color, 30%);
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);
+  }
+
+  &.btnLink {
+    background: $hl-color;
+    color: mix(white, $hl-color, 80%);
+
+    &:hover {
+      background: darken($hl-color, 5%);
+      color: mix(white, $hl-color, 85%);
+    }
+  }
+
+  &.btnSubmit {
+    background: $hl-color;
+    color: mix(white, $hl-color, 70%);
+
+    &:hover {
+      background: darken($hl-color, 5%);
+      color: mix(white, $hl-color, 85%);
+    }
+  }
+
+  &.btnCancel {
+    background: #eee;
+
+    &:hover {
+      background: darken(#eee, 5%);
+      color: mix(black, $muted-color, 30%);
+    }
+  }
+}
+
+.btnBox {
+  text-align: center;
+  margin: 50px 0;
+}

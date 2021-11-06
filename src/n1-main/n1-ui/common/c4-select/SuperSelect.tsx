@@ -32,11 +32,20 @@ const SuperSelect: React.FC<SuperSelectPropsType> = (
     }
 
     return (
+        <div className={s.wrap} >
 
-          <select className={s.selectStyle} value={options} onChange={onChangeCallback}  {...restProps}>
-              {mappedOptions}
-          </select>
-
+            <div className={s.select}>
+                <select className={s.selectText} required>
+                    <option value="" disabled selected></option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <span className={s.selectHighlight}></span>
+                <span className={s.selectBar}></span>
+                <label className={s.selectLabel}>Select</label>
+            </div>
+        </div>
     )
 }
 
