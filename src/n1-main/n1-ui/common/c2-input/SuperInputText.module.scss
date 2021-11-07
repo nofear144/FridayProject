@@ -3,21 +3,21 @@ $hl-color: #2196F3;
 $muted-color: mix(white, $bg-color, 70%);
 $trans-time: 300ms;
 $width: 320px;
-textarea {
+.group textarea {
     resize: none;
 }
 .group {
   position: relative;
-  margin: 45px 0;
+  margin: 20px 0;
 }
-input,
-textarea {
+.group input,
+.group textarea {
+    width: $width;
     background: none;
     color: $muted-color;
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     display: block;
-    width: $width;
     border: none;
     border-radius: 0;
     border-bottom: 1px solid $muted-color;
@@ -31,15 +31,15 @@ textarea {
      color: $hl-color;
  }
 &:focus ~ .bar:before {
-     width: $width;
+  width: 100%;
  }
 }
 
-input[type="password"] {
+.group input[type="password"] {
     letter-spacing: 0.3em;
 }
 
-label {
+.group label {
     color: $muted-color;
     font-size: 16px;
     font-weight: normal;
@@ -53,7 +53,7 @@ label {
 .bar {
     position: relative;
     display: block;
-    width: $width;
+    max-width: $width;
 &:before {
      content: '';
      height: 2px;

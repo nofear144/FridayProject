@@ -17,14 +17,14 @@ $md-checkbox-label-padding: .75em;
 .md-checkbox {
     position: relative;
     margin: $md-checkbox-margin;
-    text-align: left;
-  max-width: 20px;
+  width: 50px;
 
 &.md-checkbox-inline {
      display: inline-block;
  }
 
-label {
+  .md-checkbox label {
+    position: relative;
     cursor: pointer;
     display: inline;
     line-height: $md-checkbox-size;
@@ -58,7 +58,7 @@ label {
  }
 }
 
-input[type="checkbox"] {
+  .md-checkbox input[type="checkbox"] {
     outline: 0;
     visibility: hidden;
     width: $md-checkbox-size;
