@@ -1,5 +1,4 @@
 import React, {SelectHTMLAttributes, DetailedHTMLProps, ChangeEvent, JSXElementConstructor, ReactChild} from 'react'
-//import s from "./select.module.css"
 import s from "./SuperInputSelect.module.scss"
 
 type DefaultSelectPropsType = DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>
