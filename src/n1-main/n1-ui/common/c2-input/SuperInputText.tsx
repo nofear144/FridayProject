@@ -42,17 +42,13 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
     const finalInputClassName = `${s.errorInput} ${className}` // need to fix with (?:) and s.superInput
 
     return (
-        <>
             <div className={s.group}>
                 <input type="text" required/>
-                <span className={s.highlight}></span>
                 <span className={s.bar}></span>
                 <label>Name</label>
                 {error && <span className={finalSpanClassName}>{error}</span>}
             </div>
 
-
-        </>
     )
 }
 

@@ -28,6 +28,7 @@ const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
 
     return (
         <div className={s.mdCheckbox}>
+
             <input  className={s.input} id="i1" type="checkbox"/>
                 <label htmlFor="i1">Item 2</label>
         </div>

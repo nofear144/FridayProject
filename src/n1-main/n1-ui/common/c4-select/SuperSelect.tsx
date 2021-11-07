@@ -1,5 +1,6 @@
 import React, {SelectHTMLAttributes, DetailedHTMLProps, ChangeEvent, JSXElementConstructor, ReactChild} from 'react'
-import s from "./select.module.css"
+//import s from "./select.module.css"
+import s from "./SuperInputSelect.module.scss"
 
 type DefaultSelectPropsType = DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>
 
@@ -41,8 +42,8 @@ const SuperSelect: React.FC<SuperSelectPropsType> = (
                     <option value="2">Option 2</option>
                     <option value="3">Option 3</option>
                 </select>
-                <span className={s.selectHighlight}></span>
-                <span className={s.selectBar}></span>
+                <span className={s.highlight}></span>
+                <span className={s.bar}></span>
                 <label className={s.selectLabel}>Select</label>
             </div>
         </div>
