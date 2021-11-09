@@ -5,6 +5,6 @@ const instance = axios.create({
     baseURL: '',
     withCredentials: true,
     headers: {
-        'API-KEY': ''
+
     }
 })
