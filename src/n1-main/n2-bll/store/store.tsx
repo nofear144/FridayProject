@@ -17,6 +17,6 @@ const rootReducer = combineReducers({
 
 })
 
-
+//store
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 export type rootReducerType = ReturnType<typeof rootReducer>
