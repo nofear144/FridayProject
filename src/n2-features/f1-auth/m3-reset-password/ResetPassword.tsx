@@ -1,4 +1,4 @@
-import React from "react";
+import React, {MouseEvent, useState} from "react";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import s from "./ResetPassword.module.css"
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
@@ -6,6 +6,10 @@ import {NavLink} from "react-router-dom";
 
 
 export function ResetPassword() {
+    const [Email, setEmail] = useState('');
+    const handleOnClick = (event: MouseEvent<HTMLButtonElement>) => {
+
+    }
     return (
         <form className={s.form}>
             <div className={s.container}>
