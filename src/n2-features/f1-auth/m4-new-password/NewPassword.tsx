@@ -17,7 +17,7 @@ export function NewPassword() {
                 <h1 className={s.subTitle}>Create new password</h1>
                 <SuperInputText onChangeText={setNewPassword} type="text" required name="Email"/>
                 <span className={s.description}>Create new password and we will send you further instructions to email</span>
-                <SuperButton onClick={(e) => handleOnClick(e)}/>
+                <SuperButton name="Create new password"/>
             </div>
         </form>
     )

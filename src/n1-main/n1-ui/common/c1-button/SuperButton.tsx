@@ -1,24 +1,39 @@
-import React,{ButtonHTMLAttributes, DetailedHTMLProps} from "react"
+import React, {ButtonHTMLAttributes, MouseEvent, DetailedHTMLProps} from "react"
 import s from './SuperButton.module.scss'
 
 
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 type SuperButtonPropsType = DefaultButtonPropsType & {
-    red?: boolean
+    variant?: "primary" | "secondary",
+    onClick?: () => void
+
 }
 
 const SuperButton: React.FC<SuperButtonPropsType> = (
     {
-        red, className,
+        onClick,
+        variant,
+        name,
+         className,
         ...restProps// все остальные пропсы попадут в объект restProps, там же будет children
     }
 ) => {
+    const onClickCallback = (e: MouseEvent<HTMLButtonElement>) => {
+        onClick
+        && onClick(e)
+    }
+
+    let buttonStyle = `${s.btn} ${s.btnPrimary}`
+    if (variant === "secondary") {
+        buttonStyle = `${s.btn} ${s.btnSecondary}`
+    }
+
 
 
     return (
         <div className={s.btnBox}>
-            <button className={`${s.btn} ${s.btnSubmit}`} type="submit">submit</button>
+            <button onClick={onClickCallback} className={buttonStyle} {...restProps} type="submit">{name}</button>
         </div>
 
     )

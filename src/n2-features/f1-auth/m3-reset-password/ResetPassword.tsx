@@ -17,7 +17,7 @@ export function ResetPassword() {
                 <h1 className={s.subTitle}>Forgot your password?</h1>
                 <SuperInputText type="text" required name="Email"/>
                 <span >Enter your email address and we will send you further instructions </span>
-                <SuperButton  children={"Send Instructions"}/>
+                <SuperButton name="Send Instructions"  children={"Send Instructions"}/>
                 <span>Did you remember your password?</span>
                 <NavLink children="Try logging in" to="/login"/>
             </div>
