@@ -3,6 +3,7 @@
 const initialState = {
 
 }
+
 export const loginReducer = (state:initialStateType= initialState, action: any):initialStateType => {
     switch (action.type) {
 
@@ -10,6 +11,7 @@ export const loginReducer = (state:initialStateType= initialState, action: any):
             return state
     }
 }
+
 
 //Actions
 
