@@ -44,7 +44,10 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
 
     return (
             <div className={s.group}>
-                <input {...restProps}/>
+                <input
+                    onChange= {onChangeCallback}
+                    onKeyPress={onKeyPressCallback}
+                    {...restProps}/>
                 <span className={s.bar}></span>
                 <label>{name}</label>
                 {error && <span className={finalSpanClassName}>{error}</span>}
