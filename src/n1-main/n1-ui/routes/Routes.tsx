@@ -6,10 +6,10 @@ import {Login} from "../../../n2-features/f1-auth/m1-login/Login";
 import {Registration} from "../../../n2-features/f1-auth/m2-registration/Registration";
 import {ResetPassword} from "../../../n2-features/f1-auth/m3-reset-password/ResetPassword";
 import {NewPassword} from "../../../n2-features/f1-auth/m4-new-password/NewPassword";
-import {Header} from "../header/Header";
 import {Test} from "../../../n2-features/f0-test/Test";
 import {NotFound404} from "../../../n2-features/f1-auth/m5-404/NotFound404";
 import {Profile} from "../../../n2-features/f2-profile/Profile";
+import s from"./routes.module.scss"
 
 
 
@@ -27,8 +27,9 @@ export const PATH = {
 export function RoutesPage() {
     return (
 
-        <div>
+        <div className={s.container}>
             <Routes>
+
                 <Route path={'/'}  element={<Profile/>}/>
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
@@ -37,6 +38,7 @@ export function RoutesPage() {
                 <Route path={PATH.TEST} element={<Test/>}/>
                 <Route path={PATH.PROFILE} element={<Profile/>}/>
                 <Route path={"*"} element={<NotFound404/>}/>
+
             </Routes>
 
         </div>
