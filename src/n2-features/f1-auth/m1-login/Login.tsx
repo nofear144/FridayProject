@@ -40,7 +40,7 @@ export function Login() {
                         onChangeText={setPasswordValue}
                     />
 
-                    <div onClick={routeToResetPasswordChange} className={s.forgot}>Forgot Password</div>
+                    <div  className={s.forgot}><span onClick={routeToResetPasswordChange}>Forgot Password</span></div>
                     <div className={s.button}>
                         <SuperButton  />
                     </div>
