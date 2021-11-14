@@ -1,40 +1,39 @@
 import axios, {AxiosResponse} from "axios";
 
-const baseUrl = "http://localhost:7542/2.0/"
+const baseUrl = "https://neko-back.herokuapp.com/2.0"
 
 const instance = axios.create({
     baseURL: baseUrl,
     withCredentials: true,
-    headers: {
-
-    }
+    headers: {'Access-Control-Allow-Origin': 'https://neko-back.herokuapp.com/2.0',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS'}
 })
-    // `<div style="background-color: lime; padding: 15px">
-	// password recovery link:
-	// <a href='http://localhost:3000/#/set-new-password/$token$'>
-	// link</a></div>`
 
-type ResponseType =  {
+
+type ResponseType = {
     info: string,
     error: string
 }
 
-type setNewPasswordType ={
+export type setNewPasswordType = {
     password: string
     resetPasswordToken: string
 }
 
-type recoveryMessageType = {
+export type recoveryMessageType = {
     email: string,
-        from?: string,
+    from?: string,
     message: string
 }
 
 export const NewPasswordAPI = {
-    sendRecoveryToken({email, from, message}:recoveryMessageType) {
-        return instance.post<recoveryMessageType, AxiosResponse<ResponseType>>('auth/login', {email, from, message})
+    sendRecoveryInstructions(messageData: recoveryMessageType) {
+        console.log(messageData)
+        return instance.post<recoveryMessageType, AxiosResponse<ResponseType>>('auth/login', messageData)
     },
-    sendNewPassword() {
-        return instance.post<setNewPasswordType, AxiosResponse<ResponseType>>(`auth/login`);
+    sendNewPasswordWithToken(newPasswordData: setNewPasswordType) {
+        console.log(newPasswordData)
+        return instance.post<setNewPasswordType, AxiosResponse<ResponseType>>(`auth/login`, newPasswordData);
     },
 }
