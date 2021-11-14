@@ -4,7 +4,8 @@ import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputTex
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
 import {useNavigate} from 'react-router-dom';
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
-
+import {useDispatch} from "react-redux";
+import {LoginTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 
 
 export function Login() {
@@ -18,9 +19,11 @@ export function Login() {
 
     const [mailValue, setMailValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('')
-    console.log(mailValue)
-    console.log(passwordValue)
 
+    const dispatch = useDispatch()
+    const onLoginClick=()=>{
+       dispatch(LoginTC({email:mailValue,password:passwordValue,rememberMe:false}))
+    }
     return (
         <div>
             <form>
@@ -40,9 +43,9 @@ export function Login() {
                         onChangeText={setPasswordValue}
                     />
 
-                    <div  className={s.forgot}><span onClick={routeToResetPasswordChange}>Forgot Password</span></div>
+                    <div className={s.forgot}><span onClick={routeToResetPasswordChange}>Forgot Password</span></div>
                     <div className={s.button}>
-                        <SuperButton  />
+                        <SuperButton onClick={onLoginClick} name={"Login"} variant={"primary"}/>
                     </div>
                     <div className={s.helpText}> Don't have an account?</div>
                     <div onClick={routeToSignUpChange} className={s.sign}>Sign Up</div>

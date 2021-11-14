@@ -23,9 +23,10 @@ const LoginAC = () => {
 }
 
 //Thunks
-const LoginTC = ({email, password, rememberMe}: LoginType) => (dispatch: Dispatch) => {
+export const LoginTC = ({email, password, rememberMe}: LoginType) => (dispatch: Dispatch) => {
     loginAPI.login({email, password, rememberMe})
         .then(res => {
+            dispatch(LoginAC())
             console.log(res.data)
         })
 }
