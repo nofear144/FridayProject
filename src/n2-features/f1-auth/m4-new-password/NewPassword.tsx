@@ -1,16 +1,16 @@
-import React, {MouseEvent, useEffect, useState} from "react";
+import React, {memo, MouseEvent, useEffect, useState} from "react";
 import s from "./NewPassword.module.css";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
-import {sendNewPasswordWithToken} from "../../../n1-main/n2-bll/reducers/newPass-reducer";
+import {sendNewPasswordWithToken, setNewEmailStatus} from "../../../n1-main/n2-bll/reducers/newPass-reducer";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {setRecoveryStatus} from "../../../n1-main/n2-bll/reducers/resetPass-reducer";
 import {useDispatch} from "react-redux";
 
 
-export function NewPassword() {
+export const NewPassword = memo(() => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const error = useAppSelector(state => state.newPass.error);
@@ -25,25 +25,27 @@ export function NewPassword() {
         dispatch(sendNewPasswordWithToken(payload))
     }
     useEffect(() => {
+        console.log(status)
         if (status === "success") {
+            console.log("yes");
             navigate(PATH.LOGIN)
         }
         return function cleanup () {
-            dispatch(setRecoveryStatus("idle"))
+            dispatch(setNewEmailStatus("idle"))
         }
-    })
-
+    },[status])
+    console.log(error)
 
     return (
-        <form className={s.form}>
+        <form  className={s.form}>
             <div className={s.container}>
                 <span className={s.title}>it-cards</span>
                 <h1 className={s.subTitle}>Create new password</h1>
                 <SuperInputText onChangeText={handleOnChange} type="text" required name="Password"/>
                 <span className={s.description}>Create new password and we will send you further instructions to email</span>
-                <SuperButton name="Create new password"/>
+                <SuperButton onClick={handleOnClick} name="Create new password"/>
                 {error ? <span>{error}</span> : <span>{"*"}</span>}
             </div>
         </form>
     )
-}
+})

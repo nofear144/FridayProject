@@ -1,4 +1,4 @@
-import React, {MouseEvent, useEffect, useState} from "react";
+import React, {memo, MouseEvent, useEffect, useState} from "react";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import s from "./ResetPassword.module.css"
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
@@ -10,9 +10,9 @@ import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 
 
-export function ResetPassword() {
-    const error = useAppSelector(state => state.newPass.error);
-    const status = useAppSelector(state => state.newPass.status);
+export const ResetPassword = memo(() => {
+    const error = useAppSelector(state => state.resetPass.error);
+    const status = useAppSelector(state => state.resetPass.status);
     let navigate = useNavigate()
     const dispatch = useDispatch()
     const [email, setEmail] = useState('');
@@ -33,13 +33,14 @@ export function ResetPassword() {
     }
 
     useEffect(() => {
+        console.log(status)
         if (status === "success") {
             navigate(PATH.CHECK_EMAIL)
         }
         return function cleanup () {
             dispatch(setRecoveryStatus("idle"))
         }
-    })
+    }, [status])
 
 
     return (
@@ -56,4 +57,4 @@ export function ResetPassword() {
             </div>
         </form>
     )
-}
+})
