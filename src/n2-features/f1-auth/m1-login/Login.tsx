@@ -2,10 +2,11 @@ import React, {useState} from "react";
 import s from './Login.module.css'
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
-import {useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {LoginTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
+import {rootReducerType} from "../../../n1-main/n2-bll/store/store";
 
 
 export function Login() {
@@ -20,9 +21,17 @@ export function Login() {
     const [mailValue, setMailValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('')
 
+    const error=useSelector<rootReducerType,string>(state=>state.login.error)
+    const isLogged = useSelector<rootReducerType, boolean>(state => state.login.isLogged)
     const dispatch = useDispatch()
-    const onLoginClick=()=>{
-       dispatch(LoginTC({email:mailValue,password:passwordValue,rememberMe:false}))
+
+    const onLoginClick = () => {
+        dispatch(LoginTC({email: mailValue, password: passwordValue, rememberMe: true}))
+    }
+
+
+    if (isLogged) {
+        return <Navigate to={PATH.PROFILE}/>
     }
     return (
         <div>
@@ -47,8 +56,10 @@ export function Login() {
                     <div className={s.button}>
                         <SuperButton onClick={onLoginClick} name={"Login"} variant={"primary"}/>
                     </div>
+
                     <div className={s.helpText}> Don't have an account?</div>
                     <div onClick={routeToSignUpChange} className={s.sign}>Sign Up</div>
+                    <div>{error}</div>
                 </div>
             </form>
         </div>

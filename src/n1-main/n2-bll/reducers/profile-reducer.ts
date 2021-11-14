@@ -1,6 +1,7 @@
 
 
-const initialState = {}
+const initialState = {
+}
 export const profileReducer = (state: initialStateType = initialState, action: any) => {
     switch (action.type) {
 

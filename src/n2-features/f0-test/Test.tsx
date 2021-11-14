@@ -5,6 +5,7 @@ import SuperCheckbox from "../../n1-main/n1-ui/common/c3-checkbox/SuperCheckbox"
 import SuperSelect from "../../n1-main/n1-ui/common/c4-select/SuperSelect";
 
 import s from './Test.module.css'
+import {Loader} from "../../n1-main/n1-ui/common/c5-loader/Loader";
 
 
 export function Test() {
@@ -14,6 +15,7 @@ export function Test() {
             <SuperInputText/>
             <SuperCheckbox/>
             <SuperSelect/>
+            <Loader/>
         </div>
     )
 }
