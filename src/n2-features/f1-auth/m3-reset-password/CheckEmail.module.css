@@ -17,9 +17,12 @@
     justify-content: space-around;
 }
 .subTitle {
-    font-size: 25px;
+    font-size: 26px;
+}
+.Title {
+    font-size: 26px;
 }
 
-.Title {
-    font-size: 25px;
+.description {
+    text-align: center;
 }
