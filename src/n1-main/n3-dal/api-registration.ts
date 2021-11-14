@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 
 const instance = axios.create({
@@ -9,11 +9,18 @@ const instance = axios.create({
 
 export const apiRegistration = {
     registration(data: RegistrationDataType) {
-        return instance.post(`auth/register`, data)
+        return instance.post<RegistrationDataType, AxiosResponse<ResponseType>>
+        (`auth/register`, data)
     }
 }
 
 export type RegistrationDataType = {
-    email:string
-    password:string
+    email: string
+    password: string
+}
+export type ResponseType = {
+    error: string
+    isEmailValid: boolean
+    isPassValid: boolean
+    passwordRegExp: string
 }
