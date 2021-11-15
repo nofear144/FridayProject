@@ -26,7 +26,7 @@ export const ResetPassword = memo(() => {
             from: "arsbazel@gmail.com",
             message: `<div style="background-color: #1e541e; padding: 40px">
                     password recovery link:
-                    <a href='http://localhost:3000/#/set-new-password/$token$'>
+                    <a href='https://nofear144.github.io/FridayProject/#/set-new-password/$token$'>
                     link</a></div>`
         }
         dispatch(sendRecoveryInstructions(message))
