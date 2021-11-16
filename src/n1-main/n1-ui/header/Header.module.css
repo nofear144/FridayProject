@@ -1,6 +1,14 @@
 .header{
+    padding-top: 10px;
+    padding-right: 50px;
+    background-color: #4e5fff;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    max-width: 600px;
+    justify-content: flex-end;
+    min-width: 600px;
+    min-height: 50px;
+}
+.link{
+    color: white;
+    text-decoration: none;
 }

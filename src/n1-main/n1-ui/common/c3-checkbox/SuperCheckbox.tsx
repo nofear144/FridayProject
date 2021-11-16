@@ -11,6 +11,7 @@ type SuperCheckboxPropsType = DefaultInputPropsType & {
 
 const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
     {
+        name,
         type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
         onChange, onChangeChecked,
         className, spanClassName,
@@ -29,8 +30,11 @@ const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
     return (
         <div className={s.mdCheckbox}>
 
-            <input  className={s.input} id="i1" type="checkbox"/>
-                <label htmlFor="i1">Item 2</label>
+            <input
+                onChange={onChangeCallback}
+                className={s.input}
+                type="checkbox"/>
+            <label>{name}</label>
         </div>
     )
 }
