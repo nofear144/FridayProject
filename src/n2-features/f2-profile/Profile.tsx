@@ -5,7 +5,7 @@ import {rootReducerType} from "../../n1-main/n2-bll/store/store";
 import {PATH} from "../../n1-main/n1-ui/routes/Routes";
 import {Navigate} from "react-router-dom";
 import {initializeTC} from "../../n1-main/n2-bll/reducers/login-reducer";
-import {Loader} from "../../n1-main/n1-ui/common/c5-loader/Loader";
+import {Spinner} from "../../n1-main/n1-ui/common/c5-spinner/Spinner";
 
 
 
@@ -23,7 +23,7 @@ export function Profile() {
 
 
     if (!isInitialize) {
-        return <div className={s.loader}> <Loader/> </div>
+        return <div className={s.loader}> <Spinner/> </div>
     }
     if (isInitialize && !isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
