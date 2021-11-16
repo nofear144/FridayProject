@@ -57,9 +57,9 @@ export const Registration = React.memo(() => {
                     <span className={style.span}> </span>)}
             </div>
             <div className={style.inputs}>
-                <SuperInputText onChangeText={setEmail} value={email} name="Email"/>
-                <SuperInputText onChangeText={setPassword} value={password} name="Password"/>
-                <SuperInputText onChangeText={setPasswordCopy} value={passwordCopy} name="Confirm password"/>
+                <SuperInputText onChangeText={setEmail} value={email} required name="Email"/>
+                <SuperInputText onChangeText={setPassword} value={password} required name="Password"/>
+                <SuperInputText onChangeText={setPasswordCopy} value={passwordCopy} required name="Confirm password"/>
             </div>
             <div className={style.buttons}>
                 <SuperButton style={{backgroundColor: "pink", color: "black"}} name="Cancel" onClick={onClickCancel}/>
