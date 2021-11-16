@@ -1,8 +1,8 @@
 import React from "react";
-import s from "./Loader.module.scss"
+import s from "./Spinner.module.scss"
 
 
-export const Loader = () => {
+export const Spinner = () => {
     return (
         <div>
             <div className={s.ldsRing}>

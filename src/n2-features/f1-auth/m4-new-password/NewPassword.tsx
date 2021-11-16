@@ -7,6 +7,7 @@ import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import {sendNewPasswordWithToken, setNewEmailStatus} from "../../../n1-main/n2-bll/reducers/newPass-reducer";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {useDispatch} from "react-redux";
+import LinearLoader from "../../../n1-main/n1-ui/common/c6-linear-loader/Linear-loader";
 
 
 export const NewPassword = memo(() => {
@@ -41,6 +42,7 @@ export const NewPassword = memo(() => {
     return (
         <form onSubmit={handleOnSubmit} className={s.form}>
             <div className={s.container}>
+                <LinearLoader/>
                 <span className={s.title}>it-cards</span>
                 <h1 className={s.subTitle}>Create new password</h1>
                 <SuperInputText onChangeText={handleOnChange} type="text" required name="Password"/>
