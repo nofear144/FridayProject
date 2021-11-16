@@ -7,6 +7,7 @@ import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {LoginTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 import {rootReducerType} from "../../../n1-main/n2-bll/store/store";
+import SuperCheckbox from "../../../n1-main/n1-ui/common/c3-checkbox/SuperCheckbox";
 
 
 export function Login() {
@@ -18,15 +19,16 @@ export function Login() {
         navigate(PATH.RESET_PASSWORD)
     }
 
-    const [mailValue, setMailValue] = useState('')
-    const [passwordValue, setPasswordValue] = useState('')
+    const [mailValue, setMailValue] = useState<string>('')
+    const [passwordValue, setPasswordValue] = useState<string>('')
+    const [rememberMeValue, setRememberMeValue] = useState<boolean>(false)
 
-    const error=useSelector<rootReducerType,string>(state=>state.login.error)
+    const error = useSelector<rootReducerType, string>(state => state.login.error)
     const isLogged = useSelector<rootReducerType, boolean>(state => state.login.isLogged)
     const dispatch = useDispatch()
 
     const onLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
-        dispatch(LoginTC({email: mailValue, password: passwordValue, rememberMe: true}))
+        dispatch(LoginTC({email: mailValue, password: passwordValue, rememberMe: rememberMeValue}))
         e.preventDefault()
     }
 
@@ -53,6 +55,12 @@ export function Login() {
                         onChangeText={setPasswordValue}
                     />
 
+                    <div>
+                        <SuperCheckbox
+                            name={'Remember me'}
+                            onChangeChecked={setRememberMeValue}
+                        />
+                    </div>
                     <div className={s.forgot}><span onClick={routeToResetPasswordChange}>Forgot Password</span></div>
                     <div className={s.button}>
                         <SuperButton type="submit" name={"Login"} variant={"primary"}/>
