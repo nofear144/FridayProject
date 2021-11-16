@@ -1,4 +1,4 @@
-import React, {memo, MouseEvent, useEffect, useState} from "react";
+import React, {FormEvent, memo, MouseEvent, useEffect, useState} from "react";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import s from "./ResetPassword.module.css"
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
@@ -20,16 +20,17 @@ export const ResetPassword = memo(() => {
         setEmail(email)
     }
 
-    const handleOnClick = () => {
+    const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         let message: recoveryMessageType = {
             email: email,
             from: "arsbazel@gmail.com",
             message: `<div style="background-color: #1e541e; padding: 40px">
                     password recovery link:
                     <a href='https://nofear144.github.io/FridayProject/#/set-new-password/$token$'>
-                    link</a></div>`
+                    Go to create new password</a></div>`
         }
         dispatch(sendRecoveryInstructions(message))
+        e.preventDefault()
     }
 
     useEffect(() => {
@@ -44,13 +45,13 @@ export const ResetPassword = memo(() => {
 
 
     return (
-        <form className={s.form}>
+        <form className={s.form} onSubmit={handleOnSubmit}>
             <div className={s.container}>1
                 <span className={s.title}>it-cards</span>
                 <h1 className={s.subTitle}>Forgot your password?</h1>
                 <SuperInputText onChangeText={handleOnChangeText} type="text" required name="Email"/>
                 <span>Enter your email address and we will send you further instructions </span>
-                <SuperButton name="Send Instructions" onClick={handleOnClick}/>
+                <SuperButton name="Send Instructions" type="submit" />
                 <span>Did you remember your password?</span>
                 <NavLink children="Try logging in" to="/login"/>
                 {error ? <span>{error}</span> : <span>{"*"}</span>}

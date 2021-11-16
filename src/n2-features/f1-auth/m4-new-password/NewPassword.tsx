@@ -16,14 +16,17 @@ export const NewPassword = memo(() => {
     const error = useAppSelector(state => state.newPass.error);
     const status = useAppSelector(state => state.newPass.status);
     const [newPassword, setNewPassword] = useState('');
-    const {token} = useParams();
+    const {token} = useParams<string>();
+
+
     const handleOnChange = (password: string) => {
         setNewPassword(password);
     }
-    const handleOnClick = () => {
+    const handleOnSubmit = () => {
         const payload = {password: newPassword, resetPasswordToken: token || ''}
         dispatch(sendNewPasswordWithToken(payload))
     }
+
     useEffect(() => {
         console.log(status)
         if (status === "success") {
@@ -34,16 +37,15 @@ export const NewPassword = memo(() => {
             dispatch(setNewEmailStatus("idle"))
         }
     },[status])
-    console.log(error)
 
     return (
-        <form  className={s.form}>
+        <form onSubmit={handleOnSubmit} className={s.form}>
             <div className={s.container}>
                 <span className={s.title}>it-cards</span>
                 <h1 className={s.subTitle}>Create new password</h1>
                 <SuperInputText onChangeText={handleOnChange} type="text" required name="Password"/>
                 <span className={s.description}>Create new password and we will send you further instructions to email</span>
-                <SuperButton onClick={handleOnClick} name="Create new password"/>
+                <SuperButton type="submit" name="Create new password"/>
                 {error ? <span>{error}</span> : <span>{"*"}</span>}
             </div>
         </form>
