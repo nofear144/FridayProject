@@ -38,8 +38,7 @@ export const sendRecoveryInstructions = (payload: recoveryMessageType) => (dispa
             const error = e.response
                 ? e.response.data.error
                 : (e.message + ', more details in the console');
-                setError(error);
-            console.log(error);
+                dispatch(setError(error));
             dispatch(setRecoveryStatus("idle"))
         })
 }

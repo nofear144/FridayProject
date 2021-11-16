@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {FormEvent, useState} from "react";
 import s from './Login.module.css'
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
@@ -25,8 +25,9 @@ export function Login() {
     const isLogged = useSelector<rootReducerType, boolean>(state => state.login.isLogged)
     const dispatch = useDispatch()
 
-    const onLoginClick = () => {
+    const onLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
         dispatch(LoginTC({email: mailValue, password: passwordValue, rememberMe: true}))
+        e.preventDefault()
     }
 
 
@@ -35,7 +36,7 @@ export function Login() {
     }
     return (
         <div>
-            <form>
+            <form onSubmit={onLoginSubmit}>
                 <div className={s.form}>
                     <div className={s.header}>it-incubator</div>
                     <div className={s.signLabel}>Sign in</div>
@@ -54,7 +55,7 @@ export function Login() {
 
                     <div className={s.forgot}><span onClick={routeToResetPasswordChange}>Forgot Password</span></div>
                     <div className={s.button}>
-                        <SuperButton onClick={onLoginClick} name={"Login"} variant={"primary"}/>
+                        <SuperButton type="submit" name={"Login"} variant={"primary"}/>
                     </div>
 
                     <div className={s.helpText}> Don't have an account?</div>

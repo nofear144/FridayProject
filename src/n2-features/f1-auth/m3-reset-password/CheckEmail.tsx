@@ -1,9 +1,9 @@
-import React from "react";
+import React, {memo} from "react";
 import s from "./CheckEmail.module.css"
 import {EmailIcon} from "./EmailIcon";
 
 
-export function CheckEmail() {
+export const CheckEmail = memo(() => {
     const email = "example@mail.com"
     return (
 
@@ -17,4 +17,4 @@ export function CheckEmail() {
             </div>
         </form>
     )
-}
+})

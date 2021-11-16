@@ -1,4 +1,3 @@
-
 import {NewPasswordAPI, setNewPasswordType} from "../../n3-dal/api-newPassword";
 import {Dispatch} from "redux";
 
@@ -23,24 +22,24 @@ export const newPassReducer = (state = initialState, action: ActionsType): initi
 const setError = (error: string) => {
     return {type: SET_ERROR, payload: {error}} as const
 }
-const setStatus = (status: statusType) => {
+export const setNewEmailStatus = (status: statusType) => {
     return {type: SET_LOADING_STATUS, payload: {status}} as const
 }
 
 //Thunks
 export const sendNewPasswordWithToken = (payload: setNewPasswordType) => (dispatch: Dispatch) => {
-    dispatch(setStatus("loading"))
-    NewPasswordAPI.sendNewPasswordWithToken(payload).then((data) => {
-        dispatch(setStatus("success"))
-        }
-    )
+    dispatch(setNewEmailStatus("loading"))
+    NewPasswordAPI.sendNewPasswordWithToken(payload)
+        .then((data) => {
+                dispatch(setNewEmailStatus("success"))
+            }
+        )
         .catch((e) => {
             const error = e.response
                 ? e.response.data.error
                 : (e.message + ', more details in the console');
-            setError(error);
-            console.log(error);
-            dispatch(setStatus("idle"))
+            dispatch(setError(error));
+            dispatch(setNewEmailStatus("idle"))
         })
 }
 
@@ -50,9 +49,9 @@ type initialStateType = {
     status: statusType,
     error: string
 }
-type ActionsType = ReturnType<typeof setError> | ReturnType<typeof setStatus>
+type ActionsType = ReturnType<typeof setError> | ReturnType<typeof setNewEmailStatus>
 export type statusType = "idle" | "loading" | "success"
-//Constants
 
+//Constants
 const SET_ERROR = "newPassword/SET_ERROR"
 const SET_LOADING_STATUS = "newPassword/SET_LOADING_STATUS"
