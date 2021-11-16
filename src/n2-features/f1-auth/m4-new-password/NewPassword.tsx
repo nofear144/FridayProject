@@ -1,4 +1,4 @@
-import React, {memo, MouseEvent, useEffect, useState} from "react";
+import React, {FormEvent, memo, useEffect, useState} from "react";
 import s from "./NewPassword.module.css";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
@@ -6,7 +6,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import {sendNewPasswordWithToken, setNewEmailStatus} from "../../../n1-main/n2-bll/reducers/newPass-reducer";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
-import {setRecoveryStatus} from "../../../n1-main/n2-bll/reducers/resetPass-reducer";
 import {useDispatch} from "react-redux";
 
 
@@ -22,9 +21,10 @@ export const NewPassword = memo(() => {
     const handleOnChange = (password: string) => {
         setNewPassword(password);
     }
-    const handleOnSubmit = () => {
+    const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         const payload = {password: newPassword, resetPasswordToken: token || ''}
         dispatch(sendNewPasswordWithToken(payload))
+        e.preventDefault()
     }
 
     useEffect(() => {
