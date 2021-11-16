@@ -34,6 +34,7 @@
     width: 320px;
     display: flex;
     justify-content: end;
+    cursor: pointer;
 }
 
 .button {
@@ -42,10 +43,12 @@
 }
 
 .helpText {
+    opacity: 0.5;
     text-align: center;
 }
 
 .sign {
     text-align: center;
+    cursor: pointer;
 }
 

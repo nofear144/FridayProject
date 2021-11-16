@@ -12,14 +12,17 @@ const initialState = {
 
 export const loginReducer = (state: initialStateType = initialState, action: CombineActionType): initialStateType => {
     switch (action.type) {
-        case "SET-IS-LOGGED-IN-STATUS": {
+        case "login/SET-IS-LOGGED-IN-STATUS": {
             return {...state, isLogged: action.value}
         }
-        case "SET-IS-INITIALIZED-STATUS": {
+        case "login/SET-IS-INITIALIZED-STATUS": {
             return {...state, isInitialize: action.value}
         }
-        case "SET-ERROR":{
-            return {...state,error:action.error}
+        case "login/SET-ERROR": {
+            return {...state, error: action.error}
+        }
+        case "login/SET-STATUS": {
+            return {...state, status: action.status}
         }
 
         default:
@@ -29,40 +32,52 @@ export const loginReducer = (state: initialStateType = initialState, action: Com
 
 
 //Actions
-export const setAppErrorAC = (error: string ) => ({type: 'SET-ERROR', error} as const)
+export const setAppErrorAC = (error: string) => ({type: 'login/SET-ERROR', error} as const)
 
 export const setIsLoggedInAC = (value: boolean) => {
-    return {type: "SET-IS-LOGGED-IN-STATUS", value} as const
+    return {type: "login/SET-IS-LOGGED-IN-STATUS", value} as const
 }
 export const setIsInitializedAC = (value: boolean) => {
-    return {type: "SET-IS-INITIALIZED-STATUS", value} as const
+    return {type: "login/SET-IS-INITIALIZED-STATUS", value} as const
+}
+export const setStatusAC = (status: RequestStatusType) => {
+    return {type: "login/SET-STATUS", status} as const
 }
 
 
 //Thunks
 export const LoginTC = ({email, password, rememberMe}: LoginType) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC("loading"))
     loginAPI.login({email, password, rememberMe})
         .then(res => {
             dispatch(setIsLoggedInAC(true))
-            console.log(res.data)
+            dispatch(setStatusAC("succeeded"))
         })
         .catch(e => {
-          dispatch(setAppErrorAC(e.response.data.error))
+            dispatch(setAppErrorAC(e.response.data.error))
+            dispatch(setStatusAC("idle"))
         })
 }
 export const LogoutTC = () => (dispatch: Dispatch) => {
+    dispatch(setStatusAC("loading"))
     loginAPI.logout()
         .then(res => {
             dispatch(setIsLoggedInAC(false))
+            dispatch(setStatusAC("succeeded"))
             console.log(res.data)
         })
 }
 export const initializeTC = () => (dispatch: Dispatch) => {
+    dispatch(setStatusAC("loading"))
     loginAPI.me()
         .then(res => {
             dispatch(setIsLoggedInAC(true))
             dispatch(setIsInitializedAC(true))
+            dispatch(setStatusAC("succeeded"))
             console.log(res.data)
+        })
+        .catch(e => {
+            dispatch(setAppErrorAC(e.response.data.error))
         })
         .finally(() => {
             dispatch(setIsInitializedAC(true))
@@ -70,7 +85,9 @@ export const initializeTC = () => (dispatch: Dispatch) => {
 }
 
 //Types
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type CombineActionType =
+    | ReturnType<typeof setStatusAC>
     | ReturnType<typeof setIsLoggedInAC>
     | ReturnType<typeof setIsInitializedAC>
     | ReturnType<typeof setAppErrorAC>

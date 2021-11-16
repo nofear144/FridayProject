@@ -6,7 +6,6 @@ import {rootReducerType} from "../../n2-bll/store/store";
 import {LogoutTC} from "../../n2-bll/reducers/login-reducer";
 
 
-
 export function Header() {
     const dispatch = useDispatch()
 
@@ -19,7 +18,14 @@ export function Header() {
     return (
         <div>
             <div className={s.header}>
-                {!isLogged ? <NavLink className={s.link} to={PATH.LOGIN}>Login</NavLink>:<span>onClick={onLogoutClick}</span>}
+                {!isLogged
+                    ?
+                        <NavLink to={PATH.LOGIN}>Login</NavLink>
+
+                    :
+                        <a onClick={onLogoutClick}>Logout</a>
+                    }
+
                 {/*<NavLink to={PATH.REGISTRATION}>Registration</NavLink>
                 <NavLink to={PATH.RESET_PASSWORD}>Reset Password</NavLink>
                 <NavLink to={PATH.NEW_PASSWORD}>New Password</NavLink>

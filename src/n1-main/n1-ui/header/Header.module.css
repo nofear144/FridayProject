@@ -1,14 +1,14 @@
+a{
+    color:white;
+    text-decoration: none;
+    cursor: pointer;
+}
 .header{
-    padding-top: 10px;
-    padding-right: 50px;
+    padding:25px;
     background-color: #4e5fff;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     min-width: 600px;
     min-height: 50px;
-}
-.link{
-    color: white;
-    text-decoration: none;
 }
