@@ -2,15 +2,14 @@ import {Dispatch} from "redux";
 import {loginAPI, LoginType} from "../../n3-dal/api-login";
 
 
-const initialState = {
+const initialState: stateType = {
     status: "idle",
     isLogged: false,
     isInitialize: false,
     error: "",
-
 }
 
-export const loginReducer = (state: initialStateType = initialState, action: CombineActionType): initialStateType => {
+export const loginReducer = (state = initialState, action: CombineActionType): stateType => {
     switch (action.type) {
         case "login/SET-IS-LOGGED-IN-STATUS": {
             return {...state, isLogged: action.value}
@@ -93,4 +92,9 @@ export type CombineActionType =
     | ReturnType<typeof setAppErrorAC>
 
 
-type initialStateType = typeof initialState
+export type stateType = {
+    status: RequestStatusType,
+    isLogged: boolean,
+    isInitialize: boolean,
+    error: string,
+}

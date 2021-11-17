@@ -24,13 +24,13 @@ export function Header() {
                     :
                         <a onClick={onLogoutClick}>Logout</a>
                     }
-
+{/*
                 <NavLink to={PATH.REGISTRATION}>Registration</NavLink>
                 <NavLink to={PATH.RESET_PASSWORD}>Reset Password</NavLink>
                 <NavLink to={PATH.NEW_PASSWORD}>New Password</NavLink>
                 <NavLink to={PATH.CHECK_EMAIL}>Check</NavLink>
                 <NavLink to={PATH.TEST}>Test</NavLink>
-                <NavLink to={PATH.PROFILE}>Profile</NavLink>
+                <NavLink to={PATH.PROFILE}>Profile</NavLink>*/}
 
             </div>
         </div>

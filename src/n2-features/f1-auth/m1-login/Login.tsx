@@ -5,9 +5,11 @@ import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
 import {Navigate, useNavigate} from 'react-router-dom';
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {useDispatch, useSelector} from "react-redux";
-import {LoginTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
-import {rootReducerType} from "../../../n1-main/n2-bll/store/store";
+import {LoginTC, setAppErrorAC} from "../../../n1-main/n2-bll/reducers/login-reducer";
+import {rootReducerType, useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import SuperCheckbox from "../../../n1-main/n1-ui/common/c3-checkbox/SuperCheckbox";
+import Loader from "../m3-reset-password/Loader";
+import Window from "../m4-new-password/Window";
 
 
 export function Login() {
@@ -23,10 +25,20 @@ export function Login() {
     const [passwordValue, setPasswordValue] = useState<string>('')
     const [rememberMeValue, setRememberMeValue] = useState<boolean>(false)
 
+    const status = useAppSelector(state => state.login.status)
     const error = useSelector<rootReducerType, string>(state => state.login.error)
     const isLogged = useSelector<rootReducerType, boolean>(state => state.login.isLogged)
     const dispatch = useDispatch()
 
+
+    const onMailValueChange = (mail:string) => {
+        setMailValue(mail)
+        dispatch(setAppErrorAC(""))
+    }
+    const onPasswordValueChange = (password:string) => {
+        setPasswordValue(password)
+        dispatch(setAppErrorAC(""))
+    }
     const onLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
         dispatch(LoginTC({email: mailValue, password: passwordValue, rememberMe: rememberMeValue}))
         e.preventDefault()
@@ -37,7 +49,8 @@ export function Login() {
         return <Navigate to={PATH.PROFILE}/>
     }
     return (
-        <div>
+        <Window>
+            { status==="loading"&&<Loader/>}
             <form onSubmit={onLoginSubmit}>
                 <div className={s.form}>
                     <div className={s.header}>it-incubator</div>
@@ -46,13 +59,13 @@ export function Login() {
                         type="text"
                         required
                         name="email"
-                        onChangeText={setMailValue}
+                        onChangeText={onMailValueChange}
                     />
                     <SuperInputText
                         type="password"
                         required
                         name="password"
-                        onChangeText={setPasswordValue}
+                        onChangeText={onPasswordValueChange}
                     />
 
                     <div>
@@ -71,6 +84,6 @@ export function Login() {
                     <div>{error}</div>
                 </div>
             </form>
-        </div>
+        </Window>
     )
 }
