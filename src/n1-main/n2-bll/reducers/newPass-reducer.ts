@@ -31,6 +31,7 @@ export const sendNewPasswordWithToken = (payload: setNewPasswordType) => (dispat
     dispatch(setNewEmailStatus("loading"))
     NewPasswordAPI.sendNewPasswordWithToken(payload)
         .then((data) => {
+
                 dispatch(setNewEmailStatus("success"))
             }
         )

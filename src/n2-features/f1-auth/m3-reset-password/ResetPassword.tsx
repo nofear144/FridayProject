@@ -1,4 +1,4 @@
-import React, {FormEvent, memo, MouseEvent, useEffect, useState} from "react";
+import React, {FormEvent, memo, useEffect, useState} from "react";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import s from "./ResetPassword.module.css"
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
@@ -8,11 +8,14 @@ import {sendRecoveryInstructions, setRecoveryStatus} from "../../../n1-main/n2-b
 import {recoveryMessageType} from "../../../n1-main/n3-dal/api-newPassword";
 import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
+import Loader from "./Loader";
+import Window from "../m4-new-password/Window";
 
 
 export const ResetPassword = memo(() => {
     const error = useAppSelector(state => state.resetPass.error);
     const status = useAppSelector(state => state.resetPass.status);
+
     let navigate = useNavigate()
     const dispatch = useDispatch()
     const [email, setEmail] = useState('');
@@ -24,10 +27,14 @@ export const ResetPassword = memo(() => {
         let message: recoveryMessageType = {
             email: email,
             from: "arsbazel@gmail.com",
-            message: `<div style="background-color: #1e541e; padding: 40px">
-                    password recovery link:
-                    <a href='https://nofear144.github.io/FridayProject/#/set-new-password/$token$'>
-                    Go to create new password</a></div>`
+            message: `<div style=" width: 400px; text-align: center;
+                      border-radius: 8px;
+                      background-image: linear-gradient(125deg, #6a89cc, #b8e994);
+                      padding: 50px">
+                      <a href='https://nofear144.github.io/FridayProject/#/set-new-password/$token$'
+                    style="color: #f8faff; font-size: 25px; padding: 15px; text-decoration: none">
+                    <div style="border-radius: 5px; background-color: #4e5fff">
+                    Go to create new password</div></a></div>`
         }
         dispatch(sendRecoveryInstructions(message))
         e.preventDefault()
@@ -36,26 +43,27 @@ export const ResetPassword = memo(() => {
     useEffect(() => {
         console.log(status)
         if (status === "success") {
-            navigate(PATH.CHECK_EMAIL)
-        }
-        return function cleanup () {
-            dispatch(setRecoveryStatus("idle"))
+            navigate(`${PATH.CHECK_EMAIL}/${email}`)
+            return function cleanup() {
+                dispatch(setRecoveryStatus("idle"))
+            }
         }
     }, [status])
 
 
     return (
-        <form className={s.form} onSubmit={handleOnSubmit}>
-            <div className={s.container}>1
+        <Window>
+            {status === "loading" && <Loader/>}
+            <form className={s.container} onSubmit={handleOnSubmit}>
                 <span className={s.title}>it-cards</span>
                 <h1 className={s.subTitle}>Forgot your password?</h1>
                 <SuperInputText onChangeText={handleOnChangeText} type="text" required name="Email"/>
                 <span>Enter your email address and we will send you further instructions </span>
-                <SuperButton name="Send Instructions" type="submit" />
+                <SuperButton name="Send Instructions" type="submit"/>
                 <span>Did you remember your password?</span>
                 <NavLink children="Try logging in" to="/login"/>
                 {error ? <span>{error}</span> : <span>{"*"}</span>}
-            </div>
-        </form>
+            </form>
+        </ Window>
     )
 })

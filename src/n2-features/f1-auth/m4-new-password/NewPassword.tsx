@@ -8,6 +8,8 @@ import {sendNewPasswordWithToken, setNewEmailStatus} from "../../../n1-main/n2-b
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {useDispatch} from "react-redux";
 import LinearLoader from "../../../n1-main/n1-ui/common/c6-linear-loader/Linear-loader";
+import Loader from "../m3-reset-password/Loader";
+import Window from "./Window";
 
 
 export const NewPassword = memo(() => {
@@ -29,27 +31,26 @@ export const NewPassword = memo(() => {
     }
 
     useEffect(() => {
-        console.log(status)
         if (status === "success") {
-            console.log("yes");
             navigate(PATH.LOGIN)
+            return function cleanup() {
+                dispatch(setNewEmailStatus("idle"))
+            }
         }
-        return function cleanup () {
-            dispatch(setNewEmailStatus("idle"))
-        }
-    },[status])
+    }, [status])
 
     return (
-        <form onSubmit={handleOnSubmit} className={s.form}>
-            <div className={s.container}>
-                <LinearLoader/>
+        <Window>
+            {status === "loading" && <Loader/>}
+            <form onSubmit={handleOnSubmit} className={s.container}>
                 <span className={s.title}>it-cards</span>
                 <h1 className={s.subTitle}>Create new password</h1>
                 <SuperInputText onChangeText={handleOnChange} type="text" required name="Password"/>
-                <span className={s.description}>Create new password and we will send you further instructions to email</span>
+                <span
+                    className={s.description}>Create new password and we will send you further instructions to email</span>
                 <SuperButton type="submit" name="Create new password"/>
                 {error ? <span>{error}</span> : <span>{"*"}</span>}
-            </div>
-        </form>
+            </form>
+        </Window>
     )
 })
