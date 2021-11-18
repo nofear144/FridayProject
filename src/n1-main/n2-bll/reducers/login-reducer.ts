@@ -80,6 +80,7 @@ export const initializeTC = () => (dispatch: Dispatch) => {
         })
         .catch(e => {
             dispatch(setAppErrorAC(e.response.data.error))
+            dispatch(setStatusAC("succeeded"))
         })
         .finally(() => {
             dispatch(setIsInitializedAC(true))
