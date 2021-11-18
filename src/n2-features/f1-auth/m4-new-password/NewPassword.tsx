@@ -4,25 +4,26 @@ import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputTex
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
-import {sendNewPasswordWithToken, setNewEmailStatus} from "../../../n1-main/n2-bll/reducers/newPass-reducer";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {useDispatch} from "react-redux";
-import LinearLoader from "../../../n1-main/n1-ui/common/c6-linear-loader/Linear-loader";
 import Loader from "../m3-reset-password/Loader";
 import Window from "./Window";
+import {setAppErrorAC, setStatusAC} from "../../../n1-main/n2-bll/reducers/app-reducer";
+import {sendNewPasswordWithToken} from "../../../n1-main/n2-bll/reducers/login-reducer";
 
 
 export const NewPassword = memo(() => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const error = useAppSelector(state => state.newPass.error);
-    const status = useAppSelector(state => state.newPass.status);
+    const error = useAppSelector(state => state.app.error);
+    const status = useAppSelector(state => state.app.status);
     const [newPassword, setNewPassword] = useState('');
     const {token} = useParams<string>();
 
 
     const handleOnChange = (password: string) => {
         setNewPassword(password);
+        dispatch(setAppErrorAC(''))
     }
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         const payload = {password: newPassword, resetPasswordToken: token || ''}
@@ -31,10 +32,10 @@ export const NewPassword = memo(() => {
     }
 
     useEffect(() => {
-        if (status === "success") {
+        if (status === "succeeded") {
             navigate(PATH.LOGIN)
             return function cleanup() {
-                dispatch(setNewEmailStatus("idle"))
+                dispatch(setStatusAC("idle"))
             }
         }
     }, [status])
@@ -49,7 +50,7 @@ export const NewPassword = memo(() => {
                 <span
                     className={s.description}>Create new password and we will send you further instructions to email</span>
                 <SuperButton type="submit" name="Create new password"/>
-                {error ? <span>{error}</span> : <span>{"*"}</span>}
+                {error ? <span>{error}</span> : <span > </span>}
             </form>
         </Window>
     )
