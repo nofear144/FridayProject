@@ -1,21 +1,13 @@
-const initialState: ProfileStateType = {
+const initialState = {
     _id: "",
     name: "",
     avatar: "",
-    error: "",
-
 }
-export const profileReducer = (state = initialState, action: CombineProfileActionsType): ProfileStateType => {
+export const profileReducer = (state: initialStateType = initialState, action: CombineProfileActionsType): initialStateType => {
     switch (action.type) {
 
         case "profile/SET-PROFILE-DATA": {
-
-            return {
-                ...state,
-                _id: action._id,
-                name: action.name,
-                avatar: action.avatar
-            }
+            return {...state, ...action.payload}
         }
         default:
             return state
@@ -26,18 +18,19 @@ export const profileReducer = (state = initialState, action: CombineProfileActio
 
 //Actions
 export const setUserProfileAC = (_id: string, name: string, avatar: string | undefined) => {
-    return {type: "profile/SET-PROFILE-DATA", _id, name, avatar} as const
+    return {type: "profile/SET-PROFILE-DATA", payload: {_id, name, avatar}} as const
 }
 
 //Thunks
 
 
 //Types
-export type ProfileStateType = {
+
+type initialStateType = {
     _id: string
     name: string
     avatar: string | undefined
-    error: string
 }
+
 export type CombineProfileActionsType =
     |ReturnType<typeof setUserProfileAC>

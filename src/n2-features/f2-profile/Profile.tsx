@@ -29,6 +29,7 @@ export function Profile() {
         return <Navigate to={PATH.LOGIN}/>
     }
 
+
     return (
         <div>
             <h1>Profile</h1>
