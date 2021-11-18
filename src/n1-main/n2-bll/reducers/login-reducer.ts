@@ -1,15 +1,16 @@
 import {Dispatch} from "redux";
 import {loginAPI, LoginType} from "../../n3-dal/api-login";
+import {setUserProfileAC} from "./profile-reducer";
 
 
-const initialState: stateType = {
+const initialState: LoginStateType = {
     status: "idle",
     isLogged: false,
     isInitialize: false,
     error: "",
 }
 
-export const loginReducer = (state = initialState, action: CombineActionType): stateType => {
+export const loginReducer = (state = initialState, action: CombineActionType): LoginStateType => {
     switch (action.type) {
         case "login/SET-IS-LOGGED-IN-STATUS": {
             return {...state, isLogged: action.value}
@@ -51,6 +52,8 @@ export const LoginTC = ({email, password, rememberMe}: LoginType) => (dispatch: 
         .then(res => {
             dispatch(setIsLoggedInAC(true))
             dispatch(setStatusAC("succeeded"))
+            dispatch(setUserProfileAC(res.data._id,res.data.name,res.data.avatar))
+
         })
         .catch(e => {
             dispatch(setAppErrorAC(e.response.data.error))
@@ -77,6 +80,7 @@ export const initializeTC = () => (dispatch: Dispatch) => {
         })
         .catch(e => {
             dispatch(setAppErrorAC(e.response.data.error))
+            dispatch(setStatusAC("succeeded"))
         })
         .finally(() => {
             dispatch(setIsInitializedAC(true))
@@ -90,9 +94,10 @@ export type CombineActionType =
     | ReturnType<typeof setIsLoggedInAC>
     | ReturnType<typeof setIsInitializedAC>
     | ReturnType<typeof setAppErrorAC>
+    | ReturnType<typeof setUserProfileAC>
 
 
-export type stateType = {
+export type LoginStateType = {
     status: RequestStatusType,
     isLogged: boolean,
     isInitialize: boolean,
