@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {apiRegistration} from "../../n3-dal/api-registration";
+import {apiRegistration, RegistrationDataType} from "../../n3-dal/api-registration";
 
 const initialState = {
     error: null as null | string,
@@ -28,7 +28,8 @@ export const setErrorAC = (error: string | null) => ({type: 'registration/SET-ER
 
 
 //Thunks
-export const sendFormTC = (email: string, password: string) => (dispatch: Dispatch) => {
+// export const sendFormTC = (email: string, password: string) => (dispatch: Dispatch) => {
+export const sendFormTC = ({email,password}:RegistrationDataType) => (dispatch: Dispatch) => {
     dispatch(setStatusAC('loading'))
     apiRegistration.registration({email, password})
         .then(res => {

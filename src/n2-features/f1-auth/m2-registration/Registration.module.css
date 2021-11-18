@@ -2,7 +2,8 @@
     margin-top: 60px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
     height: 600px;
     width: 413px;
     border-radius: 8px;
@@ -25,19 +26,23 @@
 .buttons {
     display: flex;
     flex-direction: row;
+    width: 320px;
     justify-content: space-around;
-    margin-top: 5%;
+    margin-bottom: 5%;
 }
+
 .error {
-    color:red;
-    font-weight:bolder;
+    color: red;
+    font-weight: bolder;
     height: 20px;
 }
+
 .emptyDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .span {
     height: 20px;
 }
