@@ -3,12 +3,13 @@ import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputTex
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
 import style from "./Registration.module.css"
 import {useDispatch} from "react-redux";
-import {sendFormTC, setErrorAC, setRegisterAC} from "../../../n1-main/n2-bll/reducers/registration-reducer";
+import {sendFormTC, setRegisterAC} from "../../../n1-main/n2-bll/reducers/registration-reducer";
 import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import {Navigate} from "react-router-dom";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import Loader from "../m3-reset-password/Loader";
 import Window from "../m4-new-password/Window";
+import {setAppErrorAC} from "../../../n1-main/n2-bll/reducers/app-reducer";
 
 
 export const Registration = React.memo(() => {
@@ -17,8 +18,8 @@ export const Registration = React.memo(() => {
     const [passwordCopy, setPasswordCopy] = useState("")
 
     const dispatch = useDispatch();
-    const status = useAppSelector(state => state.registrationPass.status)
-    const error = useAppSelector(state => state.registrationPass.error)
+    const status = useAppSelector(state => state.app.status)
+    const error = useAppSelector(state => state.app.error)
     const isRegister = useAppSelector(state => state.registrationPass.isRegister)
 
     useEffect(() => {
@@ -34,11 +35,11 @@ export const Registration = React.memo(() => {
         }
 
         if (password !== passwordCopy) {
-            dispatch(setErrorAC("Passwords are not the same"))
+            dispatch(setAppErrorAC("Passwords are not the same"))
         }
 
         if (password.length < 7) {
-            dispatch(setErrorAC("Password must be more than 7 characters..."))
+            dispatch(setAppErrorAC("Password must be more than 7 characters..."))
         }
     }
 
