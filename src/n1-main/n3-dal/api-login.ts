@@ -1,22 +1,16 @@
-import axios from "axios";
+import {instance} from "./index";
 
-
-const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0",
-    withCredentials: true,
-    headers: {}
-})
 
 
 export const loginAPI = {
-    login({email, password, rememberMe}:LoginType) {
+    login({email, password, rememberMe}: LoginType) {
         return instance.post<RequestLoginType>("/auth/login", {email, password, rememberMe})
     },
-    logout () {
+    logout() {
         return instance.delete("/auth/me")
     },
-    me(){
-        return  instance.post("/auth/me")
+    me() {
+        return instance.post("/auth/me").then(res => res.data)
     }
 
 }
@@ -29,10 +23,10 @@ export type LoginType = {
     rememberMe: boolean
 }
 export type RequestLoginType = {
-    _id:string
-    name:string
-    avatar?:string|undefined
-    error?:string
+    _id: string
+    name: string
+    avatar?: string | undefined
+    error?: string
     email: string
     password: string
     rememberMe: boolean

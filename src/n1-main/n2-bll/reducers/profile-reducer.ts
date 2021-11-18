@@ -33,11 +33,11 @@ export const setUserProfileAC = (_id: string, name: string, avatar: string | und
 
 
 //Types
-export type CombineProfileActionsType =
-    |ReturnType<typeof setUserProfileAC>
 export type ProfileStateType = {
     _id: string
     name: string
     avatar: string | undefined
     error: string
 }
+export type CombineProfileActionsType =
+    |ReturnType<typeof setUserProfileAC>

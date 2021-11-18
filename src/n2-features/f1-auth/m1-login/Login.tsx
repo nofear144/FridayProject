@@ -4,12 +4,13 @@ import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputTex
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
 import {Navigate, useNavigate} from 'react-router-dom';
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
-import {useDispatch, useSelector} from "react-redux";
-import {LoginTC, setAppErrorAC} from "../../../n1-main/n2-bll/reducers/login-reducer";
-import {rootReducerType, useAppSelector} from "../../../n1-main/n2-bll/store/store";
+import {useDispatch} from "react-redux";
+import {LoginTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
+import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import SuperCheckbox from "../../../n1-main/n1-ui/common/c3-checkbox/SuperCheckbox";
 import Loader from "../m3-reset-password/Loader";
 import Window from "../m4-new-password/Window";
+import {setAppErrorAC} from "../../../n1-main/n2-bll/reducers/app-reducer";
 
 
 export function Login() {
@@ -25,9 +26,9 @@ export function Login() {
     const [passwordValue, setPasswordValue] = useState<string>('')
     const [rememberMeValue, setRememberMeValue] = useState<boolean>(false)
 
-    const status = useAppSelector(state => state.login.status)
-    const error = useSelector<rootReducerType, string>(state => state.login.error)
-    const isLogged = useSelector<rootReducerType, boolean>(state => state.login.isLogged)
+    const status = useAppSelector(state => state.app.status)
+    const error = useAppSelector(state => state.app.error)
+    const isLogged = useAppSelector(state => state.login.isLogged)
     const dispatch = useDispatch()
 
 

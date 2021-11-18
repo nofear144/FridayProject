@@ -12,7 +12,7 @@ import {Spinner} from "../../n1-main/n1-ui/common/c5-spinner/Spinner";
 export function Profile() {
 
     const dispatch = useDispatch()
-    const isInitialize = useSelector<rootReducerType, boolean>(state => state.login.isInitialize)
+    const isInitialize = useSelector<rootReducerType, boolean>(state => state.app.isInitialize)
     const isLoggedIn = useSelector<rootReducerType, boolean>(state => state.login.isLogged)
 
     useEffect(() => {

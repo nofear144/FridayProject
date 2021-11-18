@@ -7,6 +7,7 @@ import {resetReducer} from "../reducers/resetPass-reducer";
 import {registrationReducer} from "../reducers/registration-reducer";
 import {newPassReducer} from "../reducers/newPass-reducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {appReducer} from "../reducers/app-reducer";
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     registrationPass: registrationReducer,
     profile: profileReducer,
     test: testReducer,
+    app: appReducer
 
 })
 

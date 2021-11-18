@@ -10,5 +10,5 @@ a{
     flex-direction: row;
     justify-content: flex-end;
     min-width: 600px;
-    min-height: 50px;
+    min-height: 35px;
 }
