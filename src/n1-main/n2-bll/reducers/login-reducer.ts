@@ -58,7 +58,6 @@ export const initializeTC = () => (dispatch: Dispatch) => {
             dispatch(setIsLoggedInAC(true))
             dispatch(setIsInitializedAC(true))
             dispatch(setStatusAC("succeeded"))
-            console.log(data)
         })
         .catch(e => {
             dispatch(setAppErrorAC(e.response.data.error))
@@ -66,6 +65,7 @@ export const initializeTC = () => (dispatch: Dispatch) => {
         })
         .finally(() => {
             dispatch(setIsInitializedAC(true))
+            dispatch(setStatusAC("idle"))
         })
 }
 
