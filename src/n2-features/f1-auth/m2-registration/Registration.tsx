@@ -22,11 +22,20 @@ export const Registration = React.memo(() => {
     const error = useAppSelector(state => state.app.error)
     const isRegister = useAppSelector(state => state.registrationPass.isRegister)
 
+    const onEmailValueChange = (email:string) => {
+        setEmail(email)
+        dispatch(setAppErrorAC(""))
+    }
+    const onPasswordValueChange = (password:string) => {
+        setPassword(password)
+        dispatch(setAppErrorAC(""))
+    }
+
     useEffect(() => {
         return () => {
             dispatch(setRegisterAC(false))
         }
-    }, [dispatch])
+    }, [])
 
     const sendFrom = (e: FormEvent<HTMLFormElement>) => {
         if (password === passwordCopy) {
@@ -36,10 +45,12 @@ export const Registration = React.memo(() => {
 
         if (password !== passwordCopy) {
             dispatch(setAppErrorAC("Passwords are not the same"))
+            e.preventDefault()
         }
 
         if (password.length < 7) {
             dispatch(setAppErrorAC("Password must be more than 7 characters..."))
+            e.preventDefault()
         }
     }
 
@@ -61,16 +72,16 @@ export const Registration = React.memo(() => {
                     <h1>It-incubator</h1>
                     <h2>Sign Up</h2>
                     <div className={style.emptyDiv}>
-                        {(status === 'failed' ? <span className={style.error}>{error}</span> :
+                        {(error ? <span className={style.error}>{error}</span> :
                             <span className={style.span}> </span>)}
                     </div>
                     {/*<div className={style.inputs}>*/}
                     <SuperInputText
-                        onChangeText={setEmail}
+                        onChangeText={onEmailValueChange}
                         value={email}
                         required name="Email"/>
                     <SuperInputText
-                        onChangeText={setPassword}
+                        onChangeText={onPasswordValueChange}
                         value={password}
                         required name="Password"/>
                     <SuperInputText
