@@ -3,7 +3,7 @@ import {instance} from "./index";
 
 
 export const loginAPI = {
-    login({email, password, rememberMe}: LoginType) {
+    login({email, password, rememberMe}: LoginPayloadType) {
         return instance.post<RequestLoginType>("/auth/login", {email, password, rememberMe})
     },
     logout() {
@@ -17,7 +17,7 @@ export const loginAPI = {
 
 //Types
 
-export type LoginType = {
+export type LoginPayloadType = {
     email: string
     password: string
     rememberMe: boolean
