@@ -49,7 +49,6 @@ export const LogoutTC = () => (dispatch: Dispatch) => {
         .then(res => {
             dispatch(setIsLoggedInAC(false))
             dispatch(setStatusAC("succeeded"))
-            console.log(res.data)
         })
 }
 export const initializeTC = () => (dispatch: Dispatch) => {
