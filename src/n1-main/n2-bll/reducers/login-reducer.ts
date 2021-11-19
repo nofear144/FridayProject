@@ -50,7 +50,10 @@ export const LogoutTC = () => (dispatch: Dispatch) => {
             dispatch(setIsLoggedInAC(false))
             dispatch(setStatusAC("succeeded"))
         })
-    dispatch(setStatusAC("idle"))
+        .finally(() => {
+        dispatch(setStatusAC("idle"))
+    })
+
 }
 export const initializeTC = () => (dispatch: Dispatch) => {
     dispatch(setStatusAC("loading"))
