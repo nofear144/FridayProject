@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {loginAPI, LoginType} from "../../n3-dal/api-login";
+import {loginAPI, LoginPayloadType} from "../../n3-dal/api-login";
 import {setUserProfileAC} from "./profile-reducer";
 import {setAppErrorAC, setIsInitializedAC, setStatusAC} from "./app-reducer";
 import {NewPasswordAPI, recoveryMessageType, setNewPasswordType} from "../../n3-dal/api-password-recovery";
@@ -29,7 +29,7 @@ export const setIsLoggedInAC = (isLogged: boolean) => {
 }
 
 //Thunks
-export const LoginTC = ({email, password, rememberMe}: LoginType) => (dispatch: Dispatch) => {
+export const LoginTC = ({email, password, rememberMe}: LoginPayloadType) => (dispatch: Dispatch) => {
     dispatch(setStatusAC("loading"))
     loginAPI.login({email, password, rememberMe})
         .then(res => {
