@@ -49,6 +49,7 @@ export function Login() {
         if (status === "succeeded") {
             return function cleanup() {
                 dispatch(setStatusAC("idle"))
+                dispatch(setAppErrorAC(""))
             }
         }
     }, [status])
