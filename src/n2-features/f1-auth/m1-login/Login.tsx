@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import s from './Login.module.css'
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
@@ -10,7 +10,7 @@ import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import SuperCheckbox from "../../../n1-main/n1-ui/common/c3-checkbox/SuperCheckbox";
 import Loader from "../m3-reset-password/Loader";
 import Window from "../m4-new-password/Window";
-import {setAppErrorAC} from "../../../n1-main/n2-bll/reducers/app-reducer";
+import {setAppErrorAC, setStatusAC} from "../../../n1-main/n2-bll/reducers/app-reducer";
 
 
 export function Login() {
@@ -44,6 +44,15 @@ export function Login() {
         dispatch(LoginTC({email: mailValue, password: passwordValue, rememberMe: rememberMeValue}))
         e.preventDefault()
     }
+
+    useEffect(() => {
+        if (status === "succeeded") {
+            return function cleanup() {
+                dispatch(setStatusAC("idle"))
+                dispatch(setAppErrorAC(""))
+            }
+        }
+    }, [status])
 
 
     if (isLogged) {

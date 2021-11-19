@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {loginAPI, LoginType} from "../../n3-dal/api-login";
+import {loginAPI, LoginPayloadType} from "../../n3-dal/api-login";
 import {setUserProfileAC} from "./profile-reducer";
 import {setAppErrorAC, setIsInitializedAC, setStatusAC} from "./app-reducer";
 import {NewPasswordAPI, recoveryMessageType, setNewPasswordType} from "../../n3-dal/api-password-recovery";
@@ -29,7 +29,7 @@ export const setIsLoggedInAC = (isLogged: boolean) => {
 }
 
 //Thunks
-export const LoginTC = ({email, password, rememberMe}: LoginType) => (dispatch: Dispatch) => {
+export const LoginTC = ({email, password, rememberMe}: LoginPayloadType) => (dispatch: Dispatch) => {
     dispatch(setStatusAC("loading"))
     loginAPI.login({email, password, rememberMe})
         .then(res => {
@@ -49,7 +49,6 @@ export const LogoutTC = () => (dispatch: Dispatch) => {
         .then(res => {
             dispatch(setIsLoggedInAC(false))
             dispatch(setStatusAC("succeeded"))
-            console.log(res.data)
         })
 }
 export const initializeTC = () => (dispatch: Dispatch) => {
@@ -59,7 +58,6 @@ export const initializeTC = () => (dispatch: Dispatch) => {
             dispatch(setIsLoggedInAC(true))
             dispatch(setIsInitializedAC(true))
             dispatch(setStatusAC("succeeded"))
-            console.log(data)
         })
         .catch(e => {
             dispatch(setAppErrorAC(e.response.data.error))
@@ -67,6 +65,7 @@ export const initializeTC = () => (dispatch: Dispatch) => {
         })
         .finally(() => {
             dispatch(setIsInitializedAC(true))
+            dispatch(setStatusAC("idle"))
         })
 }
 
