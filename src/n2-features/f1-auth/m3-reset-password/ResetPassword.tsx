@@ -4,23 +4,26 @@ import s from "./ResetPassword.module.css"
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {sendRecoveryInstructions, setRecoveryStatus} from "../../../n1-main/n2-bll/reducers/resetPass-reducer";
-import {recoveryMessageType} from "../../../n1-main/n3-dal/api-newPassword";
+import {recoveryMessageType} from "../../../n1-main/n3-dal/api-password-recovery";
 import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import Loader from "./Loader";
 import Window from "../m4-new-password/Window";
+import {setAppErrorAC, setStatusAC} from "../../../n1-main/n2-bll/reducers/app-reducer";
+import {sendRecoveryInstructions} from "../../../n1-main/n2-bll/reducers/login-reducer";
 
 
 export const ResetPassword = memo(() => {
-    const error = useAppSelector(state => state.resetPass.error);
-    const status = useAppSelector(state => state.resetPass.status);
-
-    let navigate = useNavigate()
+    const error = useAppSelector(state => state.app.error);
+    const status = useAppSelector(state => state.app.status);
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [email, setEmail] = useState('');
+
+
     const handleOnChangeText = (email: string) => {
         setEmail(email)
+        dispatch(setAppErrorAC(''))
     }
 
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -42,10 +45,10 @@ export const ResetPassword = memo(() => {
 
     useEffect(() => {
         console.log(status)
-        if (status === "success") {
+        if (status === "succeeded") {
             navigate(`${PATH.CHECK_EMAIL}/${email}`)
             return function cleanup() {
-                dispatch(setRecoveryStatus("idle"))
+                dispatch(setStatusAC("idle"))
             }
         }
     }, [status])
@@ -62,7 +65,7 @@ export const ResetPassword = memo(() => {
                 <SuperButton name="Send Instructions" type="submit"/>
                 <span>Did you remember your password?</span>
                 <NavLink children="Try logging in" to="/login"/>
-                {error ? <span>{error}</span> : <span>{"*"}</span>}
+                {error ? <span>{error}</span> : <span > </span>}
             </form>
         </ Window>
     )

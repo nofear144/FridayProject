@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {loginAPI, LoginType} from "../../n3-dal/api-login";
 import {setUserProfileAC} from "./profile-reducer";
 import {setAppErrorAC, setIsInitializedAC, setStatusAC} from "./app-reducer";
+import {NewPasswordAPI, recoveryMessageType, setNewPasswordType} from "../../n3-dal/api-password-recovery";
 
 
 const initialState = {
@@ -66,6 +67,38 @@ export const initializeTC = () => (dispatch: Dispatch) => {
         })
         .finally(() => {
             dispatch(setIsInitializedAC(true))
+        })
+}
+
+export const sendNewPasswordWithToken = (payload: setNewPasswordType) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC("loading"))
+    NewPasswordAPI.sendNewPasswordWithToken(payload)
+        .then(() => {
+
+                dispatch(setStatusAC("succeeded"))
+            }
+        )
+        .catch((e) => {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            dispatch(setAppErrorAC(error));
+            dispatch(setStatusAC("idle"))
+        })
+}
+
+export const sendRecoveryInstructions = (payload: recoveryMessageType) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC("loading"))
+    NewPasswordAPI.sendRecoveryInstructions(payload).then(() => {
+            dispatch(setStatusAC("succeeded"))
+        }
+    )
+        .catch((e) => {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            dispatch(setAppErrorAC(error));
+            dispatch(setStatusAC("idle"))
         })
 }
 

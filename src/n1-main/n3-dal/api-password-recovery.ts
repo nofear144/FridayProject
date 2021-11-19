@@ -27,11 +27,9 @@ export type recoveryMessageType = {
 
 export const NewPasswordAPI = {
     sendRecoveryInstructions(messageData: recoveryMessageType) {
-        console.log(messageData)
         return instance.post<recoveryMessageType, AxiosResponse<ResponseType>>('auth/forgot', messageData)
     },
     sendNewPasswordWithToken(newPasswordData: setNewPasswordType) {
-        console.log(newPasswordData)
         return instance.post<setNewPasswordType, AxiosResponse<ResponseType>>(`auth/set-new-password`, newPasswordData);
     },
 }
