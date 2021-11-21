@@ -6,13 +6,15 @@ import {testReducer} from "../reducers/test-reducer";
 import {registrationReducer} from "../reducers/registration-reducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {appReducer} from "../reducers/app-reducer";
+import {packsReducer} from "../reducers/packs-reducer";
 
 const rootReducer = combineReducers({
     login: loginReducer,
     registrationPass: registrationReducer,
     profile: profileReducer,
     test: testReducer,
-    app: appReducer
+    app: appReducer,
+    packs:packsReducer,
 
 })
 

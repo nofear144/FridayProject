@@ -12,6 +12,7 @@ import {Profile} from "../../../n2-features/f2-profile/Profile";
 import s from "./routes.module.scss"
 import {CheckEmail} from "../../../n2-features/f1-auth/m3-reset-password/CheckEmail";
 import {CardsList} from "../../../n2-features/f3-cards/m2-cards-list/CardsList";
+import {PacksList} from "../../../n2-features/f3-cards/m1-packs-list/PacksList";
 
 
 export const PATH = {
@@ -23,6 +24,7 @@ export const PATH = {
     PROFILE: '/FridayProject',
     CHECK_EMAIL: "/check_email",
     CARDS_LIST: "/cardsList",
+    PACKS_LIST:"/packsList"
 
 }
 
@@ -46,6 +48,7 @@ export function RoutesPage() {
                     <Route path=":email" element={<NewPassword/>}/>
                 </Route>
                 <Route path={PATH.CARDS_LIST} element={<CardsList/>}/>
+                <Route path={PATH.PACKS_LIST} element={<PacksList/>}/>
             </Routes>
 
         </div>
