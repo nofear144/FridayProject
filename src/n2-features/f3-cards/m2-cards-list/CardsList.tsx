@@ -1,4 +1,4 @@
-import React, { memo, useEffect} from "react";
+import React, {memo, useEffect} from "react";
 import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import {useDispatch} from "react-redux";
 
@@ -8,7 +8,7 @@ import s from "../../f1-auth/m3-reset-password/ResetPassword.module.css";
 import {useNavigate} from "react-router-dom";
 
 
-export const PacksList = memo(() => {
+export const CardsList = memo(() => {
     const error = useAppSelector(state => state.app.error);
     const status = useAppSelector(state => state.app.status);
 
@@ -16,14 +16,15 @@ export const PacksList = memo(() => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+
     }, [])
 
 
     return (
         <Window>
             {status === "loading" && <Loader/>}
-            <form className={s.container} >
-
+            <form className={s.container}>
+                HELLO I'M CARDS LIST
             </form>
         </ Window>
     )

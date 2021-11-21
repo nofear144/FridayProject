@@ -11,6 +11,7 @@ import {NotFound404} from "../../../n2-features/f1-auth/m5-404/NotFound404";
 import {Profile} from "../../../n2-features/f2-profile/Profile";
 import s from "./routes.module.scss"
 import {CheckEmail} from "../../../n2-features/f1-auth/m3-reset-password/CheckEmail";
+import {CardsList} from "../../../n2-features/f3-cards/m2-cards-list/CardsList";
 
 
 export const PATH = {
@@ -21,6 +22,7 @@ export const PATH = {
     TEST: '/test',
     PROFILE: '/FridayProject',
     CHECK_EMAIL: "/check_email",
+    CARDS_LIST: "/cardsList",
 
 }
 
@@ -43,6 +45,7 @@ export function RoutesPage() {
                 <Route path={PATH.CHECK_EMAIL} element={<CheckEmail/>}>
                     <Route path=":email" element={<NewPassword/>}/>
                 </Route>
+                <Route path={PATH.CARDS_LIST} element={<CardsList/>}/>
             </Routes>
 
         </div>
