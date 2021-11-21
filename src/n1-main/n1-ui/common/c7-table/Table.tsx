@@ -1,38 +1,66 @@
-import React, { memo} from "react";
+import React, {FC, memo} from "react";
 
 
 import s from "./Table.module.scss";
+import Window from "../../../../n2-features/f1-auth/m4-new-password/Window";
 
 
 
-export const Table = memo(() => {
+
+const cards = [
+    {
+        cardsCount: 0,
+        name: "11",
+        private: false,
+        updated: "2020-07-10T11:37:25.358Z",
+        user_name: "gavrilenko7732@gmail.com",
+    },
+    {
+        cardsCount: 2,
+        name: "df",
+        private: false,
+        updated: "2020-07-10T11:37:25.358Z",
+        user_name: "gav",
+    },
+    {
+        cardsCount: 5,
+        name: "sddfsdfsdff",
+        private: false,
+        updated: "2020-07-10T11:37:25.358Z",
+        user_name: "gasdfsdfsv",
+        user_id: "hjghjghjgh"
+    }
+]
+
+type Props = {
+    items: any[]
+    header: {}
+}
+
+
+export const Table:FC<Props> = memo(({items, header }) => {
+
+    const keys = Object.keys(header)
+    const values: string[] = Object.values(header)
+    type headerType = typeof header
 
     return (
-        <table className={s.rwdTables}>
-            <tr>
-                <th>Movie Title</th>
-                <th>Genre</th>
-                <th>Year</th>
-                <th>Gross</th>
-            </tr>
-            <tr>
-                <td data-th="Movie Title">Star Wars</td>
-                <td data-th="Genre">Adventure, Sci-fi</td>
-                <td data-th="Year">1977</td>
-                <td data-th="Gross">$460,935,665</td>
-            </tr>
-            <tr>
-                <td data-th="Movie Title">Howard The Duck</td>
-                <td data-th="Genre">"Comedy"</td>
-                <td data-th="Year">1986</td>
-                <td data-th="Gross">$16,295,774</td>
-            </tr>
-            <tr>
-                <td data-th="Movie Title">American Graffiti</td>
-                <td data-th="Genre">Comedy, Drama</td>
-                <td data-th="Year">1973</td>
-                <td data-th="Gross">$115,000,000</td>
-            </tr>
-        </table>
+        <Window>
+
+            <table className={s.rwdTables}>
+                <tr>
+                    {values.map(el => <th>{el}</th>)}
+                    {}
+                </tr>
+
+                {items.map(card =>
+                    <tr>
+                        {keys.map((el, index) =>
+                            <td data-th={values[index]}>
+                                {card[el as keyof headerType]}
+                            </td>)}
+                    </tr>)}
+            </table>
+        </Window>
     )
 })

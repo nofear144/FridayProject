@@ -1,8 +1,8 @@
 
-$breakpoint-alpha: 480px; // adjust to your needs
+$breakpoint-alpha: 700px; // adjust to your needs
 
-.rwd-table {
-  margin: 1em 0;
+.rwdTables {
+  margin: 1em 1em;
   min-width: 300px; // adjust to your needs
 
   tr {
@@ -16,6 +16,7 @@ $breakpoint-alpha: 480px; // adjust to your needs
 
   td {
     display: block;
+    text-align: center;
 
     &:first-child {
       padding-top: .5em;
@@ -65,7 +66,7 @@ $breakpoint-alpha: 480px; // adjust to your needs
 
 @import 'https://fonts.googleapis.com/css?family=Montserrat:300,400,700';
 
-body {
+.box {
   padding: 0 2em;
   font-family: Montserrat, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -80,7 +81,7 @@ h1 {
   color: #34495E;
 }
 
-.rwd-table {
+.rwdTables {
   background: #34495E;
   color: #fff;
   border-radius: .4em;

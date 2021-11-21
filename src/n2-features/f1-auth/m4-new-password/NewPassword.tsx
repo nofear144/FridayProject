@@ -42,6 +42,7 @@ export const NewPassword = memo(() => {
 
     return (
         <Window>
+            <div className={s.form}>
             {status === "loading" && <Loader/>}
             <form onSubmit={handleOnSubmit} className={s.container}>
                 <span className={s.title}>it-cards</span>
@@ -51,7 +52,7 @@ export const NewPassword = memo(() => {
                     className={s.description}>Create new password and we will send you further instructions to email</span>
                 <SuperButton type="submit" name="Create new password"/>
                 {error ? <span>{error}</span> : <span > </span>}
-            </form>
+            </form></div>
         </Window>
     )
 })
