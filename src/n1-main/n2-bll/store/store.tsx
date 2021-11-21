@@ -7,6 +7,7 @@ import {registrationReducer} from "../reducers/registration-reducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {appReducer} from "../reducers/app-reducer";
 import {cardsReducer} from "../reducers/cards-reducer";
+import {packsReducer} from "../reducers/packs-reducer";
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -15,6 +16,8 @@ const rootReducer = combineReducers({
     test: testReducer,
     app: appReducer,
     cards:cardsReducer,
+    packs:packsReducer,
+
 })
 
 //store
