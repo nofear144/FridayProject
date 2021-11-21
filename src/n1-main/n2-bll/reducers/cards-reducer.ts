@@ -1,6 +1,13 @@
 
 const initialState = {
-
+    pageCount:10,
+    page:1,
+    grade:0,
+    min:1,
+    max:5,
+    cardQuestion:"",
+    cardAnswer:"",
+    id: "",
 }
 
 
