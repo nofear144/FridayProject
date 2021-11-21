@@ -9,6 +9,9 @@ $breakpoint-alpha: 700px; // adjust to your needs
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
   }
+  tr th {
+  background-color: darken(#34495e, 5%)
+      }
 
   th {
     display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!
@@ -17,6 +20,7 @@ $breakpoint-alpha: 700px; // adjust to your needs
   td {
     display: block;
     text-align: center;
+    cursor: pointer;
 
     &:first-child {
       padding-top: .5em;
@@ -26,11 +30,11 @@ $breakpoint-alpha: 700px; // adjust to your needs
     }
 
     &:before {
-      content: attr(data-th)": "; // who knew you could do this? The internet, that's who.
+      content: attr(data-th)" "; // who knew you could do this? The internet, that's who.
       font-weight: bold;
 
       // optional stuff to make it look nicer
-      width: 6.5em; // magic number :( adjust according to your own content
+      width: 4.5em; // magic number :( adjust according to your own content
       display: inline-block;
       // end options
 
@@ -39,6 +43,7 @@ $breakpoint-alpha: 700px; // adjust to your needs
       }
     }
   }
+
 
   th, td {
     text-align: left;
@@ -75,11 +80,7 @@ $breakpoint-alpha: 700px; // adjust to your needs
   background: #eee;
 }
 
-h1 {
-  font-weight: normal;
-  letter-spacing: -1px;
-  color: #34495E;
-}
+
 
 .rwdTables {
   background: #34495E;
@@ -87,8 +88,17 @@ h1 {
   border-radius: .4em;
   overflow: hidden;
   tr {
-    border-color: lighten(#34495E, 10%);
+    background-color: #34495e;
+    border-color: lighten(#34495e, 10%);
+    &:hover{
+      background-color: darken(#34495e, 3%);
+    }
+    &:active{
+      background-color: #34495e
+    }
   }
+
+
   th, td {
     margin: .5em 1em;
     @media (min-width: $breakpoint-alpha) {
@@ -96,6 +106,6 @@ h1 {
     }
   }
   th, td:before {
-    color: #dd5;
+    color: #6abfde;
   }
 }
