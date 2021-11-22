@@ -21,7 +21,7 @@ type Props = {
     onDeleteClickHandler?: (id: string) => void
     onUpdateUpdateHandler?: (id: string) => void
     onRowClickHandler?: (id: string) => void
-    onSortClickHandler?: (value: string) => void
+    onSortClickHandler?: () => void
 }
 
 
@@ -35,7 +35,7 @@ export const Table: FC<Props> = memo(({onSortClickHandler,
     const updateSort = useAppSelector(state => state.packs.sortPacks)
     const keys = Object.keys(header)
     const titles: string[] = Object.values(header)
-    const arrow = updateSort !== "0update" ? "⬇" : "⬆"
+    const arrow = updateSort === "0updated" ? "⬇" : "⬆"
 
 
 
@@ -45,14 +45,14 @@ export const Table: FC<Props> = memo(({onSortClickHandler,
             <table className={s.rwdTables}>
                 <tr>
                     {titles.map(title => title === "Updated" ?
-                        <th onClick={() => onSortClickHandler && onSortClickHandler(updateSort)} className={s.sort}>{title}  {arrow}</th> : <th>{title}</th>)}
+                        <th onClick={() => onSortClickHandler && onSortClickHandler()} className={s.sort}>{title}  {arrow}</th> : <th>{title}</th>)}
                 </tr>
 
                 {items.map(item =>
                     <tr onClick={() => onRowClickHandler && onRowClickHandler(item._id)}>
                         {keys.map((key, index) =>
                             <td data-th={titles[index]}>
-                                {(key === "buttons" && item.user_id === userId) ?
+                                {key === "buttons" && item.user_id === userId ?
                                     <div style={{display: "flex", justifyContent: "center", }}>
                                     <SuperButton onClick={() => onUpdateUpdateHandler && onUpdateUpdateHandler(item._id)} name={"update"} variant="secondary"/>
                                     <SuperButton onClick={() => onDeleteClickHandler && onDeleteClickHandler(item._id)} name={"delete"}/>

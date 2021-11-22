@@ -7,14 +7,14 @@ export const packsApi = {
             params: {packName, min, max, sortPacks, page, pageCount}
         })
     },
-    addPack({name, isPrivate, deckCover}: addPackType) {
-        return instance.post<{}>("cards/pack", {name, isPrivate, deckCover})
+    addPack({name, isPrivate}: addPackType) {
+        return instance.post<{}>("cards/pack", {cardsPack:{name, isPrivate}})
     },
     deletePack(id: string) {
         return instance.delete<{}>("cards/pack", {params: {id}})
     },
     updatePack({_id, name}:updatePackType) {
-        return instance.put<{}>("cards/pack",{_id,name})
+        return instance.put<{}>("cards/pack",{cardsPack:{_id,name}})
 
     }
 }
@@ -28,7 +28,7 @@ export type updatePackType = {
 type addPackType = {
     name: string
     isPrivate: boolean
-    deckCover: string
+
 }
 export type PackType = {
     _id: string

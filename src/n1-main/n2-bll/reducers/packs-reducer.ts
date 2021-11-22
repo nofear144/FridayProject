@@ -10,7 +10,7 @@ const initialState = {
             _id: "",
             user_id: "",
             name: "",
-            cardsCount:1,
+            cardsCount: 1,
             created: "",
             updated: "",
             user_name: '',
@@ -32,6 +32,7 @@ export const packsReducer = (state: initialStateType = initialState, action: Com
         case "packsCards/SET-PACKS": {
             return {...state, ...action.payload, sortPacks: state.sortPacks, packName: state.packName}
         }
+        case "packsCards/SET-SORT-PACKS":
         case "packsCards/SET-CARD-PACKS-TOTAL-COUNT":
         case "packsCards/SET-MAX-CARDS-COUNT":
         case "packsCards/SET-MIN-CARDS-COUNT":
@@ -47,6 +48,12 @@ export const packsReducer = (state: initialStateType = initialState, action: Com
 }
 
 //Actions
+export const setSortPacksAC = (sortPacks: string) => {
+    return {
+        type: "packsCards/SET-SORT-PACKS",
+        payload: {sortPacks}
+    } as const
+}
 export const setPacksCardsAC = (packsData: RequestPacksType) => {
     return {
         type: "packsCards/SET-PACKS",
@@ -133,9 +140,9 @@ export const deletePackTC = (packId: string): AppThunk => (dispatch) => {
         })
     dispatch(getPacksTC())
 }
-export const addPackTC = (name: string, isPrivate: boolean, deckCover: string): AppThunk => (dispatch) => {
+export const addPackTC = (name: string, isPrivate: boolean): AppThunk => (dispatch) => {
     dispatch(setStatusAC('loading'))
-    packsApi.addPack({name, isPrivate, deckCover})
+    packsApi.addPack({name, isPrivate})
         .then(res => {
             dispatch(setStatusAC('succeeded'))
         })
@@ -180,3 +187,4 @@ type CombinePacksTypeAC =
     | ReturnType<typeof setStatusAC>
     | ReturnType<typeof setIsInitializedAC>
     | ReturnType<typeof setAppErrorAC>
+    | ReturnType<typeof setSortPacksAC>

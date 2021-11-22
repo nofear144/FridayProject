@@ -7,6 +7,7 @@ import {NewPasswordAPI, recoveryMessageType, setNewPasswordType} from "../../n3-
 
 const initialState = {
     isLogged: false,
+    token:"",
 }
 
 export const loginReducer = (state:initialStateType = initialState, action: CombineActionType): initialStateType => {
