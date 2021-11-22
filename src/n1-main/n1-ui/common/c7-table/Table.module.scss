@@ -1,4 +1,3 @@
-
 $breakpoint-alpha: 700px; // adjust to your needs
 
 .rwdTables {
@@ -9,13 +8,25 @@ $breakpoint-alpha: 700px; // adjust to your needs
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
   }
+
   tr th {
-  background-color: darken(#34495e, 5%)
-      }
+    background-color: darken(#34495e, 5%)
+  }
 
   th {
     display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!
   }
+  & .sort {
+       cursor: pointer;
+
+
+     }
+  .sort:active {
+    background-color: lighten(#34495e, 5%);
+  }
+
+
+
 
   td {
     display: block;
@@ -25,12 +36,13 @@ $breakpoint-alpha: 700px; // adjust to your needs
     &:first-child {
       padding-top: .5em;
     }
+
     &:last-child {
       padding-bottom: .5em;
     }
 
     &:before {
-      content: attr(data-th)" "; // who knew you could do this? The internet, that's who.
+      content: attr(data-th) " "; // who knew you could do this? The internet, that's who.
       font-weight: bold;
 
       // optional stuff to make it look nicer
@@ -81,19 +93,21 @@ $breakpoint-alpha: 700px; // adjust to your needs
 }
 
 
-
 .rwdTables {
   background: #34495E;
   color: #fff;
   border-radius: .4em;
   overflow: hidden;
+
   tr {
     background-color: #34495e;
     border-color: lighten(#34495e, 10%);
-    &:hover{
+
+    &:hover {
       background-color: darken(#34495e, 3%);
     }
-    &:active{
+
+    &:active {
       background-color: #34495e
     }
   }
@@ -105,6 +119,7 @@ $breakpoint-alpha: 700px; // adjust to your needs
       padding: 1em !important;
     }
   }
+
   th, td:before {
     color: #6abfde;
   }
