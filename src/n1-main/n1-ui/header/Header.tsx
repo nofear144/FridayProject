@@ -34,6 +34,7 @@ export function Header() {
                 <NavLink to={PATH.TEST}>Test</NavLink>
                 <NavLink to={PATH.PROFILE}>Profile</NavLink>*/}
                 <NavLink to={PATH.CARDS_LIST}>CardsList</NavLink>
+                <NavLink to={PATH.PACKS_LIST}>PackList</NavLink>
 
             </div>
         </div>

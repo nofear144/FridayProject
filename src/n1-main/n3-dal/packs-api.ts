@@ -36,7 +36,7 @@ export type PackType = {
     name: string
     cardsCount: number
     created: string
-    update: string
+    updated: string
     user_name:string
 
 }
