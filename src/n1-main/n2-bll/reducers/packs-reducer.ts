@@ -12,7 +12,7 @@ const initialState = {
             name: "",
             cardsCount:1,
             created: "",
-            update: "",
+            updated: "",
             user_name: '',
         }
     ],

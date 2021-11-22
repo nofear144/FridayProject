@@ -47,8 +47,9 @@ export function RoutesPage() {
                 <Route path={PATH.CHECK_EMAIL} element={<CheckEmail/>}>
                     <Route path=":email" element={<NewPassword/>}/>
                 </Route>
+                <Route path={"/packsList"} element={<PacksList/>}/>
                 <Route path={PATH.CARDS_LIST} element={<CardsList/>}/>
-                <Route path={PATH.PACKS_LIST} element={<PacksList/>}/>
+
             </Routes>
 
         </div>
