@@ -15,7 +15,7 @@ import {
 import {Table} from "../../../n1-main/n1-ui/common/c7-table/Table";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
 import {Spinner} from "../../../n1-main/n1-ui/common/c5-spinner/Spinner";
-import {Navigate} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 //import {Paginator} from "../../../n1-main/n1-ui/common/pagination/pagination";
@@ -39,10 +39,10 @@ export const CardsList = memo(() => {
     const cardsPack_id = useAppSelector(state => state.cards.cardsPack_id)
     const isInitialize = useAppSelector(state => state.app.isInitialize);
     const isLoggedIn = useAppSelector(state => state.login.isLogged);
-const[currentPage,setCurrentPage]=useState(1)
+    const [currentPage, setCurrentPage] = useState(1)
     const dispatch = useDispatch()
 
-    const onPageChanged=(page:number)=>{
+    const onPageChanged = (page: number) => {
         setCurrentPage(page)
     }
 
@@ -53,7 +53,7 @@ const[currentPage,setCurrentPage]=useState(1)
         dispatch(updateCardTC(id, "CHANGED QUESTION", "CHANGED ANSWER"))
     }
     const createCard = () => {
-        dispatch(createNewCardTC(cardsPack_id,"How are you?", "I'm fine", 5,4))
+        dispatch(createNewCardTC(cardsPack_id, "How are you?", "I'm fine", 5, 4))
     }
 
     const header = {
@@ -64,28 +64,24 @@ const[currentPage,setCurrentPage]=useState(1)
         buttons: "Actions"
     }
 
-    // const sortCard = () => {
-    //     sortCards==="0updated"
-    //         ? dispatch(setSortCardsAC("1updated"))
-    //         :dispatch(setSortCardsAC("0updated"))
-    // }
+
     const sortCard = (param: string) => {
-        sortCards[0]==="1"
+        sortCards[0] === "1"
             ? dispatch(setSortCardsAC(`0${param}`))
-            :dispatch(setSortCardsAC(`1${param}`))
+            : dispatch(setSortCardsAC(`1${param}`))
     }
     useEffect(() => {
         dispatch(getAllCardsTC())
     }, [sortCards, page, max, min, cardsPack_id, pageCount])
 
     useEffect(() => {
-        if(!isInitialize){
+        if (!isInitialize) {
             dispatch(initializeTC())
         }
     }, [])
 
     if (!isInitialize) {
-        return <div className={s.loader}> <Spinner/> </div>
+        return <div className={s.loader}><Spinner/></div>
     }
 
     if (isInitialize && !isLoggedIn) {
