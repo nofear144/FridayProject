@@ -9,7 +9,7 @@ import {
     addPackTC,
     deletePackTC,
     getPacksTC,
-    setSortPacksAC, setUserIdPacksAC,
+    setSortPacksAC,
     updatePackTC
 } from "../../../n1-main/n2-bll/reducers/packs-reducer";
 import {Table} from "../../../n1-main/n1-ui/common/c7-table/Table";
@@ -72,9 +72,9 @@ export const PacksList = memo(() => {
             : dispatch(setSortPacksAC("0updated"))
     }
     const sortPack = () => {
-        sortPacks === "0updated"
+        sortPacks==="0updated"
             ? dispatch(setSortPacksAC("1updated"))
-            : dispatch(setSortPacksAC("0updated"))
+            :dispatch(setSortPacksAC("0updated"))
     }
     if (!isInitialize) {
         return <div className={s.loader}><Spinner/></div>
@@ -92,7 +92,7 @@ export const PacksList = memo(() => {
                 <SuperButton name={"My"} onClick={myPack}/>
                 <SuperButton name={"All"} onClick={allPack}/>
                 <Table
-                    onSortClickHandler={sortPackByUpdate}
+                    onSortClickHandler={sortPack}
                     onUpdateUpdateHandler={updatePack}
                     onDeleteClickHandler={deletePack}
                     items={cardPacks} header={{
