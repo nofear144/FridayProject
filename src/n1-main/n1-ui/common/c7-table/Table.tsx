@@ -21,7 +21,7 @@ type Props = {
     onDeleteClickHandler?: (id: string) => void
     onUpdateUpdateHandler?: (id: string) => void
     onRowClickHandler?: (id: string) => void
-    onSortClickHandler?: () => void
+    onSortClickHandler?: (param: string) => void
 }
 
 
@@ -44,14 +44,15 @@ export const Table: FC<Props> = memo(({
         <Window>
 
             <table className={s.rwdTables}>
-                <tr>
-                    {titles.map(title => title === "Updated" || title === "Grade"
+              <thead> <tr>
+                    {titles.map((title, i) => title === "Updated" || title === "Grade"
                     || title === "Answer" || title === "Question"
-                        ? <th onClick={() => onSortClickHandler && onSortClickHandler()}
+                        ? <th onClick={() => onSortClickHandler && onSortClickHandler(keys[i])}
                               className={s.sort}>{title} {arrow}</th> : <th>{title}</th>)}
                 </tr>
-
-                {items.map(item =>
+            </thead>
+                <tbody>
+            {items.map(item =>
                     <tr onClick={() => onRowClickHandler && onRowClickHandler(item._id)}>
                         {keys.map((key, index) =>
                             <td data-th={titles[index]}>
@@ -66,6 +67,7 @@ export const Table: FC<Props> = memo(({
                                     </div> : item[key]}
                             </td>)}
                     </tr>)}
+                </tbody>
             </table>
         </Window>
     )

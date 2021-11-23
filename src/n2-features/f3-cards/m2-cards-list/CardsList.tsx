@@ -18,7 +18,7 @@ import {Spinner} from "../../../n1-main/n1-ui/common/c5-spinner/Spinner";
 import {Navigate} from "react-router-dom";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
-import {Paginator} from "../../../n1-main/n1-ui/common/pagination/pagination";
+//import {Paginator} from "../../../n1-main/n1-ui/common/pagination/pagination";
 
 
 export const CardsList = memo(() => {
@@ -64,12 +64,16 @@ const[currentPage,setCurrentPage]=useState(1)
         buttons: "Actions"
     }
 
-    const sortCard = () => {
-        sortCards==="0updated"
-            ? dispatch(setSortCardsAC("1updated"))
-            :dispatch(setSortCardsAC("0updated"))
+    // const sortCard = () => {
+    //     sortCards==="0updated"
+    //         ? dispatch(setSortCardsAC("1updated"))
+    //         :dispatch(setSortCardsAC("0updated"))
+    // }
+    const sortCard = (param: string) => {
+        sortCards[0]==="1"
+            ? dispatch(setSortCardsAC(`0${param}`))
+            :dispatch(setSortCardsAC(`1${param}`))
     }
-
     useEffect(() => {
         dispatch(getAllCardsTC())
     }, [sortCards, page, max, min, cardsPack_id, pageCount])
@@ -100,12 +104,12 @@ const[currentPage,setCurrentPage]=useState(1)
                     onSortClickHandler={sortCard}
                     header={header}
                     items={cards}/>
-                <Paginator
-                    currentPage={currentPage}
-                pageSize={page}
-                totalItemsCount={cardsTotalCount}
-                onPageChanged={onPageChanged}
-                portionSize={pageCount}/>
+                {/*<Paginator*/}
+                {/*    currentPage={currentPage}*/}
+                {/*pageSize={page}*/}
+                {/*totalItemsCount={cardsTotalCount}*/}
+                {/*onPageChanged={onPageChanged}*/}
+                {/*portionSize={pageCount}/>*/}
             </div>
         </ Window>
     )
