@@ -25,18 +25,19 @@ type Props = {
 }
 
 
-export const Table: FC<Props> = memo(({onSortClickHandler,
+export const Table: FC<Props> = memo(({
+                                          onSortClickHandler,
                                           items,
                                           header,
                                           onRowClickHandler,
                                           onUpdateUpdateHandler,
-                                          onDeleteClickHandler}) => {
+                                          onDeleteClickHandler
+                                      }) => {
     const userId = useAppSelector(state => state.profile._id)
-    const updateSort = useAppSelector(state => state.packs.sortPacks)
+    const updateSort = useAppSelector(state => state.cards.sortCards)
     const keys = Object.keys(header)
     const titles: string[] = Object.values(header)
     const arrow = updateSort === "0updated" ? "⬇" : "⬆"
-
 
 
     return (
@@ -44,8 +45,10 @@ export const Table: FC<Props> = memo(({onSortClickHandler,
 
             <table className={s.rwdTables}>
                 <tr>
-                    {titles.map(title => title === "Updated" ?
-                        <th onClick={() => onSortClickHandler && onSortClickHandler()} className={s.sort}>{title}  {arrow}</th> : <th>{title}</th>)}
+                    {titles.map(title => title === "Updated" || title === "Grade"
+                    || title === "Answer" || title === "Question"
+                        ? <th onClick={() => onSortClickHandler && onSortClickHandler()}
+                              className={s.sort}>{title} {arrow}</th> : <th>{title}</th>)}
                 </tr>
 
                 {items.map(item =>
@@ -53,10 +56,14 @@ export const Table: FC<Props> = memo(({onSortClickHandler,
                         {keys.map((key, index) =>
                             <td data-th={titles[index]}>
                                 {key === "buttons" && item.user_id === userId ?
-                                    <div style={{display: "flex", justifyContent: "center", }}>
-                                    <SuperButton onClick={() => onUpdateUpdateHandler && onUpdateUpdateHandler(item._id)} name={"update"} variant="secondary"/>
-                                    <SuperButton onClick={() => onDeleteClickHandler && onDeleteClickHandler(item._id)} name={"delete"}/>
-                                </div> : item[key]}
+                                    <div style={{display: "flex", justifyContent: "center",}}>
+                                        <SuperButton
+                                            onClick={() => onUpdateUpdateHandler && onUpdateUpdateHandler(item._id)}
+                                            name={"update"} variant="secondary"/>
+                                        <SuperButton
+                                            onClick={() => onDeleteClickHandler && onDeleteClickHandler(item._id)}
+                                            name={"delete"}/>
+                                    </div> : item[key]}
                             </td>)}
                     </tr>)}
             </table>

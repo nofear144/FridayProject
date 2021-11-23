@@ -9,16 +9,16 @@ export const cardsApi = {
         return instance.get<ResponseType>(`/cards/card/`,
             {params: {cardAnswer, cardQuestion, pageCount, cardsPack_id, min, max, sortCards, page}})
     },
-    postCard(answer: string, question: string, grade: number, cardsPack_id: string,shots:number) {
+    postCard({cardsPack_id, answer, question, grade, shots}: CreateCardType) {
         return instance.post<CardsType, AxiosResponse<ResponseType>>(`/cards/card`,
-            {params: {answer, question, grade, cardsPack_id,shots}})
+            {card: {cardsPack_id, answer, question, grade, shots}})
     },
     deleteCard(_id: string) {
         return instance.delete<CardsType, AxiosResponse<ResponseType>>(`/cards/card/?id=${_id}`)
     },
-    updateCard(_id: string, question: string, answer: string) {
+    updateCard({_id, question, answer}: UpdateCardType) {
         return instance.put<CardsType, AxiosResponse<ResponseType>>(`/cards/card/`,
-            {params: {_id, question, answer}})
+            {card: {_id, question, answer}})
     },
 
 
@@ -26,7 +26,13 @@ export const cardsApi = {
         return instance.get(`cards/card/${params.cardsPack_id}`)
     }
 }
-
+export type CreateCardType = {
+    cardsPack_id: string
+    answer: string
+    question: string
+    grade: number
+    shots: number
+}
 export type CardsType = {
     answer: string
     question: string
@@ -37,7 +43,11 @@ export type CardsType = {
     updated: string
     _id: string
 }
-
+type UpdateCardType = {
+    _id: string
+    question: string
+    answer: string
+}
 export type ResponseType = {
     cards: CardsType[],
     cardsTotalCount: number,

@@ -57,12 +57,12 @@ export const PacksList = memo(() => {
             ? dispatch(setSortPacksAC("1updated"))
             :dispatch(setSortPacksAC("0updated"))
     }
-    if (!isInitialize) {
-        return <div className={s.loader}> <Spinner/> </div>
-    }
-    if (isInitialize && !isLoggedIn) {
-        return <Navigate to={PATH.LOGIN}/>
-    }
+    // if (!isInitialize) {
+    //     return <div className={s.loader}> <Spinner/> </div>
+    // }
+    // if (isInitialize && !isLoggedIn) {
+    //     return <Navigate to={PATH.LOGIN}/>
+    // }
 
     return (
         <Window>

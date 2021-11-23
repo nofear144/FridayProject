@@ -20,7 +20,7 @@ const initialState = {
     minCardsCount: 0,
     maxCardsCount: 4,
     page: 1,
-    pageCount: 4,
+    pageCount: 15,
     sortPacks: '0update',
     packName: '',
 
