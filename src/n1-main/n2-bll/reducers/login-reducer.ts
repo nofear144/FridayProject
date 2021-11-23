@@ -12,7 +12,7 @@ const initialState = {
 
 export const loginReducer = (state:initialStateType = initialState, action: CombineActionType): initialStateType => {
     switch (action.type) {
-
+        case "login/SET-USER-TOKEN":
         case "login/SET-IS-LOGGED-IN-STATUS": {
             return {...state, ...action.payload}
         }
@@ -24,6 +24,9 @@ export const loginReducer = (state:initialStateType = initialState, action: Comb
 
 
 //Actions
+export const setUserTokenAC = (token: string) => {
+    return {type: "login/SET-USER-TOKEN", payload: {token}} as const
+}
 
 export const setIsLoggedInAC = (isLogged: boolean) => {
     return {type: "login/SET-IS-LOGGED-IN-STATUS", payload: {isLogged}} as const
@@ -34,6 +37,7 @@ export const LoginTC = ({email, password, rememberMe}: LoginPayloadType) => (dis
     dispatch(setStatusAC("loading"))
     loginAPI.login({email, password, rememberMe})
         .then(res => {
+            dispatch(setUserTokenAC(res.data.token))
             dispatch(setIsLoggedInAC(true))
             dispatch(setStatusAC("succeeded"))
             dispatch(setUserProfileAC(res.data._id, res.data.name, res.data.avatar))
@@ -52,14 +56,15 @@ export const LogoutTC = () => (dispatch: Dispatch) => {
             dispatch(setStatusAC("succeeded"))
         })
         .finally(() => {
-        dispatch(setStatusAC("idle"))
-    })
+            dispatch(setStatusAC("idle"))
+        })
 
 }
 export const initializeTC = () => (dispatch: Dispatch) => {
     dispatch(setStatusAC("loading"))
     loginAPI.me()
         .then(data => {
+            dispatch(setUserProfileAC(data._id, data.name, data.avatar))
             dispatch(setIsLoggedInAC(true))
             dispatch(setIsInitializedAC(true))
             dispatch(setStatusAC("succeeded"))
@@ -113,5 +118,6 @@ export type CombineActionType =
     | ReturnType<typeof setIsInitializedAC>
     | ReturnType<typeof setAppErrorAC>
     | ReturnType<typeof setUserProfileAC>
+    | ReturnType<typeof setUserTokenAC>
 
 type initialStateType = typeof initialState

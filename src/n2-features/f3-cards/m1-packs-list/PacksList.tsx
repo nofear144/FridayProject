@@ -9,7 +9,7 @@ import {
     addPackTC,
     deletePackTC,
     getPacksTC,
-    setSortPacksAC,
+    setSortPacksAC, setUserIdPacksAC,
     updatePackTC
 } from "../../../n1-main/n2-bll/reducers/packs-reducer";
 import {Table} from "../../../n1-main/n1-ui/common/c7-table/Table";
@@ -17,6 +17,7 @@ import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
 import s from "../../f2-profile/Profile.module.css";
 import {Spinner} from "../../../n1-main/n1-ui/common/c5-spinner/Spinner";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
+import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 
 
 export const PacksList = memo(() => {
@@ -31,17 +32,30 @@ export const PacksList = memo(() => {
     const pageCount = useAppSelector(state => state.packs.pageCount);
     const isInitialize = useAppSelector(state => state.app.isInitialize);
     const isLoggedIn = useAppSelector(state => state.login.isLogged);
+    const _id = useAppSelector(state => state.profile._id);
+    const user_id = useAppSelector(state => state.packs.user_id);
+
 
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-
     useEffect(() => {
+        if (!isInitialize) {
+            dispatch(initializeTC())
+        }
+    }, [])
+    useEffect(() => {
+
         dispatch(getPacksTC())
-    }, [packName, minCardsCount, maxCardsCount, sortPacks, page, pageCount])
+    }, [packName, minCardsCount, maxCardsCount, sortPacks, page, pageCount,user_id])
 
-
+    const myPack = () => {
+        dispatch(setUserIdPacksAC(_id))
+    }
+    const allPack = () => {
+        dispatch(setUserIdPacksAC(""))
+    }
     const deletePack = (id: string) => {
         dispatch(deletePackTC(id))
     }
@@ -52,13 +66,18 @@ export const PacksList = memo(() => {
         dispatch(addPackTC("TriMushketera", false))
     }
 
-    const sortPack = () => {
-        sortPacks==="0updated"
+    const sortPackByUpdate = () => {
+        sortPacks === "0updated"
             ? dispatch(setSortPacksAC("1updated"))
-            :dispatch(setSortPacksAC("0updated"))
+            : dispatch(setSortPacksAC("0updated"))
+    }
+    const sortPack = () => {
+        sortPacks === "0updated"
+            ? dispatch(setSortPacksAC("1updated"))
+            : dispatch(setSortPacksAC("0updated"))
     }
     if (!isInitialize) {
-        return <div className={s.loader}> <Spinner/> </div>
+        return <div className={s.loader}><Spinner/></div>
     }
     if (isInitialize && !isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -68,9 +87,12 @@ export const PacksList = memo(() => {
         <Window>
             {status === "loading" && <Loader/>}
             <div>
-                <SuperButton onClick={addPack}/>
+
+                <SuperButton name={"Add Pack"} onClick={addPack}/>
+                <SuperButton name={"My"} onClick={myPack}/>
+                <SuperButton name={"All"} onClick={allPack}/>
                 <Table
-                    onSortClickHandler={sortPack}
+                    onSortClickHandler={sortPackByUpdate}
                     onUpdateUpdateHandler={updatePack}
                     onDeleteClickHandler={deletePack}
                     items={cardPacks} header={{

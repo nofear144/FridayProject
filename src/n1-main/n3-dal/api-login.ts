@@ -30,6 +30,7 @@ export type RequestLoginType = {
     email: string
     password: string
     rememberMe: boolean
+    token:string
 }
 
 

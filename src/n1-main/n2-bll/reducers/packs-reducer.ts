@@ -23,6 +23,7 @@ const initialState = {
     pageCount: 4,
     sortPacks: '0update',
     packName: '',
+    user_id: "",
 
 }
 
@@ -32,6 +33,7 @@ export const packsReducer = (state: initialStateType = initialState, action: Com
         case "packsCards/SET-PACKS": {
             return {...state, ...action.payload, sortPacks: state.sortPacks, packName: state.packName}
         }
+        case "packsCards/SET-USER-ID-PACKS":
         case "packsCards/SET-SORT-PACKS":
         case "packsCards/SET-CARD-PACKS-TOTAL-COUNT":
         case "packsCards/SET-MAX-CARDS-COUNT":
@@ -48,6 +50,12 @@ export const packsReducer = (state: initialStateType = initialState, action: Com
 }
 
 //Actions
+export const setUserIdPacksAC = (user_id: string) => {
+    return {
+        type: "packsCards/SET-USER-ID-PACKS",
+        payload: {user_id}
+    } as const
+}
 export const setSortPacksAC = (sortPacks: string) => {
     return {
         type: "packsCards/SET-SORT-PACKS",
@@ -108,9 +116,9 @@ export const setCardPacksTotalCountAC = (totalCards: number) => {
 export const getPacksTC = (): AppThunk =>
     (dispatch, getState) => {
 
-        let {packName, minCardsCount, maxCardsCount, pageCount, page, sortPacks} = getState().packs
+        let {packName, minCardsCount, maxCardsCount, pageCount, page, sortPacks, user_id} = getState().packs
         dispatch(setStatusAC('loading'))
-        packsApi.getPacks(packName, minCardsCount, maxCardsCount, sortPacks, page, pageCount)
+        packsApi.getPacks(packName, minCardsCount, maxCardsCount, sortPacks, page, pageCount, user_id)
             .then(res => {
                 dispatch(setPacksCardsAC(res.data))
                 dispatch(setStatusAC('succeeded'))
@@ -188,3 +196,4 @@ type CombinePacksTypeAC =
     | ReturnType<typeof setIsInitializedAC>
     | ReturnType<typeof setAppErrorAC>
     | ReturnType<typeof setSortPacksAC>
+    | ReturnType<typeof setUserIdPacksAC>
