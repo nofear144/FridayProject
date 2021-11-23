@@ -1,11 +1,24 @@
-import React, {memo, useEffect, useState} from "react";
+import React, {ChangeEvent, memo, useEffect, useState} from "react";
 import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import {useDispatch} from "react-redux";
 
 import Window from "../../f1-auth/m4-new-password/Window";
 import Loader from "../../f1-auth/m3-reset-password/Loader";
 import s from "../../f1-auth/m3-reset-password/ResetPassword.module.css";
-import {deleteCardTC, getAllCardsTC} from "../../../n1-main/n2-bll/reducers/cards-reducer";
+import {
+    createNewCardTC,
+    deleteCardTC,
+    getAllCardsTC,
+    setSortCardsAC,
+    updateCardTC
+} from "../../../n1-main/n2-bll/reducers/cards-reducer";
+import {Table} from "../../../n1-main/n1-ui/common/c7-table/Table";
+import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
+import {Spinner} from "../../../n1-main/n1-ui/common/c5-spinner/Spinner";
+import {Navigate} from "react-router-dom";
+import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
+import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
+import {Paginator} from "../../../n1-main/n1-ui/common/pagination/pagination";
 
 
 export const CardsList = memo(() => {
@@ -20,46 +33,80 @@ export const CardsList = memo(() => {
     const min = useAppSelector(state => state.cards.min);
     const max = useAppSelector(state => state.cards.max);
     const pageCount = useAppSelector(state => state.cards.pageCount);
+    const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount);
     const sortCards = useAppSelector(state => state.cards.sortCards);
 
     const cardsPack_id = useAppSelector(state => state.cards.cardsPack_id)
-
+    const isInitialize = useAppSelector(state => state.app.isInitialize);
+    const isLoggedIn = useAppSelector(state => state.login.isLogged);
+const[currentPage,setCurrentPage]=useState(1)
     const dispatch = useDispatch()
 
-    const deleteCard = (id:string)=>{
-        console.log(id)
+    const onPageChanged=(page:number)=>{
+        setCurrentPage(page)
+    }
+
+    const deleteCard = (id: string) => {
         dispatch(deleteCardTC(id))
     }
-    // useEffect(() => {
-    //     dispatch(getAllCardsTC(cardAnswer, cardQuestion, grade, currentPage))
-    // }, [dispatch, cardAnswer, cardQuestion, grade, currentPage])
+    const updateCard = (id: string) => {
+        dispatch(updateCardTC(id, "CHANGED QUESTION", "CHANGED ANSWER"))
+    }
+    const createCard = () => {
+        dispatch(createNewCardTC(cardsPack_id,"How are you?", "I'm fine", 5,4))
+    }
+
+    const header = {
+        answer: "Answer",
+        question: "Question",
+        grade: "Grade",
+        updated: "Updated",
+        buttons: "Actions"
+    }
+
+    const sortCard = () => {
+        sortCards==="0updated"
+            ? dispatch(setSortCardsAC("1updated"))
+            :dispatch(setSortCardsAC("0updated"))
+    }
 
     useEffect(() => {
         dispatch(getAllCardsTC())
-    }, [sortCards,page,max,min,cardsPack_id,pageCount])
+    }, [sortCards, page, max, min, cardsPack_id, pageCount])
+
+    useEffect(() => {
+        if(!isInitialize){
+            dispatch(initializeTC())
+        }
+    }, [])
+
+    if (!isInitialize) {
+        return <div className={s.loader}> <Spinner/> </div>
+    }
+
+    if (isInitialize && !isLoggedIn) {
+        return <Navigate to={PATH.LOGIN}/>
+    }
 
     return (
         <Window>
             {status === "loading" && <Loader/>}
-            <form className={s.container}>
-                HELLO I'M CARDS LIST
-                {cards.map((el) => {
-                    return <div key={el._id}>
-                        <div>Question: {el.question}</div>
-                        <div>Answer: {el.answer}</div>
-                        <div>Created: {el.created}</div>
-                        <div>Grade: {el.grade}</div>
-                        <div>Grade: {el.updated}</div>
-                        <button onClick={()=>deleteCard(el._id)}>delete</button>
-                        <br/>
-                    </div>
+            <div>
+                <SuperButton name="Create card" onClick={createCard}/>
 
-                })}
-                {/*{cards.map(el => <div>{el.answer}</div>)}*/}
-                {/*{cards.map(el => <div>{el.question}</div>)}*/}
-                {/*{cards.map(el => <div>{el.created}</div>)}*/}
-                {/*{cards.map(el => <div>{el.grade}</div>)}*/}
-            </form>
+                <Table
+                    onDeleteClickHandler={deleteCard}
+                    onUpdateUpdateHandler={updateCard}
+                    onSortClickHandler={sortCard}
+                    header={header}
+                    items={cards}/>
+                <Paginator
+                    currentPage={currentPage}
+                pageSize={page}
+                totalItemsCount={cardsTotalCount}
+                onPageChanged={onPageChanged}
+                portionSize={pageCount}/>
+            </div>
         </ Window>
     )
 })

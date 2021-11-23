@@ -22,8 +22,8 @@ const initialState = {
     id: "",
     cardAnswer: null,
     cardQuestion: null,
-    cardsPack_id: "619932515665e51adcfdb9c2",
-    sortCards: "",
+    cardsPack_id: "619ccba94f185200047ad5ad",
+    sortCards: "0update",
     cardsTotalCount: 5
 }
 
@@ -63,18 +63,13 @@ export const setPageAC = (page: number) => ({type: "cards/SET_PAGE", payload: {p
 //Thunks
 export const getAllCardsTC = (): AppThunk =>
     (dispatch, getState) => {
-        // dispatch: ThunkDispatch<rootReducerType, void, CombinePacksTypeAC>
-
-        dispatch(setStatusAC("loading"))
-
+            dispatch(setStatusAC("loading"))
         let {cardAnswer, cardQuestion, pageCount, cardsPack_id, min, max, sortCards, page} = getState().cards
-
         cardsApi.getCards(cardQuestion, cardAnswer, pageCount, cardsPack_id, min, max, sortCards, page)
             .then(res => {
-                console.log(getState().cards)
-                console.log(res)
                 dispatch(setAllCardsAC(res.data))
-
+                console.log(getState().cards)
+                console.log(initialState)
                 dispatch(setStatusAC("succeeded"))
             }).catch(err => {
             dispatch(setStatusAC("failed"))
@@ -83,12 +78,15 @@ export const getAllCardsTC = (): AppThunk =>
                 : (err.message + 'some message from backend')
             dispatch(setAppErrorAC(error))
         })
+            .finally(() => {
+                dispatch(setStatusAC('idle'))
+            })
     }
 
-export const createNewCardTC = (answer: string, question: string, grade: number, cardsPack_id: string, shots: number): AppThunk =>
+export const createNewCardTC = (cardsPack_id: string, answer: string, question: string, grade: number, shots: number): AppThunk =>
     async (dispatch) => {
         dispatch(setStatusAC("loading"))
-        await cardsApi.postCard(answer, question, grade, cardsPack_id, shots)
+        await cardsApi.postCard({cardsPack_id, answer, question, grade, shots})
             .then(res => {
                 dispatch(setStatusAC("succeeded"))
             }).catch(err => {
@@ -97,6 +95,9 @@ export const createNewCardTC = (answer: string, question: string, grade: number,
                     ? err.response.data.error
                     : (err.message + 'some message from backend')
                 dispatch(setAppErrorAC(error))
+            })
+            .finally(() => {
+                dispatch(setStatusAC('idle'))
             })
         dispatch(getAllCardsTC())
     }
@@ -113,12 +114,15 @@ export const deleteCardTC = (id: string): AppThunk => async (dispatch) => {
                 : (err.message + 'some message from backend')
             dispatch(setAppErrorAC(error))
         })
+        .finally(() => {
+            dispatch(setStatusAC('idle'))
+        })
     dispatch(getAllCardsTC())
 }
 
 export const updateCardTC = (_id: string, question: string, answer: string): AppThunk => async (dispatch) => {
     dispatch(setStatusAC("loading"))
-    await cardsApi.updateCard(_id, question, answer)
+    await cardsApi.updateCard({_id, question, answer})
         .then(res => {
             dispatch(setStatusAC("succeeded"))
         })
@@ -128,6 +132,9 @@ export const updateCardTC = (_id: string, question: string, answer: string): App
                 ? err.response.data.error
                 : (err.message + 'some message from backend')
             dispatch(setAppErrorAC(error))
+        })
+        .finally(() => {
+            dispatch(setStatusAC('idle'))
         })
     dispatch(getAllCardsTC())
 }

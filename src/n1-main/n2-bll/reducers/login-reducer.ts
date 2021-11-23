@@ -7,6 +7,7 @@ import {NewPasswordAPI, recoveryMessageType, setNewPasswordType} from "../../n3-
 
 const initialState = {
     isLogged: false,
+    token:"",
 }
 
 export const loginReducer = (state:initialStateType = initialState, action: CombineActionType): initialStateType => {
@@ -39,7 +40,10 @@ export const LoginTC = ({email, password, rememberMe}: LoginPayloadType) => (dis
 
         })
         .catch(e => {
-            dispatch(setAppErrorAC(e.response.data.error))
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            dispatch(setAppErrorAC(error));
             dispatch(setStatusAC("idle"))
         })
 }
@@ -62,6 +66,7 @@ export const initializeTC = () => (dispatch: Dispatch) => {
             dispatch(setIsLoggedInAC(true))
             dispatch(setIsInitializedAC(true))
             dispatch(setStatusAC("succeeded"))
+            dispatch(setUserProfileAC(data._id, data.name, data.avatar))
         })
         .catch(e => {
             dispatch(setAppErrorAC(e.response.data.error))
