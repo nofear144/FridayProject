@@ -1,6 +1,5 @@
 import {packsApi, RequestPacksType} from "../../n3-dal/packs-api";
 import {AppThunk} from "../store/store";
-
 import {setAppErrorAC, setIsInitializedAC, setStatusAC} from "./app-reducer";
 
 
