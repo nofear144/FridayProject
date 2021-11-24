@@ -44,7 +44,6 @@ export const ResetPassword = memo(() => {
     }
 
     useEffect(() => {
-        console.log(status)
         if (status === "succeeded") {
             navigate(`${PATH.CHECK_EMAIL}/${email}`)
             return function cleanup() {

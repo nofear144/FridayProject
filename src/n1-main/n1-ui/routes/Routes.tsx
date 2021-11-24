@@ -24,7 +24,7 @@ export const PATH = {
     PROFILE: '/FridayProject',
     CHECK_EMAIL: "/check_email",
     CARDS_LIST: "/cardsList",
-    PACKS_LIST:"/packsList"
+    PACKS_LIST: "/packsList"
 
 }
 
@@ -45,11 +45,12 @@ export function RoutesPage() {
                 <Route path={PATH.PROFILE} element={<Profile/>}/>
                 <Route path={"*"} element={<NotFound404/>}/>
                 <Route path={PATH.CHECK_EMAIL} element={<CheckEmail/>}>
-                    <Route path=":email" element={<NewPassword/>}/>
+                    <Route path=":email" element={<CheckEmail/>}/>
                 </Route>
                 <Route path={"/packsList"} element={<PacksList/>}/>
-                <Route path={PATH.CARDS_LIST} element={<CardsList/>}/>
-
+                <Route path={PATH.CARDS_LIST} element={<CardsList/>}>
+                    <Route path=":id" element={<CardsList/>}/>
+                </Route>
             </Routes>
 
         </div>

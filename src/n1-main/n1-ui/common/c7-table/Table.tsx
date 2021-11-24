@@ -46,7 +46,7 @@ export const Table: FC<Props> = memo(({
             <table className={s.rwdTables}>
               <thead><tr>
                     {titles.map((title, i) => title === "Updated" || title === "Grade"
-                    || title === "Answer" || title === "Question"
+                    || title === "Answer" || title === "Question"|| title==="Name"|| title==="Cards"||title==="Created by"
                         ? <th onClick={() => onSortClickHandler && onSortClickHandler(keys[i])}
                               className={s.sort}>{title} {arrow}</th> : <th>{title}</th>)}
                 </tr>

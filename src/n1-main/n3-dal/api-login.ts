@@ -7,7 +7,7 @@ export const loginAPI = {
         return instance.post<RequestLoginType>("/auth/login", {email, password, rememberMe})
     },
     logout() {
-        return instance.delete("/auth/me")
+        return instance.delete("/auth/me",)
     },
     me() {
         return instance.post("/auth/me").then(res => res.data)
@@ -30,6 +30,7 @@ export type RequestLoginType = {
     email: string
     password: string
     rememberMe: boolean
+    token:string
 }
 
 

@@ -29,3 +29,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
     rootReducerType,
     unknown,
     AnyAction>
+
+// @ts-ignore
+window.store = store;

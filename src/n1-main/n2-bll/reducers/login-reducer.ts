@@ -7,7 +7,6 @@ import {NewPasswordAPI, recoveryMessageType, setNewPasswordType} from "../../n3-
 
 const initialState = {
     isLogged: false,
-    token:"",
 }
 
 export const loginReducer = (state:initialStateType = initialState, action: CombineActionType): initialStateType => {
@@ -23,7 +22,6 @@ export const loginReducer = (state:initialStateType = initialState, action: Comb
 
 
 
-//Actions
 
 export const setIsLoggedInAC = (isLogged: boolean) => {
     return {type: "login/SET-IS-LOGGED-IN-STATUS", payload: {isLogged}} as const
@@ -34,6 +32,7 @@ export const LoginTC = ({email, password, rememberMe}: LoginPayloadType) => (dis
     dispatch(setStatusAC("loading"))
     loginAPI.login({email, password, rememberMe})
         .then(res => {
+
             dispatch(setIsLoggedInAC(true))
             dispatch(setStatusAC("succeeded"))
             dispatch(setUserProfileAC(res.data._id, res.data.name, res.data.avatar))
@@ -55,14 +54,15 @@ export const LogoutTC = () => (dispatch: Dispatch) => {
             dispatch(setStatusAC("succeeded"))
         })
         .finally(() => {
-        dispatch(setStatusAC("idle"))
-    })
+            dispatch(setStatusAC("idle"))
+        })
 
 }
 export const initializeTC = () => (dispatch: Dispatch) => {
     dispatch(setStatusAC("loading"))
     loginAPI.me()
         .then(data => {
+            dispatch(setUserProfileAC(data._id, data.name, data.avatar))
             dispatch(setIsLoggedInAC(true))
             dispatch(setIsInitializedAC(true))
             dispatch(setStatusAC("succeeded"))
@@ -82,7 +82,6 @@ export const sendNewPasswordWithToken = (payload: setNewPasswordType) => (dispat
     dispatch(setStatusAC("loading"))
     NewPasswordAPI.sendNewPasswordWithToken(payload)
         .then(() => {
-
                 dispatch(setStatusAC("succeeded"))
             }
         )
@@ -117,5 +116,6 @@ export type CombineActionType =
     | ReturnType<typeof setIsInitializedAC>
     | ReturnType<typeof setAppErrorAC>
     | ReturnType<typeof setUserProfileAC>
+   // | ReturnType<typeof setUserTokenAC>
 
 type initialStateType = typeof initialState

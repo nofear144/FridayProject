@@ -17,21 +17,24 @@ const initialState = {
         }
     ],
     cardPacksTotalCount: 14,
-    minCardsCount: 0,
-    maxCardsCount: 4,
     page: 1,
     pageCount: 15,
+    minCardsCount: 0,
+    maxCardsCount: 4,
     sortPacks: '0update',
     packName: '',
+    user_id: "",
 
 }
 
 
 export const packsReducer = (state: initialStateType = initialState, action: CombinePacksTypeAC): initialStateType => {
     switch (action.type) {
+
         case "packsCards/SET-PACKS": {
             return {...state, ...action.payload, sortPacks: state.sortPacks, packName: state.packName}
         }
+        case "packsCards/SET-USER-ID-PACKS":
         case "packsCards/SET-SORT-PACKS":
         case "packsCards/SET-CARD-PACKS-TOTAL-COUNT":
         case "packsCards/SET-MAX-CARDS-COUNT":
@@ -40,14 +43,24 @@ export const packsReducer = (state: initialStateType = initialState, action: Com
         case "packsCards/SET-PACKS-SORT":
         case "packsCards/SET-PAGE":
         case "packsCards/SET-PAGE-COUNT": {
+            console.log(action.payload)
             return {...state, ...action.payload}
         }
+
         default:
             return state
     }
+
 }
 
+
 //Actions
+export const setUserIdPacksAC = (user_id: string) => {
+    return {
+        type: "packsCards/SET-USER-ID-PACKS",
+        payload: {user_id}
+    } as const
+}
 export const setSortPacksAC = (sortPacks: string) => {
     return {
         type: "packsCards/SET-SORT-PACKS",
@@ -66,10 +79,10 @@ export const setPacksSortAC = (sortValue: string) => {
         payload: {sortValue}
     } as const
 }
-export const setPacksNameAC = (packsName: string) => {
+export const setPacksNameAC = (packName: string) => {
     return {
         type: "packsCards/SET-PACKS-NAME",
-        payload: {packsName}
+        payload: {packName}
     } as const
 }
 export const setPageCountAC = (pageCount: number) => {
@@ -108,9 +121,9 @@ export const setCardPacksTotalCountAC = (totalCards: number) => {
 export const getPacksTC = (): AppThunk =>
     (dispatch, getState) => {
 
-        let {packName, minCardsCount, maxCardsCount, pageCount, page, sortPacks} = getState().packs
+        let {packName, minCardsCount, maxCardsCount, pageCount, page, sortPacks, user_id} = getState().packs
         dispatch(setStatusAC('loading'))
-        packsApi.getPacks(packName, minCardsCount, maxCardsCount, sortPacks, page, pageCount)
+        packsApi.getPacks(packName, minCardsCount, maxCardsCount, sortPacks, page, pageCount, user_id)
             .then(res => {
                 dispatch(setPacksCardsAC(res.data))
                 dispatch(setStatusAC('succeeded'))
@@ -122,7 +135,6 @@ export const getPacksTC = (): AppThunk =>
             .finally(() => {
                 dispatch(setStatusAC('idle'))
             })
-
     }
 
 export const deletePackTC = (packId: string): AppThunk => (dispatch) => {
@@ -130,6 +142,10 @@ export const deletePackTC = (packId: string): AppThunk => (dispatch) => {
     packsApi.deletePack(packId)
         .then(res => {
             dispatch(setStatusAC('succeeded'))
+
+        })
+        .then(res=>{
+            dispatch(getPacksTC())
         })
         .catch(e => {
             dispatch(setAppErrorAC(e.response.data.error))
@@ -138,13 +154,17 @@ export const deletePackTC = (packId: string): AppThunk => (dispatch) => {
         .finally(() => {
             dispatch(setStatusAC('idle'))
         })
-    dispatch(getPacksTC())
+
 }
 export const addPackTC = (name: string, isPrivate: boolean): AppThunk => (dispatch) => {
     dispatch(setStatusAC('loading'))
     packsApi.addPack({name, isPrivate})
         .then(res => {
             dispatch(setStatusAC('succeeded'))
+
+        })
+        .then(res=>{
+            dispatch(getPacksTC())
         })
         .catch(e => {
             dispatch(setAppErrorAC(e.response.data.error))
@@ -153,7 +173,7 @@ export const addPackTC = (name: string, isPrivate: boolean): AppThunk => (dispat
         .finally(() => {
             dispatch(setStatusAC('idle'))
         })
-    dispatch(getPacksTC())
+
 }
 export const updatePackTC = (_id: string, name: string): AppThunk => (dispatch) => {
     dispatch(setStatusAC('loading'))
@@ -162,6 +182,9 @@ export const updatePackTC = (_id: string, name: string): AppThunk => (dispatch) 
                 dispatch(setStatusAC('succeeded'))
             }
         )
+        .then(res=>{
+            dispatch(getPacksTC())
+        })
         .catch(e => {
             dispatch(setAppErrorAC(e.response.data.error))
             dispatch(setStatusAC('failed'))
@@ -169,7 +192,7 @@ export const updatePackTC = (_id: string, name: string): AppThunk => (dispatch) 
         .finally(() => {
             dispatch(setStatusAC('idle'))
         })
-    dispatch(getPacksTC())
+
 }
 
 
@@ -188,3 +211,4 @@ type CombinePacksTypeAC =
     | ReturnType<typeof setIsInitializedAC>
     | ReturnType<typeof setAppErrorAC>
     | ReturnType<typeof setSortPacksAC>
+    | ReturnType<typeof setUserIdPacksAC>
