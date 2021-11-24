@@ -44,7 +44,7 @@ export const Table: FC<Props> = memo(({
         <Window>
 
             <table className={s.rwdTables}>
-              <thead> <tr>
+              <thead><tr>
                     {titles.map((title, i) => title === "Updated" || title === "Grade"
                     || title === "Answer" || title === "Question"
                         ? <th onClick={() => onSortClickHandler && onSortClickHandler(keys[i])}
