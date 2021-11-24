@@ -13,4 +13,23 @@
   }
 }
 
+.container {
+  min-width: 1050px;
+  display: flex;
+}
 
+.sideBar {
+  min-width: 300px;
+  background-color: #5c758d;
+  display: flex;
+  justify-content: center;
+}
+
+.toggle{
+  display: flex;
+}
+
+.buttons {
+  margin-top: 100px;
+  min-width: 100px;
+}

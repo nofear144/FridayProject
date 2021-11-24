@@ -20,8 +20,10 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
     }
 ) => {
     const onClickCallback = (e: MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
         onClick
         && onClick(e)
+
     }
 
     let buttonStyle = `${s.btn} ${s.btnPrimary}`
@@ -33,7 +35,7 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
 
     return (
         <div className={s.btnBox}>
-            <button onClick={onClickCallback} className={buttonStyle} {...restProps} type="submit">{name}</button>
+            <button onClick={onClickCallback} className={`${buttonStyle} ${className}`} {...restProps} type="submit">{name}</button>
         </div>
 
     )
