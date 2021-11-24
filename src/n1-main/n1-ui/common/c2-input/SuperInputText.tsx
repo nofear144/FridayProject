@@ -48,7 +48,7 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
                        onChange={onChangeCallback}
                        onKeyPress={onKeyPressCallback}
                 />
-                <span className={s.bar}></span>
+                <span className={s.bar}> </span>
                 <label>{name}</label>
                 {error && <span className={finalSpanClassName}>{error}</span>}
             </div>

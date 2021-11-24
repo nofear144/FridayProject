@@ -98,11 +98,10 @@ export const PacksList = memo(() => {
     const setPage = (value: number) => {
         dispatch(setPageAC(value))
     }
-    const onRangeChange = (min: number, max: number ) => {
+    const onRangeChange = (min: number, max: number) => {
         setLocalMaxValue(max)
         setLocalMinValue(min)
     }
-
 
 
     if (!isInitialize) {
@@ -118,33 +117,40 @@ export const PacksList = memo(() => {
             {status === "loading" && <Loader/>}
             <div className={s.container}>
                 <div className={s.sideBar}>
+                    <label className={s.label}><h3>Show cards packs:</h3>
                     <div className={s.toggle}>
                         <SuperButton className={s.buttons} name={"My"} onClick={myPack}/>
                         <SuperButton className={s.buttons} name={"All"} onClick={allPack}/>
                     </div>
-                <Range min={0} max={103} onChange={onRangeChange}/>
+                    </label>
+                    <label className={s.label}><h3>Cards in a pack</h3>
+                    <Range min={0} max={103} onChange={onRangeChange}/>
+                    </label>
                 </div>
                 <div className={s.table}>
-                    <div>
-                        <SuperInputText onChangeText={setSearchValue} name={"Search"}/>
+                    <div className={s.tableContainer}>
+                        <h1 className={s.DaNuNa}>FlashCards</h1>
+                        <div className={s.header}>
+                            <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
+                            <SuperButton name={"Add Pack"} onClick={addPack}/>
+                        </div>
+
+
+                        <Table
+                            onRowClickHandler={routeToCard}
+                            onSortClickHandler={sortPack}
+                            onUpdateUpdateHandler={updatePack}
+                            onDeleteClickHandler={deletePack}
+                            items={cardPacks} header={{
+                            name: "Name",
+                            cardsCount: "Cards",
+                            updated: "Updated",
+                            user_name: "Created by",
+                            buttons: ""
+                        }}/>
+                        <Pagination cardPacksTotalCount={cardPacksTotalCount} page={page} pageCount={pageCount}
+                                    setPage={setPage}/>
                     </div>
-                    <SuperButton name={"Add Pack"} onClick={addPack}/>
-
-                    <Table
-                        onRowClickHandler={routeToCard}
-                        onSortClickHandler={sortPack}
-                        onUpdateUpdateHandler={updatePack}
-                        onDeleteClickHandler={deletePack}
-                        items={cardPacks} header={{
-                        name: "Name",
-                        cardsCount: "Cards",
-                        updated: "Updated",
-                        user_name: "Created by",
-                        buttons: ""
-                    }}/>
-                    <Pagination cardPacksTotalCount={cardPacksTotalCount} page={page} pageCount={pageCount}
-                                setPage={setPage}/>
-
                 </div>
             </div>
         </ Window>

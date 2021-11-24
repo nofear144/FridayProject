@@ -22,14 +22,39 @@
   min-width: 300px;
   background-color: #5c758d;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .toggle{
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 40px;
+  width: 300px;
 }
 
 .buttons {
-  margin-top: 100px;
   min-width: 100px;
+}
+
+.header {
+  height: 80px;
+  margin: 1em 2em;
+  display: flex;
+  align-items: center;
+ justify-content: space-between;
+}
+
+.label {
+  text-align: center;
+margin-top: 100px;
+}
+
+.tableContainer {
+
+}
+
+.DaNuNa {
+  padding-left: 1em;
 }

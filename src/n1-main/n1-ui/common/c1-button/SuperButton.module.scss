@@ -52,10 +52,11 @@ $width: 320px;
 
   &.btnSecondary {
     background: #eee;
+    color: $hl-color;
 
     &:hover {
       background: darken(#eee, 5%);
-      color: mix(black, $muted-color, 50%);
+      color: mix(black, $muted-color, 80%);
     }
   }
 }

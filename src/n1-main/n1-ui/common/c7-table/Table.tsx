@@ -41,34 +41,33 @@ export const Table: FC<Props> = memo(({
 
 
     return (
-        <Window>
 
-            <table className={s.rwdTables}>
-              <thead><tr>
-                    {titles.map((title, i) => title === "Updated" || title === "Grade"
-                    || title === "Answer" || title === "Question"|| title==="Name"|| title==="Cards"||title==="Created by"
-                        ? <th onClick={() => onSortClickHandler && onSortClickHandler(keys[i])}
-                              className={s.sort}>{title} {arrow}</th> : <th>{title}</th>)}
-                </tr>
+        <table className={s.rwdTables}>
+            <thead>
+            <tr>
+                {titles.map((title, i) => title === "Updated" || title === "Grade"
+                || title === "Answer" || title === "Question" || title === "Name" || title === "Cards" || title === "Created by"
+                    ? <th onClick={() => onSortClickHandler && onSortClickHandler(keys[i])}
+                          className={s.sort}>{title} {arrow}</th> : <th>{title}</th>)}
+            </tr>
             </thead>
-                <tbody>
+            <tbody>
             {items.map(item =>
-                    <tr onClick={() => onRowClickHandler && onRowClickHandler(item._id)}>
-                        {keys.map((key, index) =>
-                            <td data-th={titles[index]}>
-                                {key === "buttons" && item.user_id === userId ?
-                                    <div style={{display: "flex", justifyContent: "center",}}>
-                                        <SuperButton
-                                            onClick={() => onUpdateUpdateHandler && onUpdateUpdateHandler(item._id)}
-                                            name={"update"} variant="secondary"/>
-                                        <SuperButton
-                                            onClick={() => onDeleteClickHandler && onDeleteClickHandler(item._id)}
-                                            name={"delete"}/>
-                                    </div> : item[key]}
-                            </td>)}
-                    </tr>)}
-                </tbody>
-            </table>
-        </Window>
+                <tr onClick={() => onRowClickHandler && onRowClickHandler(item._id)}>
+                    {keys.map((key, index) =>
+                        <td data-th={titles[index]}>
+                            {key === "buttons" && item.user_id === userId ?
+                                <div style={{display: "flex", justifyContent: "center",}}>
+                                    <SuperButton
+                                        onClick={() => onUpdateUpdateHandler && onUpdateUpdateHandler(item._id)}
+                                        name={"update"} variant="secondary"/>
+                                    <SuperButton
+                                        onClick={() => onDeleteClickHandler && onDeleteClickHandler(item._id)}
+                                        name={"delete"}/>
+                                </div> : item[key]}
+                        </td>)}
+                </tr>)}
+            </tbody>
+        </table>
     )
 })
