@@ -8,7 +8,7 @@ import {Navigate, useNavigate} from "react-router-dom";
 import {
     addPackTC,
     deletePackTC,
-    getPacksTC, setPacksNameAC, setPageAC,
+    getPacksTC, setMaxPacksCountAC, setMinPacksCountAC, setPacksNameAC, setPageAC,
     setSortPacksAC,
     setUserIdPacksAC,
     updatePackTC
@@ -20,8 +20,9 @@ import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import s from "./PacksList.module.scss"
-import {createPages} from "../../../n1-main/n4-utils/createPages";
+import {createPages} from "../../../n1-main/utils/createPages";
 import {Pagination} from "../../../n1-main/n1-ui/common/pagination/paginationByIliya";
+import Range from "../../../n1-main/n1-ui/common/c9-range/Range";
 
 
 export const PacksList = memo(() => {
@@ -39,24 +40,37 @@ export const PacksList = memo(() => {
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
     const page = useAppSelector(state => state.packs.page);
     const pageCount = useAppSelector(state => state.packs.pageCount);
+    const localmaxCardsCount = useAppSelector(state => state.packs.localmaxCardsCount);
+    const localminCardsCount = useAppSelector(state => state.packs.localminCardsCount);
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [localMaxValue, setLocalMaxValue] = useState(0)
+    const [localMinValue, setLocalMinValue] = useState(103)
 
 
     const [searchValue, setSearchValue] = useState("")
-
     useEffect(() => {
         if (!isInitialize) {
             dispatch(initializeTC())
         }
     }, [])
     useEffect(() => {
+        console.log("called")
         dispatch(getPacksTC())
-    }, [packName, minCardsCount, maxCardsCount, sortPacks, page, pageCount, user_id])
+    }, [packName, localmaxCardsCount, localminCardsCount, sortPacks, page, pageCount, user_id])
     useEffect(() => {
         let timer = setTimeout(() => dispatch(setPacksNameAC(searchValue)), 500)
         return () => clearTimeout(timer)
     }, [searchValue])
+
+    useEffect(() => {
+        let timer1 = setTimeout(() => {
+            dispatch(setMaxPacksCountAC(localMaxValue))
+            dispatch(setMinPacksCountAC(localMinValue))
+        }, 500)
+        return () => clearTimeout(timer1)
+    }, [localMaxValue, localMinValue])
 
 
     const routeToCard = (id: string) => {
@@ -85,6 +99,10 @@ export const PacksList = memo(() => {
     const setPage = (value: number) => {
         dispatch(setPageAC(value))
     }
+    const onRangeChange = (min: number, max: number ) => {
+        setLocalMaxValue(max)
+        setLocalMinValue(min)
+    }
 
 
 
@@ -99,26 +117,34 @@ export const PacksList = memo(() => {
     return (
         <Window>
             {status === "loading" && <Loader/>}
-            <div>
-                <div>
-                    <SuperInputText onChangeText={setSearchValue} name={"Search"}/>
+            <div className={s.container}>
+                <div className={s.sideBar}>
+                    <div className={s.toggle}>
+                        <SuperButton className={s.buttons} name={"My"} onClick={myPack}/>
+                        <SuperButton className={s.buttons} name={"All"} onClick={allPack}/>
+                    </div>
+                <Range min={0} max={103} onChange={onRangeChange}/>
                 </div>
-                <SuperButton name={"Add Pack"} onClick={addPack}/>
-                <SuperButton name={"My"} onClick={myPack}/>
-                <SuperButton name={"All"} onClick={allPack}/>
-                <Table
-                    onRowClickHandler={routeToCard}
-                    onSortClickHandler={sortPack}
-                    onUpdateUpdateHandler={updatePack}
-                    onDeleteClickHandler={deletePack}
-                    items={cardPacks} header={{
-                    name: "Name",
-                    cardsCount: "Cards",
-                    updated: "Updated",
-                    user_name: "Created by",
-                    buttons: ""
-                }}/>
-                <Pagination cardPacksTotalCount={cardPacksTotalCount} page={page} pageCount={pageCount} setPage={setPage}/>
+                <div className={s.table}>
+                    <div>
+                        <SuperInputText onChangeText={setSearchValue} name={"Search"}/>
+                    </div>
+                    <SuperButton name={"Add Pack"} onClick={addPack}/>
+
+                    <Table
+                        onRowClickHandler={routeToCard}
+                        onSortClickHandler={sortPack}
+                        onUpdateUpdateHandler={updatePack}
+                        onDeleteClickHandler={deletePack}
+                        items={cardPacks} header={{
+                        name: "Name",
+                        cardsCount: "Cards",
+                        updated: "Updated",
+                        user_name: "Created by",
+                        buttons: ""
+                    }}/>
+                    <Pagination cardPacksTotalCount={cardPacksTotalCount} page={page} pageCount={pageCount}
+                                setPage={setPage}/>
 
             </div>
         </ Window>

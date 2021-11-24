@@ -1,5 +1,5 @@
 $bg-color: #424242;
-$hl-color: #2196F3;
+$hl-color: #1e2c39;
 $muted-color: mix(white, $bg-color, 70%);
 $trans-time: 300ms;
 $width: 320px;
@@ -55,7 +55,7 @@ $width: 320px;
 
     &:hover {
       background: darken(#eee, 5%);
-      color: mix(black, $muted-color, 30%);
+      color: mix(black, $muted-color, 50%);
     }
   }
 }
