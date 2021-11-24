@@ -2,13 +2,24 @@ a{
     color:white;
     text-decoration: none;
     cursor: pointer;
+    padding: 20px;
 }
+.container {
+    width: 1220px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.linksContainer {
+}
+
 .header{
-    padding:25px;
+    color: white;
     background-color: #33495f;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: center;
     min-width: 600px;
-    min-height: 35px;
+    min-height: 30px;
 }

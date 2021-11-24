@@ -29,8 +29,6 @@ export const PacksList = memo(() => {
     const status = useAppSelector(state => state.app.status);
     const cardPacks = useAppSelector(state => state.packs.cardPacks);
     const packName = useAppSelector(state => state.packs.packName);
-    const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
-    const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
     const sortPacks = useAppSelector(state => state.packs.sortPacks);
     const isInitialize = useAppSelector(state => state.app.isInitialize);
     const isLoggedIn = useAppSelector(state => state.login.isLogged);
@@ -129,7 +127,7 @@ export const PacksList = memo(() => {
                 </div>
                 <div className={s.table}>
                     <div className={s.tableContainer}>
-                        <h1 className={s.DaNuNa}>FlashCards</h1>
+                        <h2 className={s.DaNuNa}>Packs list</h2>
                         <div className={s.header}>
                             <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
                             <SuperButton name={"Add Pack"} onClick={addPack}/>
