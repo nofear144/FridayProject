@@ -17,10 +17,10 @@ const initialState = {
         }
     ],
     cardPacksTotalCount: 14,
-    minCardsCount: 0,
-    maxCardsCount: 4,
     page: 1,
     pageCount: 15,
+    minCardsCount: 0,
+    maxCardsCount: 4,
     sortPacks: '0update',
     packName: '',
     user_id: "",

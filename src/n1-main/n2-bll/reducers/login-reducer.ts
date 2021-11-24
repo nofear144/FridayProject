@@ -82,7 +82,6 @@ export const sendNewPasswordWithToken = (payload: setNewPasswordType) => (dispat
     dispatch(setStatusAC("loading"))
     NewPasswordAPI.sendNewPasswordWithToken(payload)
         .then(() => {
-
                 dispatch(setStatusAC("succeeded"))
             }
         )

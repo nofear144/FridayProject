@@ -8,18 +8,20 @@ import {Navigate, useNavigate} from "react-router-dom";
 import {
     addPackTC,
     deletePackTC,
-    getPacksTC, setPacksNameAC,
+    getPacksTC, setPacksNameAC, setPageAC,
     setSortPacksAC,
     setUserIdPacksAC,
     updatePackTC
 } from "../../../n1-main/n2-bll/reducers/packs-reducer";
 import {Table} from "../../../n1-main/n1-ui/common/c7-table/Table";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
-import s from "../../f2-profile/Profile.module.css";
 import {Spinner} from "../../../n1-main/n1-ui/common/c5-spinner/Spinner";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
+import s from "./PacksList.module.scss"
+import {createPages} from "../../../n1-main/utils/createPages";
+import {Pagination} from "../../../n1-main/n1-ui/common/pagination/paginationByIliya";
 
 
 export const PacksList = memo(() => {
@@ -30,12 +32,13 @@ export const PacksList = memo(() => {
     const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
     const sortPacks = useAppSelector(state => state.packs.sortPacks);
-    const page = useAppSelector(state => state.packs.page);
-    const pageCount = useAppSelector(state => state.packs.pageCount);
     const isInitialize = useAppSelector(state => state.app.isInitialize);
     const isLoggedIn = useAppSelector(state => state.login.isLogged);
     const _id = useAppSelector(state => state.profile._id);
     const user_id = useAppSelector(state => state.packs.user_id);
+    const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
+    const page = useAppSelector(state => state.packs.page);
+    const pageCount = useAppSelector(state => state.packs.pageCount);
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -55,7 +58,7 @@ export const PacksList = memo(() => {
     }, [searchValue])
 
 
-    const routeToCard = (id:string) => {
+    const routeToCard = (id: string) => {
         navigate(`${PATH.CARDS_LIST}/${id}`)
     }
     const myPack = () => {
@@ -78,6 +81,10 @@ export const PacksList = memo(() => {
             ? dispatch(setSortPacksAC(`0${param}`))
             : dispatch(setSortPacksAC(`1${param}`))
     }
+    const setPage = (value: number) => {
+        dispatch(setPageAC(value))
+    }
+
 
 
     if (!isInitialize) {
@@ -86,6 +93,7 @@ export const PacksList = memo(() => {
     if (isInitialize && !isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
     }
+
 
     return (
         <Window>
@@ -109,6 +117,8 @@ export const PacksList = memo(() => {
                     user_name: "Created by",
                     buttons: ""
                 }}/>
+                <Pagination cardPacksTotalCount={cardPacksTotalCount} page={page} pageCount={pageCount} setPage={setPage}/>
+
             </div>
         </ Window>
     )
