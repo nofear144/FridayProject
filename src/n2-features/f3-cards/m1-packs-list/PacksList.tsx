@@ -20,7 +20,7 @@ import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import s from "./PacksList.module.scss"
-import {createPages} from "../../../n1-main/utils/createPages";
+import {createPages} from "../../../n1-main/n4-utils/createPages";
 import {Pagination} from "../../../n1-main/n1-ui/common/pagination/paginationByIliya";
 
 
@@ -44,6 +44,7 @@ export const PacksList = memo(() => {
 
 
     const [searchValue, setSearchValue] = useState("")
+
     useEffect(() => {
         if (!isInitialize) {
             dispatch(initializeTC())

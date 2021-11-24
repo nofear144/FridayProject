@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {createPages} from "../../../utils/createPages";
+import {createPages} from "../../../n4-utils/createPages";
 import s from "../../../../n2-features/f3-cards/m1-packs-list/PacksList.module.scss";
 
 
