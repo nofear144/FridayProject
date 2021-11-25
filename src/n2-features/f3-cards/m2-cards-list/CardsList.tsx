@@ -68,6 +68,7 @@ export const CardsList = memo(() => {
 
     let {id} = useParams<string>()
     let navigate = useNavigate();
+
     function handleClick() {
         navigate(PATH.PACKS_LIST);
     }
@@ -81,7 +82,7 @@ export const CardsList = memo(() => {
         dispatch(setPageAC(value))
     }
     const setPageCount = (pageCount: number) => {
-        console.log("pageCount ",pageCount)
+        console.log("pageCount ", pageCount)
         dispatch(setPageCountAC(pageCount))
     }
 
@@ -115,7 +116,7 @@ export const CardsList = memo(() => {
     return (
         <Window>
             {status === "loading" && <Loader/>}
-            <div>
+            <div className={style.main}>
                 <span className={style.image}>
                     <img src={backImage} alt="previous page" onClick={handleClick}/>
                        <h2 style={{margin: "-7px 0 20px 20px"}}>Back</h2>
@@ -125,23 +126,25 @@ export const CardsList = memo(() => {
                     <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
                     <SuperButton name="Create card" onClick={createCard}/>
                 </div>
+                <div className={style.table}>
                 <Table
                     onDeleteClickHandler={deleteCard}
                     onUpdateUpdateHandler={updateCard}
                     onSortClickHandler={sortCard}
                     header={header}
                     items={cards}/>
+                </div>
                 <div className={style.pagination}>
                     <Pagination
                         cardsTotalCount={cardsTotalCount}
                         page={page}
                         pageCount={pageCount}
                         setPage={setPage}/>
-                    <SuperSelect
+                    {!cardsTotalCount ? null : <SuperSelect
                         name="Cards per page"
                         value={pageCount}
                         options={options}
-                        onChangeOption={setPageCount}/>
+                        onChangeOption={setPageCount}/>}
                 </div>
             </div>
         </ Window>
