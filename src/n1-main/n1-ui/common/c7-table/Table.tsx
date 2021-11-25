@@ -47,15 +47,15 @@ export const Table: FC<Props> = memo(({
             <tr>
                 {titles.map((title, i) => title === "Updated" || title === "Grade"
                 || title === "Answer" || title === "Question" || title === "Name" || title === "Cards" || title === "Created by"
-                    ? <th onClick={() => onSortClickHandler && onSortClickHandler(keys[i])}
-                          className={s.sort}>{title} {arrow}</th> : <th>{title}</th>)}
+                    ? <th key={title} onClick={() => onSortClickHandler && onSortClickHandler(keys[i])}
+                          className={s.sort}>{title} {arrow}</th> : <th key={title}>{title}</th>)}
             </tr>
             </thead>
             <tbody>
             {items.map(item =>
                 <tr onClick={() => onRowClickHandler && onRowClickHandler(item._id)}>
                     {keys.map((key, index) =>
-                        <td data-th={titles[index]}>
+                        <td key={key} data-th={titles[index]}>
                             {key === "buttons" && item.user_id === userId ?
                                 <div style={{display: "flex", justifyContent: "center",}}>
                                     <SuperButton
