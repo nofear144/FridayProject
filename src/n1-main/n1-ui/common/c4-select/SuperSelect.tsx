@@ -36,7 +36,7 @@ const SuperSelect: React.FC<SuperSelectPropsType> = (
         <div className={s.wrap} >
 
             <div className={s.select}>
-                <select onChange={onChangeCallback} className={s.selectText} required>
+                <select onChange={onChangeCallback} {...restProps} className={s.selectText} required>
                     {/*<option value="" disabled selected></option>*/}
                     {/*<option value="1">{options}</option>*/}
                     {/*<option value="2">Option 2</option>*/}

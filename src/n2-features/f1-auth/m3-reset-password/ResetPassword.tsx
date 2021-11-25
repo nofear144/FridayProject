@@ -55,17 +55,19 @@ export const ResetPassword = memo(() => {
 
     return (
         <Window>
-            {status === "loading" && <Loader/>}
-            <form className={s.container} onSubmit={handleOnSubmit}>
-                <span className={s.title}>it-cards</span>
-                <h1 className={s.subTitle}>Forgot your password?</h1>
-                <SuperInputText onChangeText={handleOnChangeText} type="text" required name="Email"/>
-                <span>Enter your email address and we will send you further instructions </span>
-                <SuperButton name="Send Instructions" type="submit"/>
-                <span>Did you remember your password?</span>
-                <NavLink children="Try logging in" to="/login"/>
-                {error ? <span>{error}</span> : <span > </span>}
-            </form>
+            <div className={s.form}>
+                {status === "loading" && <Loader/>}
+                <form className={s.container} onSubmit={handleOnSubmit}>
+                    <span className={s.title}>it-cards</span>
+                    <h1 className={s.subTitle}>Forgot your password?</h1>
+                    <SuperInputText onChangeText={handleOnChangeText} type="text" required name="Email"/>
+                    <span>Enter your email address and we will send you further instructions </span>
+                    <SuperButton name="Send Instructions" type="submit"/>
+                    <span>Did you remember your password?</span>
+                    <NavLink children="Try logging in" to="/login"/>
+                    {error ? <span>{error}</span> : <span> </span>}
+                </form>
+                </div>
         </ Window>
-    )
+)
 })

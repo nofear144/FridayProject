@@ -2,12 +2,12 @@ import React, {FC, memo} from "react";
 
 
 import s from "./Table.module.scss";
-import Window from "../../../../n2-features/f1-auth/m4-new-password/Window";
 import {useAppSelector} from "../../../n2-bll/store/store";
 import SuperButton from "../c1-button/SuperButton";
 
 
 type Props = {
+    sort: string
     items: any[] // Item
     header: {
         buttons?: string,
@@ -26,6 +26,7 @@ type Props = {
 
 
 export const Table: FC<Props> = memo(({
+                                          sort,
                                           onSortClickHandler,
                                           items,
                                           header,
@@ -34,10 +35,10 @@ export const Table: FC<Props> = memo(({
                                           onDeleteClickHandler
                                       }) => {
     const userId = useAppSelector(state => state.profile._id)
-    const updateSort = useAppSelector(state => state.cards.sortCards)
     const keys = Object.keys(header)
     const titles: string[] = Object.values(header)
-    const arrow = updateSort === "0updated" ? "⬇" : "⬆"
+    const arrow = sort[0] === "0" ? "⬇" : "⬆"
+    const regExp = new RegExp(`${sort.slice(1)}`, "i")
 
 
     return (
@@ -47,15 +48,15 @@ export const Table: FC<Props> = memo(({
             <tr>
                 {titles.map((title, i) => title === "Updated" || title === "Grade"
                 || title === "Answer" || title === "Question" || title === "Name" || title === "Cards" || title === "Created by"
-                    ? <th onClick={() => onSortClickHandler && onSortClickHandler(keys[i])}
-                          className={s.sort}>{title} {arrow}</th> : <th>{title}</th>)}
+                    ? <th key={title} onClick={() => onSortClickHandler && onSortClickHandler(keys[i])}
+                          className={s.sort}>{title} {regExp.test(keys[i]) && arrow}</th> : <th key={title}>{title}</th>)}
             </tr>
             </thead>
             <tbody>
             {items.map(item =>
                 <tr onClick={() => onRowClickHandler && onRowClickHandler(item._id)}>
                     {keys.map((key, index) =>
-                        <td data-th={titles[index]}>
+                        <td key={key} data-th={titles[index]}>
                             {key === "buttons" && item.user_id === userId ?
                                 <div style={{display: "flex", justifyContent: "center",}}>
                                     <SuperButton

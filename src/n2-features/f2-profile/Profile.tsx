@@ -133,6 +133,7 @@ export function Profile() {
 
 
                             <Table
+                                sort={sortPacks}
                                 onRowClickHandler={routeToCard}
                                 onSortClickHandler={sortPack}
                                 onUpdateUpdateHandler={updatePack}

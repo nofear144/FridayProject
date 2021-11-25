@@ -53,7 +53,6 @@ export const PacksList = memo(() => {
         }
     }, [])
     useEffect(() => {
-        console.log("called")
         dispatch(getPacksTC())
     }, [packName, localmaxCardsCount, localminCardsCount, sortPacks, page, pageCount, user_id])
     useEffect(() => {
@@ -115,12 +114,12 @@ export const PacksList = memo(() => {
             {status === "loading" && <Loader/>}
             <div className={s.container}>
                 <div className={s.sideBar}>
-                    <label className={s.label}><h3>Show cards packs:</h3>
+                    <div className={s.label}><h3>Show cards packs:</h3>
                     <div className={s.toggle}>
                         <SuperButton className={s.buttons} name={"My"} onClick={myPack}/>
                         <SuperButton className={s.buttons} name={"All"} onClick={allPack}/>
                     </div>
-                    </label>
+                    </div>
                     <label className={s.label}><h3>Cards in a pack</h3>
                     <Range min={0} max={103} onChange={onRangeChange}/>
                     </label>
@@ -135,6 +134,7 @@ export const PacksList = memo(() => {
 
 
                         <Table
+                            sort={sortPacks}
                             onRowClickHandler={routeToCard}
                             onSortClickHandler={sortPack}
                             onUpdateUpdateHandler={updatePack}

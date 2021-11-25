@@ -15,7 +15,7 @@ const initialState = {
             _id: "",
         }
     ],
-    pageCount: 5,
+    pageCount: 0,
     page: 1,
     min: 0,
     max: 6,
@@ -24,7 +24,7 @@ const initialState = {
     cardQuestion: "",
     cardsPack_id: "",
     sortCards: "0update",
-    cardsTotalCount: 5
+    cardsTotalCount: 15
 }
 
 export const cardsReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
@@ -61,21 +61,19 @@ export const setMaxCardsCountAC = (max: number) => ({type: "cards/SET_MAX_CARDS_
 export const setSortCardsAC = (sortCards: string) => ({type: "cards/SET_SORT_CARDS", payload: {sortCards}} as const)
 export const setPageAC = (page: number) => ({type: "cards/SET_PAGE", payload: {page}} as const)
 
-export const secCardsPack_idAC = (params: string) => ({
+export const setCardsPack_idAC = (params: string) => ({
     type: "cards/SET_CARDS_PACK_ID",
     payload: {cardsPack_id: params}
 } as const)
 
 //Thunks
 export const getAllCardsTC = (): AppThunk =>
-    (dispatch, getState) => {
+    async (dispatch, getState) => {
         dispatch(setStatusAC("loading"))
         let {cardAnswer, cardQuestion, pageCount, cardsPack_id, min, max, sortCards, page} = getState().cards
-        cardsApi.getCards(cardQuestion, cardAnswer, pageCount, cardsPack_id, min, max, sortCards, page)
+        await cardsApi.getCards(cardQuestion, cardAnswer, pageCount, cardsPack_id, min, max, sortCards, page)
             .then(res => {
                 dispatch(setAllCardsAC(res.data))
-                console.log(getState().cards)
-                console.log(initialState)
                 dispatch(setStatusAC("succeeded"))
             }).catch(err => {
             dispatch(setStatusAC("failed"))
@@ -159,4 +157,4 @@ type ActionsType =
     ReturnType<typeof setMaxCardsCountAC> |
     ReturnType<typeof setSortCardsAC> |
     ReturnType<typeof setPageAC> |
-    ReturnType<typeof secCardsPack_idAC>
+    ReturnType<typeof setCardsPack_idAC>
