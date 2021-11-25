@@ -68,14 +68,12 @@ export const setCardsPack_idAC = (params: string) => ({
 
 //Thunks
 export const getAllCardsTC = (): AppThunk =>
-    (dispatch, getState) => {
+    async (dispatch, getState) => {
         dispatch(setStatusAC("loading"))
         let {cardAnswer, cardQuestion, pageCount, cardsPack_id, min, max, sortCards, page} = getState().cards
-        cardsApi.getCards(cardQuestion, cardAnswer, pageCount, cardsPack_id, min, max, sortCards, page)
+        await cardsApi.getCards(cardQuestion, cardAnswer, pageCount, cardsPack_id, min, max, sortCards, page)
             .then(res => {
                 dispatch(setAllCardsAC(res.data))
-                console.log(getState().cards)
-                console.log(initialState)
                 dispatch(setStatusAC("succeeded"))
             }).catch(err => {
             dispatch(setStatusAC("failed"))

@@ -22,23 +22,12 @@ import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputTex
 
 
 export const CardsList = memo(() => {
-    const status = useAppSelector(state => state.app.status);
+    const {status,isInitialize} = useAppSelector(state => state.app);
+    const isLoggedIn = useAppSelector(state => state.login.isLogged);
     const {
-        cards, page, min, max, pageCount, cardsTotalCount,
+        cards, page, pageCount, cardsTotalCount,
         sortCards, cardsPack_id, cardAnswer, cardQuestion
     } = useAppSelector(state => state.cards)
-
-    // const cards = useAppSelector(state => state.cards.cards)
-    // const page = useAppSelector(state => state.cards.page);
-    // const min = useAppSelector(state => state.cards.min);
-    // const max = useAppSelector(state => state.cards.max);
-    // const pageCount = useAppSelector(state => state.cards.pageCount);
-    // const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount);
-    // const sortCards = useAppSelector(state => state.cards.sortCards);
-    // const cardsPack_id = useAppSelector(state => state.cards.cardsPack_id)
-
-    const isInitialize = useAppSelector(state => state.app.isInitialize);
-    const isLoggedIn = useAppSelector(state => state.login.isLogged);
 
     const dispatch = useDispatch()
 
@@ -52,8 +41,6 @@ export const CardsList = memo(() => {
         dispatch(createNewCardTC(cardsPack_id, "Why i must see it?", "Because", 5, 4))
     }
 
-
-    // const backImage = "https://www.pngitem.com/pimgs/m/207-2070589_go-back-transparent-background-hd-png-download.png"
     const backImage = "https://www.kindpng.com/picc/m/58-583580_estrela-logo-back-button-icon-png-transparent-png.png"
     const [searchValue, setSearchValue] = useState("")
     const options = [1, 3, 5, 7, 10]
@@ -82,7 +69,6 @@ export const CardsList = memo(() => {
         dispatch(setPageAC(value))
     }
     const setPageCount = (pageCount: number) => {
-        console.log("pageCount ", pageCount)
         dispatch(setPageCountAC(pageCount))
     }
 
@@ -95,9 +81,8 @@ export const CardsList = memo(() => {
 
     useEffect(() => {
         id && dispatch(setCardsPack_idAC(id))
-        console.log("params ", id)
         dispatch(getAllCardsTC())
-    }, [cardQuestion, cardAnswer, sortCards, page, max, min, cardsPack_id, pageCount])
+}, [cardQuestion, cardAnswer, sortCards, page, pageCount])
 
     useEffect(() => {
         if (!isInitialize) {
