@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType, useAppSelector} from "../../n1-main/n2-bll/store/store";
 import {PATH} from "../../n1-main/n1-ui/routes/Routes";
-import {Navigate, useNavigate} from "react-router-dom";
+import {Navigate, NavLink, useNavigate} from "react-router-dom";
 import {initializeTC} from "../../n1-main/n2-bll/reducers/login-reducer";
 import {Spinner} from "../../n1-main/n1-ui/common/c5-spinner/Spinner";
 import Window from "../f1-auth/m4-new-password/Window";
@@ -11,7 +11,7 @@ import SuperButton from "../../n1-main/n1-ui/common/c1-button/SuperButton";
 import Range from "../../n1-main/n1-ui/common/c9-range/Range";
 import SuperInputText from "../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import {Table} from "../../n1-main/n1-ui/common/c7-table/Table";
-import {Pagination} from "../../n1-main/n1-ui/common/pagination/paginationByIliya";
+import {Pagination} from "../../n1-main/n1-ui/common/c10-pagination/paginationByIliya";
 import {
     addPackTC,
     deletePackTC,
@@ -117,6 +117,7 @@ export function Profile() {
                             </div>
                             <span><h2>{name}</h2></span>
                             <span><h3 className={s.front}>Front-end-developer</h3></span>
+                            <NavLink className={s.editProfile} to={"#"}> edit profile</NavLink>
                         </div>
                         <label className={s.label}><h3>Cards in a pack</h3>
                             <Range min={0} max={103} onChange={onRangeChange}/>

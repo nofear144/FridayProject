@@ -20,7 +20,7 @@ import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import s from "./PacksList.module.scss"
-import {Pagination} from "../../../n1-main/n1-ui/common/pagination/paginationByIliya";
+import {Pagination} from "../../../n1-main/n1-ui/common/c10-pagination/paginationByIliya";
 import Range from "../../../n1-main/n1-ui/common/c9-range/Range";
 
 
