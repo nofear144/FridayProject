@@ -134,6 +134,7 @@ export const PacksList = memo(() => {
 
 
                         <Table
+                            sort={sortPacks}
                             onRowClickHandler={routeToCard}
                             onSortClickHandler={sortPack}
                             onUpdateUpdateHandler={updatePack}

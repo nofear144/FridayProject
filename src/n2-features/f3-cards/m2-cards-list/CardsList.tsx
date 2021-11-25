@@ -113,6 +113,7 @@ export const CardsList = memo(() => {
                 </div>
                 <div className={style.table}>
                 <Table
+                    sort={sortCards}
                     onDeleteClickHandler={deleteCard}
                     onUpdateUpdateHandler={updateCard}
                     onSortClickHandler={sortCard}
