@@ -4,7 +4,6 @@ import s from "./Header.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType} from "../../n2-bll/store/store";
 import {LogoutTC} from "../../n2-bll/reducers/login-reducer";
-import {CardsList} from "../../../n2-features/f3-cards/m2-cards-list/CardsList";
 import React from "react";
 
 
