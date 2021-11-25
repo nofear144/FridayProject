@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {rootReducerType, useAppSelector} from "../../n1-main/n2-bll/store/store";
+import {useDispatch} from "react-redux";
+import {useAppSelector} from "../../n1-main/n2-bll/store/store";
 import {PATH} from "../../n1-main/n1-ui/routes/Routes";
-import {Navigate, useNavigate} from "react-router-dom";
+import {Navigate, NavLink, useNavigate} from "react-router-dom";
 import {initializeTC} from "../../n1-main/n2-bll/reducers/login-reducer";
 import {Spinner} from "../../n1-main/n1-ui/common/c5-spinner/Spinner";
 import Window from "../f1-auth/m4-new-password/Window";
@@ -11,16 +11,16 @@ import SuperButton from "../../n1-main/n1-ui/common/c1-button/SuperButton";
 import Range from "../../n1-main/n1-ui/common/c9-range/Range";
 import SuperInputText from "../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import {Table} from "../../n1-main/n1-ui/common/c7-table/Table";
-import {Pagination} from "../../n1-main/n1-ui/common/pagination/paginationByIliya";
+import {Pagination} from "../../n1-main/n1-ui/common/c10-pagination/paginationByIliya";
 import {
     addPackTC,
     deletePackTC,
     getPacksTC,
     setMaxPacksCountAC,
     setMinPacksCountAC,
-    setPacksNameAC, setPageAC, setSortPacksAC, setUserIdPacksAC, updatePackTC
+    setPacksNameAC, setPageAC, setSortPacksAC, updatePackTC
 } from "../../n1-main/n2-bll/reducers/packs-reducer";
-import s from "../f3-cards/m1-packs-list/PacksList.module.scss"
+import s from "./Profile.module.scss"
 
 
 export function Profile() {
@@ -30,21 +30,21 @@ export function Profile() {
         }
     }, [])
 
-    const error = useAppSelector(state => state.app.error);
-    const status = useAppSelector(state => state.app.status);
-    const cardPacks = useAppSelector(state => state.packs.cardPacks);
-    const packName = useAppSelector(state => state.packs.packName);
-    const sortPacks = useAppSelector(state => state.packs.sortPacks);
-    const isInitialize = useAppSelector(state => state.app.isInitialize);
-    const isLoggedIn = useAppSelector(state => state.login.isLogged);
-    const user_id = useAppSelector(state => state.packs.user_id);
-    const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
-    const page = useAppSelector(state => state.packs.page);
-    const pageCount = useAppSelector(state => state.packs.pageCount);
-    const localmaxCardsCount = useAppSelector(state => state.packs.localmaxCardsCount);
-    const localminCardsCount = useAppSelector(state => state.packs.localminCardsCount);
-    const name = useAppSelector(state => state.profile.name);
-    const avatar = useAppSelector(state => state.profile.avatar);
+    const {status, isInitialize} = useAppSelector(state => state.app)
+    const {
+        packName,
+        cardPacks,
+        sortPacks,
+        user_id,
+        cardPacksTotalCount,
+        page,
+        pageCount,
+        localmaxCardsCount,
+        localminCardsCount
+    } = useAppSelector(state => state.packs)
+    const {name,avatar} = useAppSelector(state => state.profile)
+    const isLoggedIn = useAppSelector(state => state.login.isLogged)
+
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -117,6 +117,7 @@ export function Profile() {
                             </div>
                             <span><h2>{name}</h2></span>
                             <span><h3 className={s.front}>Front-end-developer</h3></span>
+                            <NavLink className={s.editProfile} to={"#"}> edit profile</NavLink>
                         </div>
                         <label className={s.label}><h3>Cards in a pack</h3>
                             <Range min={0} max={103} onChange={onRangeChange}/>

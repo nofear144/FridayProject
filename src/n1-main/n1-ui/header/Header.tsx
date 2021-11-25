@@ -26,6 +26,11 @@ export function Header() {
 
 
                     <h2>FunCards</h2>
+                    <div>
+                        <NavLink to={PATH.PROFILE}>Profile</NavLink>
+                        <NavLink to={PATH.PACKS_LIST}>PackList</NavLink>
+                    </div>
+
                     <div className={s.linksContainer}>
                         {!isLogged
                             ?
@@ -39,9 +44,8 @@ export function Header() {
                 <NavLink to={PATH.NEW_PASSWORD}>New Password</NavLink>
                 <NavLink to={PATH.CHECK_EMAIL}>Check</NavLink>
                 <NavLink to={PATH.TEST}>Test</NavLink>
-                <NavLink to={PATH.PROFILE}>Profile</NavLink>*/}
-                        <NavLink to={PATH.CARDS_LIST}>CardsList</NavLink>
-                        <NavLink to={PATH.PACKS_LIST}>PackList</NavLink>
+                <NavLink to={PATH.CARDS_LIST}>CardsList</NavLink>*/}
+
                     </div>
 
 

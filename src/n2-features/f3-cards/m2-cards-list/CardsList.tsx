@@ -15,7 +15,7 @@ import {Spinner} from "../../../n1-main/n1-ui/common/c5-spinner/Spinner";
 import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
-import {Pagination} from "../../../n1-main/n1-ui/common/pagination/paginationByIliya";
+import {Pagination} from "../../../n1-main/n1-ui/common/c10-pagination/paginationByIliya";
 import SuperSelect from "../../../n1-main/n1-ui/common/c4-select/SuperSelect";
 import style from './CardsList.module.css'
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
