@@ -1,0 +1,20 @@
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 2% 0 2%;
+}
+
+.header {
+    height: 80px;
+    margin: 1em 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.image {
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    margin: 2% 0 0 2%;
+}

@@ -4,13 +4,14 @@ import s from "./SuperInputSelect.module.scss"
 type DefaultSelectPropsType = DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>
 
 type SuperSelectPropsType = DefaultSelectPropsType & {
-    options?: string[]
-    onChangeOption?: (option: string) => void
+    options?: number[]
+    onChangeOption?: (option: number) => void
+    name?:string
 }
 
 const SuperSelect: React.FC<SuperSelectPropsType> = (
     {
-        options,
+        options,name,
         onChange, onChangeOption,
         ...restProps
     }
@@ -22,7 +23,7 @@ const SuperSelect: React.FC<SuperSelectPropsType> = (
 
         {
             if (onChangeOption)
-                onChangeOption(e.currentTarget.value)
+                onChangeOption(+e.currentTarget.value)
         }
 
         onChange && onChange(e)
@@ -35,15 +36,16 @@ const SuperSelect: React.FC<SuperSelectPropsType> = (
         <div className={s.wrap} >
 
             <div className={s.select}>
-                <select className={s.selectText} required>
-                    <option value="" disabled selected></option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                <select onChange={onChangeCallback} className={s.selectText} required>
+                    {/*<option value="" disabled selected></option>*/}
+                    {/*<option value="1">{options}</option>*/}
+                    {/*<option value="2">Option 2</option>*/}
+                    {/*<option value="3">Option 3</option>*/}
+                    {mappedOptions}
                 </select>
                 <span className={s.highlight}></span>
                 <span className={s.bar}></span>
-                <label className={s.selectLabel}>Select</label>
+                <label className={s.selectLabel}>{name}</label>
             </div>
         </div>
     )

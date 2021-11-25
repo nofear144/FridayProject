@@ -15,14 +15,14 @@ const initialState = {
             _id: "",
         }
     ],
-    pageCount: 10,
+    pageCount: 5,
     page: 1,
     min: 0,
     max: 6,
     id: "",
-    cardAnswer: null,
-    cardQuestion: null,
-    cardsPack_id: "619ccba94f185200047ad5ad",
+    cardAnswer: "",
+    cardQuestion: "",
+    cardsPack_id: "",
     sortCards: "0update",
     cardsTotalCount: 5
 }
@@ -35,6 +35,7 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
         case "cards/SET_CARD_QUESTION":
         case "cards/SET_PAGE_COUNT":
         case "cards/SET_PAGE":
+        case "cards/SET_CARDS_PACK_ID":
         case "cards/SET_SORT_CARDS": {
             return {...state, ...action.payload}
         }
@@ -49,8 +50,8 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
 //Actions
 export const setAllCardsAC = (cards: ResponseType) => ({type: "cards/SET_ALL_CARDS", cards} as const)
 
-export const setCardAnswerAC = (cardAnswer: null) => ({type: "cards/SET_CARD_ANSWER", payload: {cardAnswer}} as const)
-export const setCardQuestionAC = (cardQuestion: null) => ({
+export const setCardAnswerAC = (cardAnswer: string) => ({type: "cards/SET_CARD_ANSWER", payload: {cardAnswer}} as const)
+export const setCardQuestionAC = (cardQuestion: string) => ({
     type: "cards/SET_CARD_QUESTION",
     payload: {cardQuestion}
 } as const)
@@ -60,10 +61,15 @@ export const setMaxCardsCountAC = (max: number) => ({type: "cards/SET_MAX_CARDS_
 export const setSortCardsAC = (sortCards: string) => ({type: "cards/SET_SORT_CARDS", payload: {sortCards}} as const)
 export const setPageAC = (page: number) => ({type: "cards/SET_PAGE", payload: {page}} as const)
 
+export const secCardsPack_idAC = (params: string) => ({
+    type: "cards/SET_CARDS_PACK_ID",
+    payload: {cardsPack_id: params}
+} as const)
+
 //Thunks
 export const getAllCardsTC = (): AppThunk =>
     (dispatch, getState) => {
-            dispatch(setStatusAC("loading"))
+        dispatch(setStatusAC("loading"))
         let {cardAnswer, cardQuestion, pageCount, cardsPack_id, min, max, sortCards, page} = getState().cards
         cardsApi.getCards(cardQuestion, cardAnswer, pageCount, cardsPack_id, min, max, sortCards, page)
             .then(res => {
@@ -83,10 +89,10 @@ export const getAllCardsTC = (): AppThunk =>
             })
     }
 
-export const createNewCardTC = (cardsPack_id: string, answer: string, question: string, grade: number, shots: number): AppThunk =>
+export const createNewCardTC = (cardsPack_id: string, question: string, answer: string, grade: number, shots: number): AppThunk =>
     async (dispatch) => {
         dispatch(setStatusAC("loading"))
-        await cardsApi.postCard({cardsPack_id, answer, question, grade, shots})
+        await cardsApi.postCard({cardsPack_id, question, answer, grade, shots})
             .then(res => {
                 dispatch(setStatusAC("succeeded"))
             }).catch(err => {
@@ -152,4 +158,5 @@ type ActionsType =
     ReturnType<typeof setMinCardsCountAC> |
     ReturnType<typeof setMaxCardsCountAC> |
     ReturnType<typeof setSortCardsAC> |
-    ReturnType<typeof setPageAC>
+    ReturnType<typeof setPageAC> |
+    ReturnType<typeof secCardsPack_idAC>

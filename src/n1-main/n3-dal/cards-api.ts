@@ -3,7 +3,7 @@ import {AxiosResponse} from "axios";
 
 
 export const cardsApi = {
-    getCards(cardAnswer: null, cardQuestion: null,
+    getCards(cardAnswer: string, cardQuestion: string,
              pageCount: number, cardsPack_id: string, min: number, max: number, sortCards: string,
              page: number) {
         return instance.get<ResponseType>(`/cards/card/`,
@@ -59,6 +59,6 @@ export type ResponseType = {
 }
 
 
-type ParamsType = {
+export type ParamsType = {
     cardsPack_id: string
 }
