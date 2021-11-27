@@ -6,8 +6,14 @@ import Window from "../../f1-auth/m4-new-password/Window";
 import Loader from "../../f1-auth/m3-reset-password/Loader";
 import s from "../../f1-auth/m3-reset-password/ResetPassword.module.css";
 import {
-    createNewCardTC, deleteCardTC, getAllCardsTC, setCardsPack_idAC,
-    setCardAnswerAC, setPageAC, setPageCountAC, setSortCardsAC, updateCardTC
+    deleteCardTC,
+    getAllCardsTC,
+    setCardAnswerAC,
+    setCardsPack_idAC,
+    setPageAC,
+    setPageCountAC,
+    setSortCardsAC,
+    updateCardTC
 } from "../../../n1-main/n2-bll/reducers/cards-reducer";
 import {Table} from "../../../n1-main/n1-ui/common/c7-table/Table";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
@@ -19,14 +25,15 @@ import {Pagination} from "../../../n1-main/n1-ui/common/c10-pagination/Paginatio
 import SuperSelect from "../../../n1-main/n1-ui/common/c4-select/SuperSelect";
 import style from './CardsList.module.css'
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
+import {OverlayingPopup} from "../../../n1-main/n1-ui/ui-kit/overlayingPopup/overlayingPopup";
 
 
 export const CardsList = memo(() => {
-    const {status,isInitialize} = useAppSelector(state => state.app);
+    const {status, isInitialize} = useAppSelector(state => state.app);
     const isLoggedIn = useAppSelector(state => state.login.isLogged);
     const {
         cards, page, pageCount, cardsTotalCount,
-        sortCards, cardsPack_id, cardAnswer, cardQuestion
+        sortCards, cardAnswer, cardQuestion
     } = useAppSelector(state => state.cards)
 
     const dispatch = useDispatch()
@@ -36,9 +43,6 @@ export const CardsList = memo(() => {
     }
     const updateCard = (id: string) => {
         dispatch(updateCardTC(id, "UPDATED QUESTION", "UPDATED ANSWER"))
-    }
-    const createCard = () => {
-        dispatch(createNewCardTC(cardsPack_id, "Why i must see it?", "Because", 5, 4))
     }
 
     const backImage = "https://www.kindpng.com/picc/m/58-583580_estrela-logo-back-button-icon-png-transparent-png.png"
@@ -82,13 +86,19 @@ export const CardsList = memo(() => {
     useEffect(() => {
         id && dispatch(setCardsPack_idAC(id))
         dispatch(getAllCardsTC())
-}, [cardQuestion, cardAnswer, sortCards, page, pageCount])
+    }, [cardQuestion, cardAnswer, sortCards, page, pageCount])
 
     useEffect(() => {
         if (!isInitialize) {
             dispatch(initializeTC())
         }
     }, [])
+
+
+    // MODAL MENU
+    const [showPopup, setShowPopup] = useState(false);
+    const onClickShow = () => setShowPopup(true)
+    const onClickHide = () => setShowPopup(false)
 
     if (!isInitialize) {
         return <div className={s.loader}><Spinner/></div>
@@ -103,22 +113,25 @@ export const CardsList = memo(() => {
             {status === "loading" && <Loader/>}
             <div className={style.main}>
                 <span className={style.image}>
-                    <img src={backImage} alt="previous page" onClick={handleClick}/>
+                    <img style={{cursor: "pointer"}} src={backImage} alt="previous page" onClick={handleClick}/>
                        <h2 style={{margin: "-7px 0 20px 20px"}}>Back</h2>
                 </span>
-
                 <div className={style.header}>
                     <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
-                    <SuperButton name="Create card" onClick={createCard}/>
+                    <OverlayingPopup
+                        isOpened={showPopup}
+                        onClose={onClickHide}
+                        message="Create a new card"/>
+                    <SuperButton name="Create card" onClick={onClickShow}/>
                 </div>
                 <div className={style.table}>
-                <Table
-                    sort={sortCards}
-                    onDeleteClickHandler={deleteCard}
-                    onUpdateUpdateHandler={updateCard}
-                    onSortClickHandler={sortCard}
-                    header={header}
-                    items={cards}/>
+                    <Table
+                        sort={sortCards}
+                        onDeleteClickHandler={deleteCard}
+                        onUpdateUpdateHandler={updateCard}
+                        onSortClickHandler={sortCard}
+                        header={header}
+                        items={cards}/>
                 </div>
                 <div className={style.pagination}>
                     <Pagination

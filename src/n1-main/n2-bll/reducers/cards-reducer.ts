@@ -29,6 +29,8 @@ const initialState = {
 
 export const cardsReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
+        case "cards/SET_ANSWER":
+        case "cards/SET_QUESTION":
         case "cards/SET_MAX_CARDS_COUNT":
         case "cards/SET_MIN_CARDS_COUNT":
         case "cards/SET_CARD_ANSWER":
@@ -48,6 +50,9 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
 }
 
 //Actions
+export const setQuestionAC = (question:string) => ({type:"cards/SET_QUESTION",payload:{question}}as const)
+export const setAnswerAC = (answer:string) => ({type:"cards/SET_ANSWER",payload:{answer}}as const)
+
 export const setAllCardsAC = (cards: ResponseType) => ({type: "cards/SET_ALL_CARDS", cards} as const)
 
 export const setCardAnswerAC = (cardAnswer: string) => ({type: "cards/SET_CARD_ANSWER", payload: {cardAnswer}} as const)
@@ -157,4 +162,6 @@ type ActionsType =
     ReturnType<typeof setMaxCardsCountAC> |
     ReturnType<typeof setSortCardsAC> |
     ReturnType<typeof setPageAC> |
-    ReturnType<typeof setCardsPack_idAC>
+    ReturnType<typeof setCardsPack_idAC>|
+    ReturnType<typeof setQuestionAC>|
+    ReturnType<typeof setAnswerAC>
