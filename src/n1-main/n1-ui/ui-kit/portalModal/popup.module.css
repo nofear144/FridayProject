@@ -1,0 +1,26 @@
+.mainModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    width: 440px;
+    max-height: 700px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    justify-content: space-between;
+    padding: 20px;
+}
