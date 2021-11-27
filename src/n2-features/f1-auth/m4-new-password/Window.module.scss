@@ -6,4 +6,9 @@
     position: relative;
     display: flex;
     justify-content: center;
+    @media (max-width: 1120px) {
+        margin: 0px;
+        width: 100%;
+        border-radius: 0;
+    }
 }

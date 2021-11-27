@@ -8,7 +8,10 @@ import SuperButton from "../c1-button/SuperButton";
 
 type Props = {
     sort: string
-    items: any[] // Item
+    items: Array<{
+        _id: string,
+        [index: string]: number | string;
+    }> // Item
     header: {
         buttons?: string,
         user_name?: string, cardsCount?: string,
@@ -17,7 +20,7 @@ type Props = {
         answer?: string,
         question?: string,
         grade?: string
-    } //   {keyOfItemProperties : "TitleTableString"}
+    } //   {keyOfItemProperties : "TableTitleString"}
     onDeleteClickHandler?: (id: string) => void
     onUpdateUpdateHandler?: (id: string) => void
     onRowClickHandler?: (id: string) => void
@@ -38,7 +41,6 @@ export const Table: FC<Props> = memo(({
     const keys = Object.keys(header)
     const titles: string[] = Object.values(header)
     const arrow = sort[0] === "0" ? "⬇" : "⬆"
-    const regExp = new RegExp(`${sort.slice(1)}`, "i")
 
 
     return (
@@ -49,12 +51,13 @@ export const Table: FC<Props> = memo(({
                 {titles.map((title, i) => title === "Updated" || title === "Grade"
                 || title === "Answer" || title === "Question" || title === "Name" || title === "Cards" || title === "Created by"
                     ? <th key={title} onClick={() => onSortClickHandler && onSortClickHandler(keys[i])}
-                          className={s.sort}>{title} {regExp.test(keys[i]) && arrow}</th> : <th key={title}>{title}</th>)}
+                          className={s.sort}>{title} {sort.slice(1) === keys[i] && arrow}</th> :
+                    <th key={title}>{title}</th>)}
             </tr>
             </thead>
             <tbody>
             {items.map(item =>
-                <tr onClick={() => onRowClickHandler && onRowClickHandler(item._id)}>
+                <tr key={item._id} onClick={() => onRowClickHandler && onRowClickHandler(item._id)}>
                     {keys.map((key, index) =>
                         <td key={key} data-th={titles[index]}>
                             {key === "buttons" && item.user_id === userId ?
