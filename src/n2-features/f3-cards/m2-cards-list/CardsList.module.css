@@ -19,10 +19,10 @@
     margin: 2% 0 0 2%;
 }
 .main{
-    min-width: 1050px;
-    max-width: 1050px;
+
 }
 .table {
     display: flex;
     flex-direction: column;
+    margin: 0 1em;
 }

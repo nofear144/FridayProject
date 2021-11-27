@@ -20,7 +20,7 @@ import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import s from "./PacksList.module.scss"
-import {Pagination} from "../../../n1-main/n1-ui/common/c10-pagination/paginationByIliya";
+import {Pagination} from "../../../n1-main/n1-ui/common/c10-pagination/Pagination";
 import Range from "../../../n1-main/n1-ui/common/c9-range/Range";
 
 
@@ -124,7 +124,7 @@ export const PacksList = memo(() => {
                     <Range min={0} max={103} onChange={onRangeChange}/>
                     </label>
                 </div>
-                <div className={s.table}>
+
                     <div className={s.tableContainer}>
                         <h2 className={s.DaNuNa}>Packs list</h2>
                         <div className={s.header}>
@@ -150,7 +150,7 @@ export const PacksList = memo(() => {
                                     setPage={setPage}/>
                     </div>
                 </div>
-            </div>
+
         </ Window>
     )
 })

@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import {createPages} from "../../../n4-utils/createPages";
-import s from "../../../../n2-features/f3-cards/m1-packs-list/PacksList.module.scss";
+import s from "./Pagination.module.scss";
 
 
 type Props = {
