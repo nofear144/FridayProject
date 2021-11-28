@@ -53,7 +53,7 @@ export const CardsList = memo(() => {
 
     const backImage = "https://www.kindpng.com/picc/m/58-583580_estrela-logo-back-button-icon-png-transparent-png.png"
     const [searchValue, setSearchValue] = useState("")
-    const options = [1, 3, 5, 7, 10,20]
+    const options = [1, 3, 5, 7, 10, 20]
 
     const header = {
         question: "Question",
@@ -104,7 +104,6 @@ export const CardsList = memo(() => {
 
     const [showDeletePopup, setShowDeletePopup] = useState(false);
     const onClickHideDelete = () => setShowDeletePopup(false)
-
 
 
     if (isInitialize && !isLoggedIn) {
