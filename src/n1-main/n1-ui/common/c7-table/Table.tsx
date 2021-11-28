@@ -25,16 +25,19 @@ type Props = {
     onUpdateUpdateHandler?: (id: string) => void
     onRowClickHandler?: (id: string) => void
     onSortClickHandler?: (param: string) => void
+    onLearnClickHandler?: (id: string) => void
+
 }
 
 
 export const Table: FC<Props> = memo(({
+                                          onLearnClickHandler,
                                           sort,
                                           onSortClickHandler,
                                           items,
                                           header,
                                           onRowClickHandler,
-                                          onUpdateUpdateHandler,
+                                          onUpdateUpdateHandler: onUpdateClickHandler,
                                           onDeleteClickHandler
                                       }) => {
     const userId = useAppSelector(state => state.profile._id)
@@ -60,15 +63,19 @@ export const Table: FC<Props> = memo(({
                 <tr key={item._id} onClick={() => onRowClickHandler && onRowClickHandler(item._id)}>
                     {keys.map((key, index) =>
                         <td key={key} data-th={titles[index]}>
-                            {key === "buttons" && item.user_id === userId ?
-                                <div style={{display: "flex", justifyContent: "center",}}>
-                                    <SuperButton
-                                        onClick={() => onUpdateUpdateHandler && onUpdateUpdateHandler(item._id)}
-                                        name={"update"} variant="secondary"/>
-                                    <SuperButton
-                                        onClick={() => onDeleteClickHandler && onDeleteClickHandler(item._id)}
-                                        name={"delete"}/>
-                                </div> : item[key]}
+                            {
+                                key === "buttons" ?
+                                    <div style={{display: "flex", justifyContent: "center",}}>
+                                        <SuperButton
+                                            onClick={() => onLearnClickHandler && onLearnClickHandler(item._id)}
+                                            name={"Learn"} variant="secondary"/>
+                                        {item.user_id === userId && <><SuperButton
+                                            onClick={() => onUpdateClickHandler && onUpdateClickHandler(item._id)}
+                                            name={"update"} variant="secondary"/>
+                                            <SuperButton
+                                                onClick={() => onDeleteClickHandler && onDeleteClickHandler(item._id)}
+                                                name={"delete"}/></>}
+                                    </div> : item[key]}
                         </td>)}
                 </tr>)}
             </tbody>
