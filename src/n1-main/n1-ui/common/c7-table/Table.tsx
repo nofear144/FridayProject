@@ -67,6 +67,7 @@ export const Table: FC<Props> = memo(({
                                 key === "buttons" ?
                                     <div style={{display: "flex", justifyContent: "center",}}>
                                         <SuperButton
+
                                             onClick={() => onLearnClickHandler && onLearnClickHandler(item._id)}
                                             name={"Learn"} variant="secondary"/>
                                         {item.user_id === userId && <><SuperButton

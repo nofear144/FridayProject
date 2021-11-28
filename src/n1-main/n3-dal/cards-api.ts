@@ -29,10 +29,6 @@ export const cardsApi = {
         return instance.put<AxiosResponse<GradeCardType>>('/cards/grade', {grade, card_id})
     }
 }
-export type PayloadGradeType={
-    grade:number
-    card_id:string
-}
 export type GradeCardType = {
     _id: string
     cardsPack_id: string

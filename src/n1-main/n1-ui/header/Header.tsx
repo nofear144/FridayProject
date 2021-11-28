@@ -35,7 +35,7 @@ export function Header() {
                             <a onClick={onLogoutClick}>Logout</a>
                         }
                         <div>
-                            <NavLink to={PATH.QUESTION_CARD}>Question Card</NavLink>
+                            <NavLink to={PATH.LEARN_CARD}>Question Card</NavLink>
                         </div>
                         {/*
                 <NavLink to={PATH.REGISTRATION}>Registration</NavLink>

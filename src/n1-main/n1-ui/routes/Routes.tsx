@@ -26,7 +26,7 @@ export const PATH = {
     CHECK_EMAIL: "/check_email",
     CARDS_LIST: "/cardsList",
     PACKS_LIST: "/packsList",
-    QUESTION_CARD:"/question_card"
+    LEARN_CARD:"/question_card"
 
 }
 
@@ -53,7 +53,9 @@ export function RoutesPage() {
                 <Route path={PATH.CARDS_LIST} element={<CardsList/>}>
                     <Route path=":id" element={<CardsList/>}/>
                 </Route>
-                <Route path={PATH.QUESTION_CARD} element={<QuestionCard/>}/>
+                <Route path={PATH.LEARN_CARD} element={<QuestionCard/>}>
+                <Route path={":id"} element={<QuestionCard/>}/>
+                </Route>
             </Routes>
 
         </div>

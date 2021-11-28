@@ -1,45 +1,24 @@
-import React, {FC, memo, useEffect} from "react";
-import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
-import {useDispatch} from "react-redux";
-
+import React, {FC, memo} from "react";
 import Window from "../../f1-auth/m4-new-password/Window";
 import s from "./QuestionCard.module.css";
-import {Navigate, useNavigate} from "react-router-dom";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
-import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
+import {CardsType} from "../../../n1-main/n3-dal/cards-api";
 
 type PropsType = {
-    setShow: (value: boolean) => void
+    card:CardsType
+    onSetShowClick: () => void
     onCancelClick:()=>void
 }
-export const Question: FC<PropsType> = memo(({setShow,onCancelClick}) => {
-
-    const error = useAppSelector(state => state.app.error);
-    const status = useAppSelector(state => state.app.status);
-
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-
-    const onSetShowClick = () => {
-        setShow(false)
-    }
-
-
-    useEffect(() => {
-
-    }, [])
-
+export const Question: FC<PropsType> = memo(({onSetShowClick,onCancelClick,card}) => {
 
     return (
-        <Window>
             <div className={s.container}>
                 <h2>Learn</h2>
-                <div>Question</div>
+                <div>Question:{card.question}</div>
                 <div className={s.buttons}>
                     <div><SuperButton  onClick={onCancelClick} name={"Cancel"}/></div>
                     <div><SuperButton onClick={onSetShowClick} name={"Show Answer"}/></div>
                 </div>
             </div>
-        </ Window>
     )
 })
