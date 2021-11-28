@@ -6,14 +6,12 @@ import Window from "../../f1-auth/m4-new-password/Window";
 import Loader from "../../f1-auth/m3-reset-password/Loader";
 import s from "../../f1-auth/m3-reset-password/ResetPassword.module.css";
 import {
-    deleteCardTC,
     getAllCardsTC,
     setCardAnswerAC,
     setCardsPack_idAC,
     setPageAC,
     setPageCountAC,
-    setSortCardsAC,
-    updateCardTC
+    setSortCardsAC
 } from "../../../n1-main/n2-bll/reducers/cards-reducer";
 import {Table} from "../../../n1-main/n1-ui/common/c7-table/Table";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
@@ -26,12 +24,14 @@ import SuperSelect from "../../../n1-main/n1-ui/common/c4-select/SuperSelect";
 import style from './CardsList.module.css'
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import {OverlayingPopup} from "../../../n1-main/n1-ui/ui-kit/overlayingPopup/overlayingPopup";
-import {CreateNewCard, UpdateCard} from "../../../n1-main/n1-ui/ui-kit/portalModal/popup";
+import {CreateNewCard} from "../../../n1-main/n1-ui/ui-kit/popup/modals/createNewCard";
+import {UpdateCard} from "../../../n1-main/n1-ui/ui-kit/popup/modals/updateCard";
+import {DeleteCard} from "../../../n1-main/n1-ui/ui-kit/popup/modals/deleteCard";
 
 
 export const CardsList = memo(() => {
     const {status, isInitialize} = useAppSelector(state => state.app);
-    const [cardId,setCardId]=useState("")
+    const [cardId, setCardId] = useState("")
     const isLoggedIn = useAppSelector(state => state.login.isLogged);
     const {
         cards, page, pageCount, cardsTotalCount,
@@ -42,13 +42,12 @@ export const CardsList = memo(() => {
 
     const deleteCard = (id: string) => {
         setShowDeletePopup(true)
-        dispatch(deleteCardTC(id))
+        setCardId(id)
     }
 
     const updateCard = (id: string) => {
         setShowUpdatePopup(true)
         setCardId(id)
-        dispatch(updateCardTC(id, "UPDATED QUESTION", "UPDATED ANSWER"))
     }
 
     const backImage = "https://www.kindpng.com/picc/m/58-583580_estrela-logo-back-button-icon-png-transparent-png.png"
@@ -100,16 +99,16 @@ export const CardsList = memo(() => {
         }
     }, [])
 
-
     // MODAL MENU
     const [showCreatePopup, setShowCreatePopup] = useState(false);
-    const [showDeletePopup, setShowDeletePopup] = useState(false);
-    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
-
     const onClickShowCreate = () => setShowCreatePopup(true)
     const onClickHideCreate = () => setShowCreatePopup(false)
 
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
     const onClickHideUpdate = () => setShowUpdatePopup(false)
+
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const onClickHideDelete = () => setShowDeletePopup(false)
 
     if (!isInitialize) {
         return <div className={s.loader}><Spinner/></div>
@@ -131,16 +130,23 @@ export const CardsList = memo(() => {
                     <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
                     <OverlayingPopup
                         isOpened={showCreatePopup}
-                         onClose={onClickHideCreate}
+                        onClose={onClickHideCreate}
                         message="Create a new card">
-                    <CreateNewCard onClose={onClickHideCreate}/>
+                        <CreateNewCard onClose={onClickHideCreate}/>
                     </OverlayingPopup>
 
                     <OverlayingPopup
                         isOpened={showUpdatePopup}
                         onClose={onClickHideUpdate}
-                        message="Update a new card">
+                        message="Update a card">
                         <UpdateCard cardId={cardId} onClose={onClickHideUpdate}/>
+                    </OverlayingPopup>
+
+                    <OverlayingPopup
+                        isOpened={showDeletePopup}
+                        onClose={onClickHideDelete}
+                        message="Do you want to delete this card ?">
+                        <DeleteCard cardId={cardId} onClose={onClickHideDelete}/>
                     </OverlayingPopup>
 
                     <SuperButton name="Create card" onClick={onClickShowCreate}/>
