@@ -1,0 +1,19 @@
+.modalUP {
+    position: fixed;
+    top: 80vh;
+    left: 30px;
+    background: #6abfde;
+    z-Index: 21;
+    width: 35px;
+    height: 37px;
+    border-radius: 20px;
+    border: 1px solid #34495e;
+    cursor: pointer;
+}
+
+.image {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    margin: 2% 0 0 2%;
+}
