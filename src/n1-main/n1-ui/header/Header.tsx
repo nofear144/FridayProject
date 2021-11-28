@@ -22,14 +22,11 @@ export function Header() {
 
             <div className={s.header}>
                 <div className={s.container}>
-
-
                     <h2>FunCards</h2>
                     <div>
                         <NavLink to={PATH.PROFILE}>Profile</NavLink>
                         <NavLink to={PATH.PACKS_LIST}>PackList</NavLink>
                     </div>
-
                     <div className={s.linksContainer}>
                         {!isLogged
                             ?
@@ -37,6 +34,9 @@ export function Header() {
                             :
                             <a onClick={onLogoutClick}>Logout</a>
                         }
+                        <div>
+                            <NavLink to={PATH.QUESTION_CARD}>Question Card</NavLink>
+                        </div>
                         {/*
                 <NavLink to={PATH.REGISTRATION}>Registration</NavLink>
                 <NavLink to={PATH.RESET_PASSWORD}>Reset Password</NavLink>
