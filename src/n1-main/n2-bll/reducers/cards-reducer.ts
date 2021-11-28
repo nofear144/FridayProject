@@ -28,7 +28,8 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
         case "cards/SET_PAGE_COUNT":
         case "cards/SET_PAGE":
         case "cards/SET_CARDS_PACK_ID":
-        case "cards/SET_SORT_CARDS": {
+        case "cards/SET_SORT_CARDS":
+        case "cards/DELETE_ALL_CARDS": {
             return {...state, ...action.payload}
         }
         case "cards/SET_ALL_CARDS": {
@@ -57,6 +58,7 @@ export const setMinCardsCountAC = (min: number) => ({type: "cards/SET_MIN_CARDS_
 export const setMaxCardsCountAC = (max: number) => ({type: "cards/SET_MAX_CARDS_COUNT", payload: {max}} as const)
 export const setSortCardsAC = (sortCards: string) => ({type: "cards/SET_SORT_CARDS", payload: {sortCards}} as const)
 export const setPageAC = (page: number) => ({type: "cards/SET_PAGE", payload: {page}} as const)
+export const deleteAllCardsAC = () => ({type: "cards/DELETE_ALL_CARDS", payload: {cards: [] as Array<CardsType>}} as const)
 
 export const setCardsPack_idAC = (params: string) => ({
     type: "cards/SET_CARDS_PACK_ID",
@@ -175,4 +177,5 @@ type ActionsType =
     ReturnType<typeof setPageAC> |
     ReturnType<typeof setCardsPack_idAC> |
     ReturnType<typeof setQuestionAC> |
-    ReturnType<typeof setAnswerAC>
+    ReturnType<typeof setAnswerAC> |
+    ReturnType<typeof deleteAllCardsAC>
