@@ -11,14 +11,16 @@ import SuperInputText from "../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import {Table} from "../../n1-main/n1-ui/common/c7-table/Table";
 import {Pagination} from "../../n1-main/n1-ui/common/c10-pagination/Pagination";
 import {
-    addPackTC,
-    deletePackTC,
     getPacksTC,
     setMaxPacksCountAC,
     setMinPacksCountAC,
-    setPacksNameAC, setPageAC, setSortPacksAC, setUserIdPacksAC, updatePackTC
+    setPacksNameAC, setPageAC, setSortPacksAC, setUserIdPacksAC,
 } from "../../n1-main/n2-bll/reducers/packs-reducer";
 import s from "./Profile.module.scss"
+import {OverlayingPopup} from "../../n1-main/n1-ui/ui-kit/overlayingPopup/overlayingPopup";
+import {CreateNewPack} from "../../n1-main/n1-ui/ui-kit/popup/modals/createNewPack";
+import {UpdatePack} from "../../n1-main/n1-ui/ui-kit/popup/modals/updatePack";
+import {DeletePack} from "../../n1-main/n1-ui/ui-kit/popup/modals/deletePack";
 
 
 export function Profile() {
@@ -36,7 +38,7 @@ export function Profile() {
         localmaxCardsCount,
         localminCardsCount
     } = useAppSelector(state => state.packs)
-    const {name,avatar,_id} = useAppSelector(state => state.profile)
+    const {name, avatar, _id} = useAppSelector(state => state.profile)
     const isLoggedIn = useAppSelector(state => state.login.isLogged)
 
 
@@ -46,6 +48,16 @@ export function Profile() {
     const [localMaxValue, setLocalMaxValue] = useState(0)
     const [localMinValue, setLocalMinValue] = useState(103)
     const [searchValue, setSearchValue] = useState("")
+    const [showCreatePopup, setShowCreatePopup] = useState(false);
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [packId, setPackId] = useState("")
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+
+
+    const onClickHideDelete = () => setShowDeletePopup(false)
+    const onClickHideUpdate = () => setShowUpdatePopup(false)
+    const onClickShowCreate = () => setShowCreatePopup(true)
+    const onClickHideCreate = () => setShowCreatePopup(false)
 
     useEffect(() => {
         dispatch(setUserIdPacksAC(_id))
@@ -68,14 +80,15 @@ export function Profile() {
         navigate(`${PATH.CARDS_LIST}/${id}`)
     }
     const deletePack = (id: string) => {
-        dispatch(deletePackTC(id))
+        setShowDeletePopup(true)
+        setPackId(id)
     }
     const updatePack = (id: string,) => {
-        dispatch(updatePackTC(id, "DasAuto"))
+        setShowUpdatePopup(true)
+        setPackId(id)
     }
-    const addPack = () => {
-        dispatch(addPackTC("TriMushketera", false))
-    }
+
+
     const sortPack = (param: string) => {
         sortPacks[0] === "1"
             ? dispatch(setSortPacksAC(`0${param}`))
@@ -88,7 +101,6 @@ export function Profile() {
         setLocalMaxValue(max)
         setLocalMinValue(min)
     }
-
 
 
     if (isInitialize && !isLoggedIn) {
@@ -121,10 +133,26 @@ export function Profile() {
                             <h2 className={s.DaNuNa}>Packs list</h2>
                             <div className={s.header}>
                                 <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
-                                <SuperButton name={"Add Pack"} onClick={addPack}/>
+                                <SuperButton name={"Add Pack"} onClick={onClickShowCreate}/>
                             </div>
-
-
+                            <OverlayingPopup
+                                isOpened={showCreatePopup}
+                                onClose={onClickHideCreate}
+                                message="Create a new card">
+                                <CreateNewPack onClose={onClickHideCreate}/>
+                            </OverlayingPopup>
+                            <OverlayingPopup
+                                isOpened={showUpdatePopup}
+                                onClose={onClickHideUpdate}
+                                message="Update a pack">
+                                <UpdatePack packId={packId} onClose={onClickHideUpdate}/>
+                            </OverlayingPopup>
+                            <OverlayingPopup
+                                isOpened={showDeletePopup}
+                                onClose={onClickHideDelete}
+                                message="Do you want to delete this pack ?">
+                                <DeletePack packId={packId} onClose={onClickHideDelete}/>
+                            </OverlayingPopup>
                             <Table
                                 sort={sortPacks}
                                 onRowClickHandler={routeToCard}

@@ -22,6 +22,10 @@ import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputTex
 import s from "./PacksList.module.scss"
 import {Pagination} from "../../../n1-main/n1-ui/common/c10-pagination/Pagination";
 import Range from "../../../n1-main/n1-ui/common/c9-range/Range";
+import {OverlayingPopup} from "../../../n1-main/n1-ui/ui-kit/overlayingPopup/overlayingPopup";
+import {UpdatePack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/updatePack";
+import {CreateNewPack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/createNewPack";
+import {DeletePack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/deletePack";
 
 
 export const PacksList = memo(() => {
@@ -44,9 +48,14 @@ export const PacksList = memo(() => {
     const dispatch = useDispatch()
     const [localMaxValue, setLocalMaxValue] = useState(0)
     const [localMinValue, setLocalMinValue] = useState(103)
-
-
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [packId, setPackId] = useState("")
+    const [showCreatePopup, setShowCreatePopup] = useState(false);
+    const onClickShowCreate = () => setShowCreatePopup(true)
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const onClickHideDelete = () => setShowDeletePopup(false)
     const [searchValue, setSearchValue] = useState("")
+
     useEffect(() => {
         if (!isInitialize) {
             dispatch(initializeTC())
@@ -59,7 +68,6 @@ export const PacksList = memo(() => {
         let timer = setTimeout(() => dispatch(setPacksNameAC(searchValue)), 500)
         return () => clearTimeout(timer)
     }, [searchValue])
-
     useEffect(() => {
         let timer1 = setTimeout(() => {
             dispatch(setMaxPacksCountAC(localMaxValue))
@@ -79,13 +87,13 @@ export const PacksList = memo(() => {
         dispatch(setUserIdPacksAC(""))
     }
     const deletePack = (id: string) => {
-        dispatch(deletePackTC(id))
+        setShowDeletePopup(true)
+        setPackId(id)
     }
+    const onClickHideUpdate = () => setShowUpdatePopup(false)
     const updatePack = (id: string,) => {
-        dispatch(updatePackTC(id, "DasAuto"))
-    }
-    const addPack = () => {
-        dispatch(addPackTC("TriMushketera", false))
+        setShowUpdatePopup(true)
+        setPackId(id)
     }
     const sortPack = (param: string) => {
         sortPacks[0] === "1"
@@ -131,9 +139,21 @@ export const PacksList = memo(() => {
                     <h2 className={s.DaNuNa}>Packs list</h2>
                     <div className={s.header}>
                         <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
-                        <SuperButton name={"Add Pack"} onClick={addPack}/>
                     </div>
 
+                    <OverlayingPopup
+                        isOpened={showUpdatePopup}
+                        onClose={onClickHideUpdate}
+                        message="Update a pack">
+                        <UpdatePack packId={packId} onClose={onClickHideUpdate}/>
+                    </OverlayingPopup>
+
+                    <OverlayingPopup
+                        isOpened={showDeletePopup}
+                        onClose={onClickHideDelete}
+                        message="Do you want to delete this pack ?">
+                        <DeletePack packId={packId} onClose={onClickHideDelete}/>
+                    </OverlayingPopup>
 
                     <Table
                         onLearnClickHandler={onLearnClick}
