@@ -27,6 +27,7 @@ import {OverlayingPopup} from "../../../n1-main/n1-ui/ui-kit/overlayingPopup/ove
 import {CreateNewCard} from "../../../n1-main/n1-ui/ui-kit/popup/modals/createNewCard";
 import {UpdateCard} from "../../../n1-main/n1-ui/ui-kit/popup/modals/updateCard";
 import {DeleteCard} from "../../../n1-main/n1-ui/ui-kit/popup/modals/deleteCard";
+import {ModalUp} from "../../../n1-main/n1-ui/ui-kit/popup/modals/modalUp/modalUP";
 
 
 export const CardsList = memo(() => {
@@ -52,7 +53,7 @@ export const CardsList = memo(() => {
 
     const backImage = "https://www.kindpng.com/picc/m/58-583580_estrela-logo-back-button-icon-png-transparent-png.png"
     const [searchValue, setSearchValue] = useState("")
-    const options = [1, 3, 5, 7, 10]
+    const options = [1, 3, 5, 7, 10,20]
 
     const header = {
         question: "Question",
@@ -126,23 +127,21 @@ export const CardsList = memo(() => {
                         message="Create a new card">
                         <CreateNewCard onClose={onClickHideCreate}/>
                     </OverlayingPopup>
-
                     <OverlayingPopup
                         isOpened={showUpdatePopup}
                         onClose={onClickHideUpdate}
                         message="Update a card">
                         <UpdateCard cardId={cardId} onClose={onClickHideUpdate}/>
                     </OverlayingPopup>
-
                     <OverlayingPopup
                         isOpened={showDeletePopup}
                         onClose={onClickHideDelete}
                         message="Do you want to delete this card ?">
                         <DeleteCard cardId={cardId} onClose={onClickHideDelete}/>
                     </OverlayingPopup>
-
                     <SuperButton name="Create card" onClick={onClickShowCreate}/>
                 </div>
+                <ModalUp/>
                 <div className={style.table}>
                     <Table
                         sort={sortCards}
