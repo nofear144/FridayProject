@@ -1,8 +1,11 @@
 $breakpoint-alpha: 700px; // adjust to your needs
 
+
 .rwdTables {
-  margin: 1em 1em;
-  min-width: 300px; // adjust to your needs
+
+  @media (max-width: $breakpoint-alpha) {
+   width: 300px;
+  }
 
   tr {
     border-top: 1px solid #ddd;
@@ -15,14 +18,19 @@ $breakpoint-alpha: 700px; // adjust to your needs
 
   th {
     display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!
-  }
-  & .sort {
-       cursor: pointer;
 
+    &.sort {
+      cursor: pointer;
+      &:hover{
+       color: #b8e9ff;
+        transition: 0.5s;
+      }
 
-     }
-  .sort:active {
-    background-color: lighten(#34495e, 5%);
+      &:active {
+        color: lighten(#34495e, 5%);
+        transition: 0.1s;
+      }
+    }
   }
 
 
@@ -59,6 +67,7 @@ $breakpoint-alpha: 700px; // adjust to your needs
 
   th, td {
     text-align: left;
+    width: 300px;
 
     @media (min-width: $breakpoint-alpha) {
       display: table-cell;
@@ -72,10 +81,7 @@ $breakpoint-alpha: 700px; // adjust to your needs
         padding-right: 0;
       }
     }
-
   }
-
-
 }
 
 
@@ -94,17 +100,19 @@ $breakpoint-alpha: 700px; // adjust to your needs
 
 
 .rwdTables {
-  background: #34495E;
+  border-spacing: 0px 2px;
+  background: #2b3c4e;
   color: #fff;
   border-radius: .4em;
   overflow: hidden;
+  width: 100%;
 
   tr {
     background-color: #34495e;
     border-color: lighten(#34495e, 10%);
 
     &:hover {
-      background-color: darken(#34495e, 3%);
+      background-color: darken(#34495e, 5%);
     }
 
     &:active {

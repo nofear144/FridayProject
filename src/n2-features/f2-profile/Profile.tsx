@@ -11,7 +11,7 @@ import SuperButton from "../../n1-main/n1-ui/common/c1-button/SuperButton";
 import Range from "../../n1-main/n1-ui/common/c9-range/Range";
 import SuperInputText from "../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import {Table} from "../../n1-main/n1-ui/common/c7-table/Table";
-import {Pagination} from "../../n1-main/n1-ui/common/c10-pagination/paginationByIliya";
+import {Pagination} from "../../n1-main/n1-ui/common/c10-pagination/Pagination";
 import {
     addPackTC,
     deletePackTC,

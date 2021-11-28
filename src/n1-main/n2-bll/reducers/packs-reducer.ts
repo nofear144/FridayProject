@@ -1,20 +1,12 @@
-import {packsApi, RequestPacksType} from "../../n3-dal/packs-api";
+import {packsApi, PackType, RequestPacksType} from "../../n3-dal/packs-api";
 import {AppThunk} from "../store/store";
 import {setAppErrorAC, setIsInitializedAC, setStatusAC} from "./app-reducer";
+import {CardsType} from "../../n3-dal/cards-api";
 
 
 const initialState = {
-    cardPacks: [
-        {
-            _id: "",
-            user_id: "",
-            name: "",
-            cardsCount: 1,
-            created: "",
-            updated: "",
-            user_name: '',
-        }
-    ],
+    cardPacks: [] as Array<PackType>
+    ,
     cardPacksTotalCount: 14,
     page: 1,
     pageCount: 15,

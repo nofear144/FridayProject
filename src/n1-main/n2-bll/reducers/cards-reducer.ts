@@ -1,20 +1,10 @@
 import {setAppErrorAC, setStatusAC} from "./app-reducer";
-import {cardsApi, ResponseType} from "../../n3-dal/cards-api";
+import {cardsApi, CardsType, ResponseType} from "../../n3-dal/cards-api";
 import {AppThunk} from "../store/store";
 
+
 const initialState = {
-    cards: [
-        {
-            answer: "",
-            question: "",
-            cardsPack_id: "",
-            grade: 0,
-            user_id: "",
-            created: "",
-            updated: "",
-            _id: "",
-        }
-    ],
+    cards: [] as Array<CardsType>,
     pageCount: 0,
     page: 1,
     min: 0,
@@ -24,7 +14,7 @@ const initialState = {
     cardQuestion: "",
     cardsPack_id: "",
     sortCards: "0update",
-    cardsTotalCount: 15
+    cardsTotalCount: 15,
 }
 
 export const cardsReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
@@ -44,17 +34,19 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
         case "cards/SET_ALL_CARDS": {
             return {...state, ...action.cards, cardQuestion: state.cardQuestion, cardAnswer: state.cardAnswer}
         }
+        /* case "cards/SET_GRADE":{
+             return {...state,cards:state.cards.map((card)=>(card._id===action.id)?{...state.cards,grade: action.value}:card)}
+         }*/
         default:
             return state
     }
 }
 
 //Actions
-export const setQuestionAC = (question:string) => ({type:"cards/SET_QUESTION",payload:{question}}as const)
-export const setAnswerAC = (answer:string) => ({type:"cards/SET_ANSWER",payload:{answer}}as const)
-
+export const setGradeAC = (value: number, id: string) => (({type: "cards/SET_GRADE", value, id} as const))
+export const setQuestionAC = (question: string) => ({type: "cards/SET_QUESTION", payload: {question}} as const)
+export const setAnswerAC = (answer: string) => ({type: "cards/SET_ANSWER", payload: {answer}} as const)
 export const setAllCardsAC = (cards: ResponseType) => ({type: "cards/SET_ALL_CARDS", cards} as const)
-
 export const setCardAnswerAC = (cardAnswer: string) => ({type: "cards/SET_CARD_ANSWER", payload: {cardAnswer}} as const)
 export const setCardQuestionAC = (cardQuestion: string) => ({
     type: "cards/SET_CARD_QUESTION",
@@ -81,12 +73,12 @@ export const getAllCardsTC = (): AppThunk =>
                 dispatch(setAllCardsAC(res.data))
                 dispatch(setStatusAC("succeeded"))
             }).catch(err => {
-            dispatch(setStatusAC("failed"))
-            const error = err.response
-                ? err.response.data.error
-                : (err.message + 'some message from backend')
-            dispatch(setAppErrorAC(error))
-        })
+                dispatch(setStatusAC("failed"))
+                const error = err.response
+                    ? err.response.data.error
+                    : (err.message + 'some message from backend')
+                dispatch(setAppErrorAC(error))
+            })
             .finally(() => {
                 dispatch(setStatusAC('idle'))
             })
@@ -148,13 +140,32 @@ export const updateCardTC = (_id: string, question: string, answer: string): App
     dispatch(getAllCardsTC())
 }
 
+export const gradeCardTC = (value: number, id: string): AppThunk => async(dispatch) => {
+    dispatch(setStatusAC("loading"))
+    await cardsApi.gradeCard(value,id)
+        .then(res=>{
+            dispatch(setStatusAC("succeeded"))
+        })
+        .catch(err=>{
+            dispatch(setStatusAC("failed"))
+            const error = err.response
+                ? err.response.data.error
+                : (err.message + 'some message from backend')
+            dispatch(setAppErrorAC(error))
+        })
+        .finally(() => {
+        dispatch(setStatusAC('idle'))
+    })
+    dispatch(getAllCardsTC())
+}
+
 //Types
 type initialStateType = typeof initialState
 type ActionsType =
     ReturnType<typeof setAllCardsAC> |
+    ReturnType<typeof setGradeAC> |
     ReturnType<typeof setStatusAC> |
     ReturnType<typeof setAppErrorAC> |
-
     ReturnType<typeof setCardAnswerAC> |
     ReturnType<typeof setCardQuestionAC> |
     ReturnType<typeof setPageCountAC> |
@@ -162,6 +173,6 @@ type ActionsType =
     ReturnType<typeof setMaxCardsCountAC> |
     ReturnType<typeof setSortCardsAC> |
     ReturnType<typeof setPageAC> |
-    ReturnType<typeof setCardsPack_idAC>|
-    ReturnType<typeof setQuestionAC>|
+    ReturnType<typeof setCardsPack_idAC> |
+    ReturnType<typeof setQuestionAC> |
     ReturnType<typeof setAnswerAC>

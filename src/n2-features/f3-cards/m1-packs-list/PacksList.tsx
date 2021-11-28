@@ -20,7 +20,7 @@ import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import s from "./PacksList.module.scss"
-import {Pagination} from "../../../n1-main/n1-ui/common/c10-pagination/paginationByIliya";
+import {Pagination} from "../../../n1-main/n1-ui/common/c10-pagination/Pagination";
 import Range from "../../../n1-main/n1-ui/common/c9-range/Range";
 
 
@@ -99,7 +99,10 @@ export const PacksList = memo(() => {
         setLocalMaxValue(max)
         setLocalMinValue(min)
     }
-
+    const onLearnClick = (id: string) => {
+        navigate(`${PATH.LEARN_CARD}/${id}`)
+        console.log("Call on LearnClick")
+    }
 
     if (!isInitialize) {
         return <div className={s.loader}><Spinner/></div>
@@ -115,42 +118,43 @@ export const PacksList = memo(() => {
             <div className={s.container}>
                 <div className={s.sideBar}>
                     <div className={s.label}><h3>Show cards packs:</h3>
-                    <div className={s.toggle}>
-                        <SuperButton className={s.buttons} name={"My"} onClick={myPack}/>
-                        <SuperButton className={s.buttons} name={"All"} onClick={allPack}/>
-                    </div>
+                        <div className={s.toggle}>
+                            <SuperButton className={s.buttons} name={"My"} onClick={myPack}/>
+                            <SuperButton className={s.buttons} name={"All"} onClick={allPack}/>
+                        </div>
                     </div>
                     <label className={s.label}><h3>Cards in a pack</h3>
-                    <Range min={0} max={103} onChange={onRangeChange}/>
+                        <Range min={0} max={103} onChange={onRangeChange}/>
                     </label>
                 </div>
-                <div className={s.table}>
-                    <div className={s.tableContainer}>
-                        <h2 className={s.DaNuNa}>Packs list</h2>
-                        <div className={s.header}>
-                            <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
-                            <SuperButton name={"Add Pack"} onClick={addPack}/>
-                        </div>
 
-
-                        <Table
-                            sort={sortPacks}
-                            onRowClickHandler={routeToCard}
-                            onSortClickHandler={sortPack}
-                            onUpdateUpdateHandler={updatePack}
-                            onDeleteClickHandler={deletePack}
-                            items={cardPacks} header={{
-                            name: "Name",
-                            cardsCount: "Cards",
-                            updated: "Updated",
-                            user_name: "Created by",
-                            buttons: ""
-                        }}/>
-                        <Pagination cardPacksTotalCount={cardPacksTotalCount} page={page} pageCount={pageCount}
-                                    setPage={setPage}/>
+                <div className={s.tableContainer}>
+                    <h2 className={s.DaNuNa}>Packs list</h2>
+                    <div className={s.header}>
+                        <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
+                        <SuperButton name={"Add Pack"} onClick={addPack}/>
                     </div>
+
+
+                    <Table
+                        onLearnClickHandler={onLearnClick}
+                        sort={sortPacks}
+                        onRowClickHandler={routeToCard}
+                        onSortClickHandler={sortPack}
+                        onUpdateUpdateHandler={updatePack}
+                        onDeleteClickHandler={deletePack}
+                        items={cardPacks} header={{
+                        name: "Name",
+                        cardsCount: "Cards",
+                        updated: "Updated",
+                        user_name: "Created by",
+                        buttons: ""
+                    }}/>
+                    <Pagination cardPacksTotalCount={cardPacksTotalCount} page={page} pageCount={pageCount}
+                                setPage={setPage}/>
                 </div>
             </div>
+
         </ Window>
     )
 })
