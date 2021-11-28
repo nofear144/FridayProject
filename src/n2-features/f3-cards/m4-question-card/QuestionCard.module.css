@@ -1,18 +1,30 @@
 .container {
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    min-width: 413px;
+    width: 600px;
     min-height: 300px;
 
 }
 
 .buttons {
     display: flex;
-    justify-content: space-around;
+    min-width: 300px;
+    justify-content: space-between;
 }
 .radioButtons{
     display: flex;
+    flex-direction: column;
+    width:300px
 
+}
+.rate{
+    width:300px
+}
+.radioBox{
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
 }
