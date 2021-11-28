@@ -21,9 +21,14 @@ $breakpoint-alpha: 700px; // adjust to your needs
 
     &.sort {
       cursor: pointer;
+      &:hover{
+       color: #b8e9ff;
+        transition: 0.5s;
+      }
 
       &:active {
-        background-color: lighten(#34495e, 5%);
+        color: lighten(#34495e, 5%);
+        transition: 0.1s;
       }
     }
   }
@@ -107,7 +112,7 @@ $breakpoint-alpha: 700px; // adjust to your needs
     border-color: lighten(#34495e, 10%);
 
     &:hover {
-      background-color: darken(#34495e, 3%);
+      background-color: darken(#34495e, 5%);
     }
 
     &:active {

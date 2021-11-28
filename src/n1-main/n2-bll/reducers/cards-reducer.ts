@@ -1,22 +1,10 @@
 import {setAppErrorAC, setStatusAC} from "./app-reducer";
-import {cardsApi, ResponseType} from "../../n3-dal/cards-api";
+import {cardsApi, CardsType, ResponseType} from "../../n3-dal/cards-api";
 import {AppThunk} from "../store/store";
 
 
 const initialState = {
-    cards: [
-        {
-            answer: "",
-            question: "",
-            cardsPack_id: "",
-            grade: 0,
-            shots:0,
-            user_id: "",
-            created: "",
-            updated: "",
-            _id: "",
-        }
-    ],
+    cards: [] as Array<CardsType>,
     pageCount: 0,
     page: 1,
     min: 0,
