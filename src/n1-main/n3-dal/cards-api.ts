@@ -21,10 +21,21 @@ export const cardsApi = {
             {card: {_id, question, answer}})
     },
 
-
     getParam(params: ParamsType) {
         return instance.get(`cards/card/${params.cardsPack_id}`)
+    },
+
+    gradeCard(grade: number, card_id: string) {
+        return instance.put<AxiosResponse<GradeCardType>>('/cards/grade', {grade, card_id})
     }
+}
+export type GradeCardType = {
+    _id: string
+    cardsPack_id: string
+    card_id:string
+    user_id:string
+    grade:number
+    shots:number
 }
 export type CreateCardType = {
     cardsPack_id: string
@@ -38,6 +49,7 @@ export type CardsType = {
     question: string
     cardsPack_id: string
     grade: number
+    shots:number
     user_id: string
     created: string
     updated: string
@@ -57,8 +69,6 @@ export type ResponseType = {
     pageCount: number,
     packUserId: string,
 }
-
-
 export type ParamsType = {
     cardsPack_id: string
 }

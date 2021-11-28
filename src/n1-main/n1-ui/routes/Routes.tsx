@@ -13,6 +13,7 @@ import s from "./routes.module.scss"
 import {CheckEmail} from "../../../n2-features/f1-auth/m3-reset-password/CheckEmail";
 import {CardsList} from "../../../n2-features/f3-cards/m2-cards-list/CardsList";
 import {PacksList} from "../../../n2-features/f3-cards/m1-packs-list/PacksList";
+import {QuestionCard} from "../../../n2-features/f3-cards/m4-question-card/QuestionCard";
 
 
 export const PATH = {
@@ -24,7 +25,8 @@ export const PATH = {
     PROFILE: '/FridayProject',
     CHECK_EMAIL: "/check_email",
     CARDS_LIST: "/cardsList",
-    PACKS_LIST: "/packsList"
+    PACKS_LIST: "/packsList",
+    LEARN_CARD:"/question_card"
 
 }
 
@@ -50,6 +52,9 @@ export function RoutesPage() {
                 <Route path={"/packsList"} element={<PacksList/>}/>
                 <Route path={PATH.CARDS_LIST} element={<CardsList/>}>
                     <Route path=":id" element={<CardsList/>}/>
+                </Route>
+                <Route path={PATH.LEARN_CARD} element={<QuestionCard/>}>
+                <Route path={":id"} element={<QuestionCard/>}/>
                 </Route>
             </Routes>
 

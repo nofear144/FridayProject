@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 413px;
+    min-height: 300px;
+
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+}
+.radioButtons{
+    display: flex;
+
+}
