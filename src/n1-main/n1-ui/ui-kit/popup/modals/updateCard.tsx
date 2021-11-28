@@ -5,6 +5,7 @@ import SuperInputText from "../../../common/c2-input/SuperInputText";
 import style from "../popup.module.css";
 import SuperButton from "../../../common/c1-button/SuperButton";
 import {useAppSelector} from "../../../../n2-bll/store/store";
+import {useParams} from "react-router-dom";
 
 export type UpdateCardPropsType = {
     onClose: (value: boolean) => void
@@ -13,7 +14,7 @@ export type UpdateCardPropsType = {
 export const UpdateCard: FC<UpdateCardPropsType> = ({cardId, onClose}) => {
     const dispatch = useDispatch()
     const allCards = useAppSelector(state => state.cards.cards)
-    const cardsPack_id = useAppSelector(state => state.cards.cardsPack_id)
+    const {id} = useParams<string>()
 
     const currentQuestion = allCards.find(card => card._id === cardId && card.question)
     const currentAnswer = allCards.find(card => card._id === cardId && card.answer)
@@ -22,7 +23,7 @@ export const UpdateCard: FC<UpdateCardPropsType> = ({cardId, onClose}) => {
     const [question, setQuestion] = useState(currentQuestion!.question)
 
     const updateCard = (e: FormEvent<HTMLFormElement>) => {
-        dispatch(updateCardTC(cardsPack_id,cardId, question, answer))
+        dispatch(id && updateCardTC(id, cardId, question, answer))
         onClose(false)
         e.preventDefault()
     }

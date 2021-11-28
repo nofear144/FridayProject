@@ -42,8 +42,9 @@ export const CardsList = memo(() => {
     const dispatch = useDispatch()
 
     const deleteCard = (id: string) => {
-        setShowDeletePopup(true)
         setCardId(id)
+        setShowDeletePopup(true)
+        console.log(id)
     }
 
     const updateCard = (id: string) => {

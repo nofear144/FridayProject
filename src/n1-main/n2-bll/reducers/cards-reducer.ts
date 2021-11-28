@@ -36,9 +36,7 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
             return {...state, ...action.cards, cardQuestion: state.cardQuestion, cardAnswer: state.cardAnswer}
         }
             console.log(action)
-        /* case "cards/SET_GRADE":{
-             return {...state,cards:state.cards.map((card)=>(card._id===action.id)?{...state.cards,grade: action.value}:card)}
-         }*/
+
         default:
             return state
     }

@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import {deleteCardTC} from "../../../../n2-bll/reducers/cards-reducer";
 import style from "../popup.module.css";
 import SuperButton from "../../../common/c1-button/SuperButton";
-import {useAppSelector} from "../../../../n2-bll/store/store";
+import {useParams} from "react-router-dom";
 
 export type DeleteCardPropsType = {
     onClose: (value: boolean) => void
@@ -11,9 +11,9 @@ export type DeleteCardPropsType = {
 }
 export const DeleteCard: FC<DeleteCardPropsType> = ({cardId, onClose}) => {
     const dispatch = useDispatch()
-    const cardsPack_id = useAppSelector(state => state.cards.cardsPack_id)
+    const {id} = useParams<string>()
     const deleteCard = () => {
-        dispatch(deleteCardTC(cardsPack_id,cardId))
+        dispatch(id && deleteCardTC(cardId, id))
         onClose(false)
     }
 

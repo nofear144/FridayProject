@@ -26,6 +26,7 @@ import {OverlayingPopup} from "../../../n1-main/n1-ui/ui-kit/overlayingPopup/ove
 import {UpdatePack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/updatePack";
 import {CreateNewPack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/createNewPack";
 import {DeletePack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/deletePack";
+import {setCardsPack_idAC} from "../../../n1-main/n2-bll/reducers/cards-reducer";
 
 
 export const PacksList = memo(() => {
