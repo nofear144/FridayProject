@@ -26,10 +26,12 @@ import SuperSelect from "../../../n1-main/n1-ui/common/c4-select/SuperSelect";
 import style from './CardsList.module.css'
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
 import {OverlayingPopup} from "../../../n1-main/n1-ui/ui-kit/overlayingPopup/overlayingPopup";
+import {CreateNewCard, UpdateCard} from "../../../n1-main/n1-ui/ui-kit/portalModal/popup";
 
 
 export const CardsList = memo(() => {
     const {status, isInitialize} = useAppSelector(state => state.app);
+    const [cardId,setCardId]=useState("")
     const isLoggedIn = useAppSelector(state => state.login.isLogged);
     const {
         cards, page, pageCount, cardsTotalCount,
@@ -39,9 +41,13 @@ export const CardsList = memo(() => {
     const dispatch = useDispatch()
 
     const deleteCard = (id: string) => {
+        setShowDeletePopup(true)
         dispatch(deleteCardTC(id))
     }
+
     const updateCard = (id: string) => {
+        setShowUpdatePopup(true)
+        setCardId(id)
         dispatch(updateCardTC(id, "UPDATED QUESTION", "UPDATED ANSWER"))
     }
 
@@ -96,9 +102,14 @@ export const CardsList = memo(() => {
 
 
     // MODAL MENU
-    const [showPopup, setShowPopup] = useState(false);
-    const onClickShow = () => setShowPopup(true)
-    const onClickHide = () => setShowPopup(false)
+    const [showCreatePopup, setShowCreatePopup] = useState(false);
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+
+    const onClickShowCreate = () => setShowCreatePopup(true)
+    const onClickHideCreate = () => setShowCreatePopup(false)
+
+    const onClickHideUpdate = () => setShowUpdatePopup(false)
 
     if (!isInitialize) {
         return <div className={s.loader}><Spinner/></div>
@@ -119,10 +130,20 @@ export const CardsList = memo(() => {
                 <div className={style.header}>
                     <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
                     <OverlayingPopup
-                        isOpened={showPopup}
-                        onClose={onClickHide}
-                        message="Create a new card"/>
-                    <SuperButton name="Create card" onClick={onClickShow}/>
+                        isOpened={showCreatePopup}
+                         onClose={onClickHideCreate}
+                        message="Create a new card">
+                    <CreateNewCard onClose={onClickHideCreate}/>
+                    </OverlayingPopup>
+
+                    <OverlayingPopup
+                        isOpened={showUpdatePopup}
+                        onClose={onClickHideUpdate}
+                        message="Update a new card">
+                        <UpdateCard cardId={cardId} onClose={onClickHideUpdate}/>
+                    </OverlayingPopup>
+
+                    <SuperButton name="Create card" onClick={onClickShowCreate}/>
                 </div>
                 <div className={style.table}>
                     <Table

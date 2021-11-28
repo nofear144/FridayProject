@@ -4,12 +4,11 @@ import style from "./overlayingPopup.module.css"
 import {Popup} from "../portalModal/popup";
 
 export type PopupType = {
-    children?: any
-    onClose: (value: boolean) => void
+     onClose: (value: boolean) => void
     isOpened: boolean
     message: string
 }
-export const OverlayingPopup: FC<PopupType> = ({ message, onClose, isOpened, children}) => {
+export const OverlayingPopup: FC<PopupType> = ({message, isOpened, onClose,children}) => {
     if (!isOpened) {
         return null
     }
@@ -17,11 +16,12 @@ export const OverlayingPopup: FC<PopupType> = ({ message, onClose, isOpened, chi
     return ReactDOM.createPortal(
         <div className={style.overlay} onClick={() => onClose(false)}>
             <Popup
-                onClose={onClose}
+                children={children}
                 isOpen={isOpened}
                 message={message}/>
         </div>, document.body)
 }
+
 
 
 // const Modal: FC<PortalModelType> = ({message, isOpen, onClose}) => {
