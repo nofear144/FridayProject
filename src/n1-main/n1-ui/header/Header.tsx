@@ -22,7 +22,7 @@ export function Header() {
 
             <div className={s.header}>
                 <div className={s.container}>
-                    <h2>FunCards</h2>
+                    <h2 className={s.logo}>FunCards</h2>
                     <div>
                         <NavLink to={PATH.PROFILE}>Profile</NavLink>
                         <NavLink to={PATH.PACKS_LIST}>PackList</NavLink>

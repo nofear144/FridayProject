@@ -1,11 +1,9 @@
-$breakpoint-alpha: 700px; // adjust to your needs
+$breakpoint-alpha: 800px; // adjust to your needs
 
 
 .rwdTables {
 
-  @media (max-width: $breakpoint-alpha) {
-   width: 300px;
-  }
+
 
   tr {
     border-top: 1px solid #ddd;
@@ -33,7 +31,18 @@ $breakpoint-alpha: 700px; // adjust to your needs
     }
   }
 
+.buttons {
+ display: flex;
+  width: 100%;
+  justify-content: center;
 
+  @media (min-width: $breakpoint-alpha) {
+    flex-direction: column;
+  }
+  @media (min-width: 850px) {
+  flex-direction: row;
+}
+}
 
 
   td {
@@ -67,12 +76,11 @@ $breakpoint-alpha: 700px; // adjust to your needs
 
   th, td {
     text-align: left;
-    width: 300px;
-
+    min-width: 200px;
     @media (min-width: $breakpoint-alpha) {
+      min-width: 100px;
       display: table-cell;
       padding: .25em .5em;
-
       &:first-child {
         padding-left: 0;
       }
@@ -106,6 +114,7 @@ $breakpoint-alpha: 700px; // adjust to your needs
   border-radius: .4em;
   overflow: hidden;
   width: 100%;
+  margin: 10px;
 
   tr {
     background-color: #34495e;

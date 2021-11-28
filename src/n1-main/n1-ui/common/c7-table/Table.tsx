@@ -65,7 +65,7 @@ export const Table: FC<Props> = memo(({
                         <td key={key} data-th={titles[index]}>
                             {
                                 key === "buttons" ?
-                                    <div style={{display: "flex", justifyContent: "center",}}>
+                                    <div className={s.buttons}>
                                         <SuperButton
 
                                             onClick={() => onLearnClickHandler && onLearnClickHandler(item._id)}

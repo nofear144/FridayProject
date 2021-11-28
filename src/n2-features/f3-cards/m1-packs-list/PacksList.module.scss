@@ -1,5 +1,5 @@
 $breakpoint-1: 700px;
-$breakpoint-2: 1050px;
+$breakpoint-2: 1250px;
 
 
 .container {
@@ -64,8 +64,9 @@ width: 100%;
 .label {
   text-align: center;
   margin-top: 100px;
-  @media (max-width: $breakpoint-1) {
-    margin-top: 5px;
+  @media (max-width: $breakpoint-2) {
+    margin: 0;
+    padding: 15px;
   }
 }
 
