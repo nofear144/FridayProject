@@ -3,8 +3,6 @@ import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../n1-main/n2-bll/store/store";
 import {PATH} from "../../n1-main/n1-ui/routes/Routes";
 import {Navigate, NavLink, useNavigate} from "react-router-dom";
-import {initializeTC} from "../../n1-main/n2-bll/reducers/login-reducer";
-import {Spinner} from "../../n1-main/n1-ui/common/c5-spinner/Spinner";
 import Window from "../f1-auth/m4-new-password/Window";
 import Loader from "../f1-auth/m3-reset-password/Loader";
 import SuperButton from "../../n1-main/n1-ui/common/c1-button/SuperButton";
@@ -18,17 +16,13 @@ import {
     getPacksTC,
     setMaxPacksCountAC,
     setMinPacksCountAC,
-    setPacksNameAC, setPageAC, setSortPacksAC, updatePackTC
+    setPacksNameAC, setPageAC, setSortPacksAC, setUserIdPacksAC, updatePackTC
 } from "../../n1-main/n2-bll/reducers/packs-reducer";
 import s from "./Profile.module.scss"
 
 
 export function Profile() {
-    useEffect(() => {
-        if (!isInitialize) {
-            dispatch(initializeTC())
-        }
-    }, [])
+
 
     const {status, isInitialize} = useAppSelector(state => state.app)
     const {
@@ -42,7 +36,7 @@ export function Profile() {
         localmaxCardsCount,
         localminCardsCount
     } = useAppSelector(state => state.packs)
-    const {name,avatar} = useAppSelector(state => state.profile)
+    const {name,avatar,_id} = useAppSelector(state => state.profile)
     const isLoggedIn = useAppSelector(state => state.login.isLogged)
 
 
@@ -54,8 +48,10 @@ export function Profile() {
     const [searchValue, setSearchValue] = useState("")
 
     useEffect(() => {
+        dispatch(setUserIdPacksAC(_id))
         dispatch(getPacksTC())
     }, [packName, localmaxCardsCount, localminCardsCount, sortPacks, page, pageCount, user_id])
+
     useEffect(() => {
         let timer = setTimeout(() => dispatch(setPacksNameAC(searchValue)), 500)
         return () => clearTimeout(timer)
@@ -94,13 +90,10 @@ export function Profile() {
     }
 
 
-    if (!isInitialize) {
-        return <div className={s.loader}><Spinner/></div>
-    }
+
     if (isInitialize && !isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
     }
-
 
     return (
         <div>

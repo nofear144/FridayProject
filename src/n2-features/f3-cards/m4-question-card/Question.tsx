@@ -1,5 +1,4 @@
 import React, {FC, memo} from "react";
-import Window from "../../f1-auth/m4-new-password/Window";
 import s from "./QuestionCard.module.css";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
 import {CardsType} from "../../../n1-main/n3-dal/cards-api";

@@ -11,14 +11,15 @@ import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
 import {CardsType} from "../../../n1-main/n3-dal/cards-api";
 import {
     deleteAllCardsAC,
-    getAllCardsTC,
+    getAllCardsTC, gradeCardTC,
     setAllCardsAC,
     setCardsPack_idAC
 } from "../../../n1-main/n2-bll/reducers/cards-reducer";
+import Loader from "../../f1-auth/m3-reset-password/Loader";
 
 
 export const QuestionCard = memo(() => {
-    const cardsPackId = useAppSelector(state => state.cards.cardsPack_id)
+    const status = useAppSelector(state => state.app.status);
     const cards = useAppSelector(state => state.cards.cards)
     console.log(cards)
     const navigate = useNavigate()
@@ -26,21 +27,12 @@ export const QuestionCard = memo(() => {
 
     const [show, setShow] = useState(true)
     const [grade, setGrade] = useState(1)
-    const [card, setCard] = useState<CardsType>({
-        _id: '',
-        cardsPack_id: '',
-        user_id: "",
-        answer: '',
-        question: '',
-        grade: 0,
-        shots: 0,
-        created: '',
-        updated: '',
-    })
+    const [card, setCard] = useState<CardsType>({} as CardsType)
     console.log(card)
     const {id} = useParams()
     const onCancelClick = () => {
         navigate(PATH.PACKS_LIST)
+
     }
     const onSetShowClick = () => {
         setShow(false)
@@ -56,53 +48,55 @@ export const QuestionCard = memo(() => {
                 return {sum: newSum, id: newSum < rand ? i : acc.id}
             }
             , {sum: 0, id: -1});
-        console.log(cards[res.id + 1])
         return cards[res.id + 1];
 
     }
     const onNextClick = () => {
         if (cards.length > 0) {
+            dispatch(gradeCardTC(grade,card._id,card.cardsPack_id))
             setCard(getCard(cards));
+            setShow(true)
         } else {
         }
     }
 
-
+    useEffect(() => {
+        console.log("Use Effect get")
+        if (cards.length === 0) {
+            id && dispatch(getAllCardsTC(id))
+        }
+        return()=>{
+              dispatch(deleteAllCardsAC())
+        }
+    }, [])
 
     useEffect(() => {
-        if (cards.length === 0) {
-            id && dispatch(setCardsPack_idAC(id))
-            dispatch(getAllCardsTC())
-        }
-
+        console.log("Use Effect setCard")
         if (cards.length > 0) setCard(getCard(cards));
-        return () => {
-         dispatch(deleteAllCardsAC())
-        }
-    }, [card])
+
+    }, [cards])
 
     return (<div>
         {show ?
             <Window>
-                <div className={s.container}>
+                {status === "loading" && <Loader/>}
                     <Question
                         card={card}
                         onSetShowClick={onSetShowClick}
                         onCancelClick={onCancelClick}
                     />
-                </div>
             </ Window>
             :
             <Window>
-                <div className={s.container}>
+                {status === "loading" && <Loader/>}
                     <Answer
                         card={card}
                         onNextClick={onNextClick}
                         grade={grade}
                         onCancelClick={onCancelClick}
                         onGradeChange={onGradeChange}/>
-                </div>
             </ Window>
+
         }
     </div>)
 

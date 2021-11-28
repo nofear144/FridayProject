@@ -64,7 +64,7 @@ export const PacksList = memo(() => {
         let timer1 = setTimeout(() => {
             dispatch(setMaxPacksCountAC(localMaxValue))
             dispatch(setMinPacksCountAC(localMinValue))
-        }, 500)
+        }, 1500)
         return () => clearTimeout(timer1)
     }, [localMaxValue, localMinValue])
 
@@ -101,7 +101,6 @@ export const PacksList = memo(() => {
     }
     const onLearnClick = (id: string) => {
         navigate(`${PATH.LEARN_CARD}/${id}`)
-        console.log("Call on LearnClick")
     }
 
     if (!isInitialize) {
