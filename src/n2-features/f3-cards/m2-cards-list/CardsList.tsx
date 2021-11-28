@@ -89,15 +89,9 @@ export const CardsList = memo(() => {
     }, [searchValue])
 
     useEffect(() => {
-        id && dispatch(setCardsPack_idAC(id))
-        dispatch(getAllCardsTC())
+        id && dispatch(getAllCardsTC(id))
     }, [cardQuestion, cardAnswer, sortCards, page, pageCount])
 
-    useEffect(() => {
-        if (!isInitialize) {
-            dispatch(initializeTC())
-        }
-    }, [])
 
     // MODAL MENU
     const [showCreatePopup, setShowCreatePopup] = useState(false);
@@ -110,9 +104,7 @@ export const CardsList = memo(() => {
     const [showDeletePopup, setShowDeletePopup] = useState(false);
     const onClickHideDelete = () => setShowDeletePopup(false)
 
-    if (!isInitialize) {
-        return <div className={s.loader}><Spinner/></div>
-    }
+
 
     if (isInitialize && !isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>

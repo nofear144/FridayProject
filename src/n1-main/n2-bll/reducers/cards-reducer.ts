@@ -5,7 +5,7 @@ import {AppThunk} from "../store/store";
 
 const initialState = {
     cards: [] as Array<CardsType>,
-    pageCount: 0,
+    pageCount: 70,
     page: 1,
     min: 0,
     max: 6,
@@ -66,11 +66,11 @@ export const setCardsPack_idAC = (params: string) => ({
 } as const)
 
 //Thunks
-export const getAllCardsTC = (): AppThunk =>
+export const getAllCardsTC = (id:string): AppThunk =>
     async (dispatch, getState) => {
         dispatch(setStatusAC("loading"))
         let {cardAnswer, cardQuestion, pageCount, cardsPack_id, min, max, sortCards, page} = getState().cards
-        await cardsApi.getCards(cardQuestion, cardAnswer, pageCount, cardsPack_id, min, max, sortCards, page)
+        await cardsApi.getCards(cardQuestion, cardAnswer, pageCount, id, min, max, sortCards, page)
             .then(res => {
                 dispatch(setAllCardsAC(res.data))
                 dispatch(setStatusAC("succeeded"))
@@ -102,10 +102,10 @@ export const createNewCardTC = (cardsPack_id: string, question: string, answer: 
             .finally(() => {
                 dispatch(setStatusAC('idle'))
             })
-        dispatch(getAllCardsTC())
+        dispatch(getAllCardsTC(cardsPack_id))
     }
 
-export const deleteCardTC = (id: string): AppThunk => async (dispatch) => {
+export const deleteCardTC = (id: string,cardsPack_id:string): AppThunk => async (dispatch) => {
     dispatch(setStatusAC("loading"))
     await cardsApi.deleteCard(id)
         .then(res => {
@@ -120,10 +120,10 @@ export const deleteCardTC = (id: string): AppThunk => async (dispatch) => {
         .finally(() => {
             dispatch(setStatusAC('idle'))
         })
-    dispatch(getAllCardsTC())
+    dispatch(getAllCardsTC(cardsPack_id))
 }
 
-export const updateCardTC = (_id: string, question: string, answer: string): AppThunk => async (dispatch) => {
+export const updateCardTC = (cardsPack_id:string,_id: string, question: string, answer: string): AppThunk => async (dispatch) => {
     dispatch(setStatusAC("loading"))
     await cardsApi.updateCard({_id, question, answer})
         .then(res => {
@@ -139,12 +139,12 @@ export const updateCardTC = (_id: string, question: string, answer: string): App
         .finally(() => {
             dispatch(setStatusAC('idle'))
         })
-    dispatch(getAllCardsTC())
+    dispatch(getAllCardsTC(cardsPack_id))
 }
 
-export const gradeCardTC = (value: number, id: string): AppThunk => async(dispatch) => {
+export const gradeCardTC = (grade:number,card_id: string,cardsPack_id:string): AppThunk => async(dispatch) => {
     dispatch(setStatusAC("loading"))
-    await cardsApi.gradeCard(value,id)
+    await cardsApi.gradeCard(grade,card_id)
         .then(res=>{
             dispatch(setStatusAC("succeeded"))
         })
@@ -158,7 +158,7 @@ export const gradeCardTC = (value: number, id: string): AppThunk => async(dispat
         .finally(() => {
         dispatch(setStatusAC('idle'))
     })
-    dispatch(getAllCardsTC())
+    dispatch(getAllCardsTC(cardsPack_id))
 }
 
 //Types
