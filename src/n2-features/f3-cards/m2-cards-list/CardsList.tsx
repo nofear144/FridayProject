@@ -60,7 +60,7 @@ export const CardsList = memo(() => {
         answer: "Answer",
         grade: "Grade",
         updated: "Updated",
-        buttons: "Actions"
+        buttons: ""
     }
 
     let {id} = useParams<string>()

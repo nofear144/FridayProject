@@ -5,19 +5,21 @@ import {createNewCardTC} from "../../../../n2-bll/reducers/cards-reducer";
 import SuperInputText from "../../../common/c2-input/SuperInputText";
 import style from "../popup.module.css";
 import SuperButton from "../../../common/c1-button/SuperButton";
+import {useParams} from "react-router-dom";
 
 export type CreateCardPropsType = {
     onClose: (value: boolean) => void
 }
 export const CreateNewCard: FC<CreateCardPropsType> = ({onClose}) => {
     const dispatch = useDispatch()
-    const cardsPack_id = useAppSelector(state => state.cards.cardsPack_id)
+    const {id} = useParams<string>()
+
 
     const [answer, setAnswer] = useState('')
     const [question, setQuestion] = useState('')
 
     const createCard = (e: FormEvent<HTMLFormElement>) => {
-        dispatch(createNewCardTC(cardsPack_id, question, answer, 5, 4))
+        id && dispatch(createNewCardTC(id, question, answer, 5, 4))
         onClose(false)
         e.preventDefault()
     }
