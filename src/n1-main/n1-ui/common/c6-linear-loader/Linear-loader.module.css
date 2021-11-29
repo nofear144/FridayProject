@@ -1,8 +1,8 @@
 .linearActivity {
     overflow: hidden;
     width:100%;
-    height: 6px;
-    background-color: #B3E5FC;
+    height: 8px;
+    background-color: #768fa9;
     position: absolute;
     z-index: 100;
 }
@@ -16,7 +16,7 @@
     content: '';
     position: absolute;
     height: 100%;
-    background-color: #03A9F4;
+    background-color: #2b3c4e;
     animation: indeterminate_first 1.5s infinite ease-out;
 }
 
@@ -24,8 +24,8 @@
     content: '';
     position: absolute;
     height: 100%;
-    background-color: #4FC3F7;
-    animation: indeterminate_second 1.5s infinite ease-in;
+    background-color: #2b3c4e;
+    animation: indeterminate_second 2.5s infinite ease-in;
 }
 
 @keyframes indeterminate_first {
@@ -35,7 +35,7 @@
     }
     100% {
         left: 100%;
-        width: 10%;
+        width: 1%;
     }
 }
 

@@ -7,11 +7,12 @@ type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonE
 type SuperButtonPropsType = DefaultButtonPropsType & {
     variant?: "primary" | "secondary",
     onClick?: () => void
-
+    boxClass?: string
 }
 
 const SuperButton: React.FC<SuperButtonPropsType> = (
     {
+        boxClass,
         onClick,
         variant,
         name,
@@ -34,7 +35,7 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
 
 
     return (
-        <div className={s.btnBox}>
+        <div className={`${s.btnBox} ${boxClass}`}>
             <button onClick={onClickCallback} className={`${buttonStyle} ${className}`} {...restProps} type="submit">{name}</button>
         </div>
 

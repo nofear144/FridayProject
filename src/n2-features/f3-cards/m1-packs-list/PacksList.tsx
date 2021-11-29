@@ -56,19 +56,24 @@ export const PacksList = memo(() => {
     const [showDeletePopup, setShowDeletePopup] = useState(false);
     const onClickHideDelete = () => setShowDeletePopup(false)
     const [searchValue, setSearchValue] = useState("")
+    const [showFilter, setShowFilter] = useState(false)
+
 
     useEffect(() => {
         if (!isInitialize) {
             dispatch(initializeTC())
         }
     }, [])
+
     useEffect(() => {
         dispatch(getPacksTC())
     }, [packName, localmaxCardsCount, localminCardsCount, sortPacks, page, pageCount, user_id])
+
     useEffect(() => {
         let timer = setTimeout(() => dispatch(setPacksNameAC(searchValue)), 500)
         return () => clearTimeout(timer)
     }, [searchValue])
+
     useEffect(() => {
         let timer1 = setTimeout(() => {
             dispatch(setMaxPacksCountAC(localMaxValue))
@@ -112,6 +117,7 @@ export const PacksList = memo(() => {
         navigate(`${PATH.LEARN_CARD}/${id}`)
     }
 
+
     if (!isInitialize) {
         return <div className={s.loader}><Spinner/></div>
     }
@@ -124,22 +130,26 @@ export const PacksList = memo(() => {
         <Window>
             {status === "loading" && <Loader/>}
             <div className={s.container}>
-                <div className={s.sideBar}>
+                <div className={`${s.sideBar} ${showFilter && s.show}`}>
                     <div className={s.label}><h3>Show cards packs:</h3>
                         <div className={s.toggle}>
                             <SuperButton className={s.buttons} name={"My"} onClick={myPack}/>
                             <SuperButton className={s.buttons} name={"All"} onClick={allPack}/>
                         </div>
                     </div>
-                    <label className={s.label}><h3>Cards in a pack</h3>
+                    <div className={s.label}><h3>Cards in a pack</h3>
                         <Range min={0} max={103} onChange={onRangeChange}/>
-                    </label>
+                    </div>
+                    <div className={s.label}>
+                        <SuperButton className={`!${showFilter && s.show}`} onClick={() => setShowFilter(!showFilter)} name={"Apply"}/>
+                    </div>
                 </div>
 
                 <div className={s.tableContainer}>
                     <h2 className={s.DaNuNa}>Packs list</h2>
                     <div className={s.header}>
                         <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
+                        <SuperButton className={s.filter} name={"Filter"} onClick={() => setShowFilter(!showFilter)}/>
                     </div>
 
                     <OverlayingPopup

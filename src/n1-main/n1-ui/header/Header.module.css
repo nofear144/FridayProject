@@ -17,12 +17,18 @@ a{
 .linksContainer {
 }
 
-.header{
+.header {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    transition: all .3s ease;
+    z-index: 5;
+
     color: white;
     background-color: #33495f;
     display: flex;
     flex-direction: row;
     justify-content: center;
-   width: 100%;
     min-height: 30px;
+
 }
