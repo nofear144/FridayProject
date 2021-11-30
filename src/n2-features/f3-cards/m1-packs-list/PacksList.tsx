@@ -140,7 +140,7 @@ export const PacksList = memo(() => {
                         <Range min={0} max={103} onChange={onRangeChange}/>
                     </div>
                     <div className={s.label}>
-                        <SuperButton className={`!${showFilter && s.show}`} onClick={() => setShowFilter(!showFilter)} name={"Apply"}/>
+                        <SuperButton className={`${!showFilter && s.hidden}`} onClick={() => setShowFilter(!showFilter)} name={"Apply"}/>
                     </div>
                 </div>
 

@@ -7,11 +7,12 @@
     justify-content: center;
     background: rgb(255, 255, 255);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-
+    backdrop-filter: blur( 3.5px );
+    -webkit-backdrop-filter: blur( 3.5px );
     @media (max-width: 450px) {
         bottom: 0;
         top: 60px;
-        margin: 0;
+        margin: 0px;
         width: 100%;
         height: 100%;
         border-radius: 0;
