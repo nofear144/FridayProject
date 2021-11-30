@@ -1,13 +1,12 @@
 import React, {FC} from "react";
 import ReactDOM from "react-dom";
-import style from "./popup.module.css";
+import s from "../../../../n2-features/f2-profile/Profile.module.scss";
 
 export type PortalModelType = {
-    message: string
     isOpen: boolean
 }
-export const Popup: FC<PortalModelType> = (
-    {message, isOpen, children}) => {
+export const PopUpForProfile: FC<PortalModelType> = (
+    { isOpen, children}) => {
     const stopPropagation = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
     }
@@ -15,12 +14,10 @@ export const Popup: FC<PortalModelType> = (
     if (!isOpen) return null;
 
     return ReactDOM.createPortal(
-        <div className={style.mainModal} onClick={stopPropagation}>
-            <h2>{message}</h2>
+        <div onClick={stopPropagation}>
             {children}
-        </div>
-
-        ,
+            <div className={s.bgLayer}></div>
+        </div>,
         document.body
     );
 };
