@@ -22,11 +22,10 @@ import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputTex
 import s from "./PacksList.module.scss"
 import {Pagination} from "../../../n1-main/n1-ui/common/c10-pagination/Pagination";
 import Range from "../../../n1-main/n1-ui/common/c9-range/Range";
-import {OverlayingPopup} from "../../../n1-main/n1-ui/ui-kit/overlayingPopup/overlayingPopup";
 import {UpdatePack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/updatePack";
 import {CreateNewPack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/createNewPack";
 import {DeletePack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/deletePack";
-import {setCardsPack_idAC} from "../../../n1-main/n2-bll/reducers/cards-reducer";
+import {Popup} from "../../../n1-main/n1-ui/ui-kit/popup/popup";
 
 
 export const PacksList = memo(() => {
@@ -152,19 +151,17 @@ export const PacksList = memo(() => {
                         <SuperButton className={s.filter} name={"Filter"} onClick={() => setShowFilter(!showFilter)}/>
                     </div>
 
-                    <OverlayingPopup
+                    <Popup
                         isOpened={showUpdatePopup}
-                        onClose={onClickHideUpdate}
-                        message="Update a pack">
+                        onClose={onClickHideUpdate}>
                         <UpdatePack packId={packId} onClose={onClickHideUpdate}/>
-                    </OverlayingPopup>
+                    </Popup>
 
-                    <OverlayingPopup
+                    <Popup
                         isOpened={showDeletePopup}
-                        onClose={onClickHideDelete}
-                        message="Do you want to delete this pack ?">
+                        onClose={onClickHideDelete}>
                         <DeletePack packId={packId} onClose={onClickHideDelete}/>
-                    </OverlayingPopup>
+                    </Popup>
 
                     <Table
                         onLearnClickHandler={onLearnClick}

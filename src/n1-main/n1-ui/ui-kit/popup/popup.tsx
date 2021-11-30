@@ -1,25 +1,34 @@
 import React, {FC} from "react";
-import ReactDOM from "react-dom";
-import style from "./popup.module.css";
+import {Portal} from "./Portal";
+import Window from "../../../../n2-features/f1-auth/m4-new-password/Window";
+import s from "./popup.module.css"
 
 export type PortalModelType = {
-    message: string
-    isOpen: boolean
+    onClose: (value: boolean) => void
+    isOpened: boolean
+
 }
 export const Popup: FC<PortalModelType> = (
-    {message, isOpen, children}) => {
-    const stopPropagation = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        e.stopPropagation()
+    {isOpened, onClose, children}) => {
+
+
+    if (!isOpened) {
+        return null
     }
 
-    if (!isOpen) return null;
+    return (
+        <Portal>
+            <div className={s.overlay} onClick={() => {
+                onClose(false)
+            }}>
+                <Window onClick={(e) => e.stopPropagation()}>
+                    <div className={s.content}>
+                        {children}
+                    </div>
+                </Window>
+            </div>
+        </Portal>
 
-    return ReactDOM.createPortal(
-        <div className={style.mainModal} onClick={stopPropagation}>
-            <h2>{message}</h2>
-            {children}
-        </div>,
-        document.body
     );
 };
 

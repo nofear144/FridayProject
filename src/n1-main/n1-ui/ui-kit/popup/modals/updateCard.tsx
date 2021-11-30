@@ -6,6 +6,7 @@ import style from "../popup.module.css";
 import SuperButton from "../../../common/c1-button/SuperButton";
 import {useAppSelector} from "../../../../n2-bll/store/store";
 import {useParams} from "react-router-dom";
+import s from "../popup.module.css";
 
 export type UpdateCardPropsType = {
     onClose: (value: boolean) => void
@@ -35,7 +36,8 @@ export const UpdateCard: FC<UpdateCardPropsType> = ({cardId, onClose}) => {
         setAnswer(answer)
     }
     return (
-        <form onSubmit={updateCard}>
+        <form className={s.container} onSubmit={updateCard}>
+            <h2>Update a card</h2>
             <SuperInputText
                 onChangeText={onChangeQuestion}
                 value={question}

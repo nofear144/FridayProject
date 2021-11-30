@@ -5,6 +5,7 @@ import style from "../popup.module.css";
 import SuperButton from "../../../common/c1-button/SuperButton";
 import {addPackTC} from "../../../../n2-bll/reducers/packs-reducer";
 import SuperCheckbox from "../../../common/c3-checkbox/SuperCheckbox";
+import s from "../popup.module.css";
 
 export type CreatePackPropsType = {
     onClose: (value: boolean) => void
@@ -26,13 +27,14 @@ export const CreateNewPack: FC<CreatePackPropsType> = ({onClose}) => {
         setPackName(packName)
     }
     return (
-        <form onSubmit={createNewPack}>
+        <form className={s.container} onSubmit={createNewPack}>
+            <h2>Create new pack</h2>
             <SuperInputText
                 onChangeText={onChangePackName}
                 value={packName}
                 required name="Pack name"/>
             <SuperCheckbox
-                name="Private pack ?"
+                name="Private pack"
                 onChangeChecked={setIsPrivate}/>
             <div className={style.buttons}>
                 <SuperButton variant="secondary" name="Close" onClick={() => onClose?.(false)}/>

@@ -8,7 +8,7 @@ $width: 320px;
 }
 .group {
   position: relative;
-  margin: 20px 0;
+  margin: 30px 0;
 }
 .group input,
 .group textarea {
@@ -58,10 +58,10 @@ $width: 320px;
      content: '';
      height: 2px;
      width: 0;
-     bottom: 0px;
+     bottom: 0;
      position: absolute;
      background: $hl-color;
      transition: $trans-time ease all;
-     left: 0%;
+     left: 0;
  }
 }

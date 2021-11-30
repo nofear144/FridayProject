@@ -1,11 +1,11 @@
 import React, {FC, FormEvent, useState} from "react";
 import {useDispatch} from "react-redux";
-import {useAppSelector} from "../../../../n2-bll/store/store";
 import {createNewCardTC} from "../../../../n2-bll/reducers/cards-reducer";
 import SuperInputText from "../../../common/c2-input/SuperInputText";
 import style from "../popup.module.css";
 import SuperButton from "../../../common/c1-button/SuperButton";
 import {useParams} from "react-router-dom";
+import s from "../popup.module.css";
 
 export type CreateCardPropsType = {
     onClose: (value: boolean) => void
@@ -31,7 +31,8 @@ export const CreateNewCard: FC<CreateCardPropsType> = ({onClose}) => {
         setAnswer(answer)
     }
     return (
-        <form onSubmit={createCard}>
+        <form className={s.container} onSubmit={createCard}>
+            <h2>Create the card</h2>
             <SuperInputText
                 onChangeText={onChangeQuestion}
                 value={question}

@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import {useDispatch} from "react-redux";
-import style from "../popup.module.css";
+import s from "../popup.module.css";
 import SuperButton from "../../../common/c1-button/SuperButton";
 import {deletePackTC} from "../../../../n2-bll/reducers/packs-reducer";
 
@@ -17,8 +17,9 @@ export const DeletePack: FC<DeletePackPropsType> = ({packId, onClose}) => {
     }
 
     return (
-        <div>
-            <div className={style.buttons}>
+        <div className={s.container}>
+            <h2>Delete the pack?</h2>
+            <div className={s.buttons}>
                 <SuperButton variant="secondary" name="Close" onClick={() => onClose(false)}/>
                 <SuperButton style={{backgroundColor: "indianred"}} name="Accept" onClick={deletePack}/>
             </div>

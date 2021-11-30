@@ -1,9 +1,13 @@
 import React, {FC} from 'react';
 import s from "./Window.module.scss"
 
-const Window:FC = ({children}) => {
+type Props = {
+onClick?: (e: any) => void
+}
+
+const Window:FC<Props> = ({children, onClick}) => {
     return (
-        <div className={s.window}>
+        <div onClick={onClick} className={s.window}>
                 {children}
         </div>
     );

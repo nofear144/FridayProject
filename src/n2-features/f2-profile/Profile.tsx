@@ -17,10 +17,10 @@ import {
     setPacksNameAC, setPageAC, setSortPacksAC, setUserIdPacksAC,
 } from "../../n1-main/n2-bll/reducers/packs-reducer";
 import s from "./Profile.module.scss"
-import {OverlayingPopup} from "../../n1-main/n1-ui/ui-kit/overlayingPopup/overlayingPopup";
 import {CreateNewPack} from "../../n1-main/n1-ui/ui-kit/popup/modals/createNewPack";
 import {UpdatePack} from "../../n1-main/n1-ui/ui-kit/popup/modals/updatePack";
 import {DeletePack} from "../../n1-main/n1-ui/ui-kit/popup/modals/deletePack";
+import {Popup} from "../../n1-main/n1-ui/ui-kit/popup/popup";
 
 
 export function Profile() {
@@ -135,24 +135,21 @@ export function Profile() {
                                 <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
                                 <SuperButton name={"Add Pack"} onClick={onClickShowCreate}/>
                             </div>
-                            <OverlayingPopup
+                            <Popup
                                 isOpened={showCreatePopup}
-                                onClose={onClickHideCreate}
-                                message="Create a new card">
+                                onClose={onClickHideCreate}>
                                 <CreateNewPack onClose={onClickHideCreate}/>
-                            </OverlayingPopup>
-                            <OverlayingPopup
+                            </Popup>
+                            <Popup
                                 isOpened={showUpdatePopup}
-                                onClose={onClickHideUpdate}
-                                message="Update a pack">
+                                onClose={onClickHideUpdate}>
                                 <UpdatePack packId={packId} onClose={onClickHideUpdate}/>
-                            </OverlayingPopup>
-                            <OverlayingPopup
+                            </Popup>
+                            <Popup
                                 isOpened={showDeletePopup}
-                                onClose={onClickHideDelete}
-                                message="Do you want to delete this pack ?">
+                                onClose={onClickHideDelete}>
                                 <DeletePack packId={packId} onClose={onClickHideDelete}/>
-                            </OverlayingPopup>
+                            </Popup>
                             <Table
                                 sort={sortPacks}
                                 onRowClickHandler={routeToCard}

@@ -4,30 +4,26 @@ import {useDispatch} from "react-redux";
 
 import Window from "../../f1-auth/m4-new-password/Window";
 import Loader from "../../f1-auth/m3-reset-password/Loader";
-import s from "../../f1-auth/m3-reset-password/ResetPassword.module.css";
 import {
     getAllCardsTC,
     setCardAnswerAC,
-    setCardsPack_idAC,
     setPageAC,
     setPageCountAC,
     setSortCardsAC
 } from "../../../n1-main/n2-bll/reducers/cards-reducer";
 import {Table} from "../../../n1-main/n1-ui/common/c7-table/Table";
 import SuperButton from "../../../n1-main/n1-ui/common/c1-button/SuperButton";
-import {Spinner} from "../../../n1-main/n1-ui/common/c5-spinner/Spinner";
 import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {PATH} from "../../../n1-main/n1-ui/routes/Routes";
-import {initializeTC} from "../../../n1-main/n2-bll/reducers/login-reducer";
 import {Pagination} from "../../../n1-main/n1-ui/common/c10-pagination/Pagination";
 import SuperSelect from "../../../n1-main/n1-ui/common/c4-select/SuperSelect";
 import style from './CardsList.module.css'
 import SuperInputText from "../../../n1-main/n1-ui/common/c2-input/SuperInputText";
-import {OverlayingPopup} from "../../../n1-main/n1-ui/ui-kit/overlayingPopup/overlayingPopup";
 import {CreateNewCard} from "../../../n1-main/n1-ui/ui-kit/popup/modals/createNewCard";
 import {UpdateCard} from "../../../n1-main/n1-ui/ui-kit/popup/modals/updateCard";
 import {DeleteCard} from "../../../n1-main/n1-ui/ui-kit/popup/modals/deleteCard";
 import {ModalUp} from "../../../n1-main/n1-ui/ui-kit/popup/modals/modalUp/modalUP";
+import {Popup} from "../../../n1-main/n1-ui/ui-kit/popup/popup";
 
 
 export const CardsList = memo(() => {
@@ -121,24 +117,20 @@ export const CardsList = memo(() => {
                 </span>
                 <div className={style.header}>
                     <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
-                    <OverlayingPopup
-                        isOpened={showCreatePopup}
-                        onClose={onClickHideCreate}
-                        message="Create a new card">
+                    <Popup
+                        isOpened={showCreatePopup} onClose={onClickHideCreate}>
                         <CreateNewCard onClose={onClickHideCreate}/>
-                    </OverlayingPopup>
-                    <OverlayingPopup
+                    </Popup>
+                    <Popup
                         isOpened={showUpdatePopup}
-                        onClose={onClickHideUpdate}
-                        message="Update a card">
+                        onClose={onClickHideUpdate}>
                         <UpdateCard cardId={cardId} onClose={onClickHideUpdate}/>
-                    </OverlayingPopup>
-                    <OverlayingPopup
+                    </Popup>
+                    <Popup
                         isOpened={showDeletePopup}
-                        onClose={onClickHideDelete}
-                        message="Do you want to delete this card ?">
+                        onClose={onClickHideDelete} >
                         <DeleteCard cardId={cardId} onClose={onClickHideDelete}/>
-                    </OverlayingPopup>
+                    </Popup>
                     <SuperButton name="Create card" onClick={onClickShowCreate}/>
                 </div>
                 <ModalUp/>

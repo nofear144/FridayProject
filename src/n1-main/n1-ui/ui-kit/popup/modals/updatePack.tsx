@@ -5,6 +5,7 @@ import style from "../popup.module.css";
 import SuperButton from "../../../common/c1-button/SuperButton";
 import {useAppSelector} from "../../../../n2-bll/store/store";
 import {updatePackTC} from "../../../../n2-bll/reducers/packs-reducer";
+import s from "../popup.module.css";
 
 export type UpdatePackPropsType = {
     onClose: (value: boolean) => void
@@ -29,7 +30,8 @@ export const UpdatePack: FC<UpdatePackPropsType> = ({packId, onClose}) => {
     }
 
     return (
-        <form onSubmit={updatePack}>
+        <form className={s.container} onSubmit={updatePack}>
+            <h2>Update the pack</h2>
             <SuperInputText
                 onChangeText={onChangePackName}
                 value={packName}
