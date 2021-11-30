@@ -12,7 +12,7 @@
 }
 
 .mainModal {
-
+    padding: 30px;
     flex-direction: column;
     background-color: #f8f8f8;
     width: 440px;

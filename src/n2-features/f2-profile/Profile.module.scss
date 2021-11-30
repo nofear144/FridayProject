@@ -38,7 +38,9 @@
 }
 
 .buttons {
-  min-width: 100px;
+  display: flex;
+  justify-content: space-around;
+  width: 300px;
 }
 
 .header {
@@ -75,6 +77,7 @@
 }
 
 .imgProfile {
+  border-radius: 50%;
   width: 180px;
   height: 180px;
 }
@@ -92,4 +95,26 @@
 .editProfile {
   color: #95a8d3;
 }
+.bgLayer{
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    height: 100%;
+
+}
+.svgPosition{
+  position: absolute;
+  right: 0px;
+  bottom: 1px;
+
+}
+.ContainerPhoto{
+  position: relative;
+}
+
 

@@ -21,6 +21,9 @@ import {CreateNewPack} from "../../n1-main/n1-ui/ui-kit/popup/modals/createNewPa
 import {UpdatePack} from "../../n1-main/n1-ui/ui-kit/popup/modals/updatePack";
 import {DeletePack} from "../../n1-main/n1-ui/ui-kit/popup/modals/deletePack";
 import {Popup} from "../../n1-main/n1-ui/ui-kit/popup/popup";
+import {EditProfile} from "../../n1-main/n1-ui/ui-kit/popup/modals/editProfile";
+import {PopUpForProfile} from "../../n1-main/n1-ui/ui-kit/popup/PopUpForProfile";
+
 
 
 export function Profile() {
@@ -50,13 +53,15 @@ export function Profile() {
     const [searchValue, setSearchValue] = useState("")
     const [showCreatePopup, setShowCreatePopup] = useState(false);
     const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [showEditProfileActive, setShowEditProfileActive] = useState(false);
     const [packId, setPackId] = useState("")
     const [showDeletePopup, setShowDeletePopup] = useState(false);
 
-
-    const onClickHideDelete = () => setShowDeletePopup(false)
-    const onClickHideUpdate = () => setShowUpdatePopup(false)
     const onClickShowCreate = () => setShowCreatePopup(true)
+    const onClickShowEdit = ()=> setShowEditProfileActive(true)
+    const onClickHideDelete = () => setShowDeletePopup(false)
+    const onClickHideEdit = () => setShowEditProfileActive(false)
+    const onClickHideUpdate = () => setShowUpdatePopup(false)
     const onClickHideCreate = () => setShowCreatePopup(false)
 
     useEffect(() => {
@@ -122,7 +127,10 @@ export function Profile() {
                             </div>
                             <span><h2>{name}</h2></span>
                             <span><h3 className={s.front}>Front-end-developer</h3></span>
-                            <NavLink className={s.editProfile} to={"#"}> edit profile</NavLink>
+                            <NavLink className={s.editProfile} to={"#"} onClick={onClickShowEdit}> edit profile</NavLink>
+                             <Popup isOpened={showEditProfileActive} onClose={onClickHideEdit}>
+                                 <EditProfile onCLoseClick={onClickHideEdit} />
+                             </Popup>
                         </div>
                         <label className={s.label}><h3>Cards in a pack</h3>
                             <Range min={0} max={103} onChange={onRangeChange}/>
@@ -150,6 +158,7 @@ export function Profile() {
                                 onClose={onClickHideDelete}>
                                 <DeletePack packId={packId} onClose={onClickHideDelete}/>
                             </Popup>
+
                             <Table
                                 sort={sortPacks}
                                 onRowClickHandler={routeToCard}
@@ -163,7 +172,8 @@ export function Profile() {
                                 user_name: "Created by",
                                 buttons: ""
                             }}/>
-                            <Pagination cardPacksTotalCount={cardPacksTotalCount} page={page} pageCount={pageCount}
+                            <Pagination cardPacksTotalCount={cardPacksTotalCount}
+                                        page={page} pageCount={pageCount}
                                         setPage={setPage}/>
                         </div>
                     </div>
