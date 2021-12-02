@@ -2,7 +2,6 @@
     overflow: hidden;
     border-radius: 8px;
     margin: 120px 15px;
-    position: relative;
     display: flex;
     justify-content: center;
     background: rgb(255, 255, 255);
@@ -11,10 +10,9 @@
     -webkit-backdrop-filter: blur( 3.5px );
     @media (max-width: 450px) {
         bottom: 0;
-        top: 60px;
-        margin: 0px;
+        margin: 70px 0 0 0;
         width: 100%;
-        height: 100%;
+        height: 100vh;
         border-radius: 0;
 
     }

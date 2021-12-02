@@ -10,7 +10,7 @@ import s from "../../n2-features/f2-profile/Profile.module.scss";
 import {Spinner} from "./common/c5-spinner/Spinner";
 
 function App() {
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     const isLoggedIn = useAppSelector(state => state.login.isLogged)
     const isInitialize = useAppSelector(state => state.app.isInitialize)
     useEffect(() => {
@@ -23,12 +23,12 @@ function App() {
     }
 
     return (
-        <div>
-            <HashRouter>
-                <Header/>
-                <RoutesPage/>
-            </HashRouter>
-        </div>
+
+        <HashRouter>
+            <Header/>
+            <RoutesPage/>
+        </HashRouter>
+
     );
 }
 

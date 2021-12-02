@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import {Portal} from "./Portal";
 import Window from "../../../../n2-features/f1-auth/m4-new-password/Window";
 import s from "./popup.module.css"
@@ -8,9 +8,14 @@ export type PortalModelType = {
     isOpened: boolean
 
 }
-export const Popup: FC<PortalModelType> = (
-    {isOpened, onClose, children}) => {
+export const Popup: FC<PortalModelType> = ({isOpened, onClose, children}) => {
 
+
+
+    useEffect(() => {
+        const body = document.querySelector('body');
+        body!.style.overflow = isOpened ? 'hidden' : 'auto';
+    }, [isOpened])
 
     if (!isOpened) {
         return null

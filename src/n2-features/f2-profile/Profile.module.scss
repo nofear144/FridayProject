@@ -27,6 +27,7 @@
   align-items: center;
   flex-direction: column;
   padding-bottom: 50px;
+
 }
 
 .toggle {
@@ -53,7 +54,7 @@
 
 .label {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .tableContainer {
@@ -68,7 +69,7 @@
   align-items: center;
 }
 
-.DaNuNa {
+.logo {
   padding-left: 1em;
 }
 
@@ -88,8 +89,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
   background-color: #34495e6b;
+  padding: 1em;
 }
 
 .editProfile {

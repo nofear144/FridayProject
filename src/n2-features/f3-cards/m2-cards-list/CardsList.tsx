@@ -107,55 +107,57 @@ export const CardsList = memo(() => {
         return <Navigate to={PATH.LOGIN}/>
     }
 
-    return (
-        <Window>
-            {status === "loading" && <Loader/>}
-            <div className={style.main}>
+    return (<>
+            <ModalUp/>
+            <Window>
+                {status === "loading" && <Loader/>}
+                <div className={style.main}>
                 <span className={style.image}>
                     <img style={{cursor: "pointer"}} src={backImage} alt="previous page" onClick={handleClick}/>
                        <h2 style={{margin: "-7px 0 20px 20px"}}>Back</h2>
                 </span>
-                <div className={style.header}>
-                    <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
-                    <Popup
-                        isOpened={showCreatePopup} onClose={onClickHideCreate}>
-                        <CreateNewCard onClose={onClickHideCreate}/>
-                    </Popup>
-                    <Popup
-                        isOpened={showUpdatePopup}
-                        onClose={onClickHideUpdate}>
-                        <UpdateCard cardId={cardId} onClose={onClickHideUpdate}/>
-                    </Popup>
-                    <Popup
-                        isOpened={showDeletePopup}
-                        onClose={onClickHideDelete} >
-                        <DeleteCard cardId={cardId} onClose={onClickHideDelete}/>
-                    </Popup>
-                    <SuperButton name="Create card" onClick={onClickShowCreate}/>
+                    <div className={style.header}>
+                        <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
+                        <Popup
+                            isOpened={showCreatePopup} onClose={onClickHideCreate}>
+                            <CreateNewCard onClose={onClickHideCreate}/>
+                        </Popup>
+                        <Popup
+                            isOpened={showUpdatePopup}
+                            onClose={onClickHideUpdate}>
+                            <UpdateCard cardId={cardId} onClose={onClickHideUpdate}/>
+                        </Popup>
+                        <Popup
+                            isOpened={showDeletePopup}
+                            onClose={onClickHideDelete}>
+                            <DeleteCard cardId={cardId} onClose={onClickHideDelete}/>
+                        </Popup>
+                        <SuperButton name="Create card" onClick={onClickShowCreate}/>
+                    </div>
+
+                    <div className={style.table}>
+                        <Table
+                            sort={sortCards}
+                            onDeleteClickHandler={deleteCard}
+                            onUpdateUpdateHandler={updateCard}
+                            onSortClickHandler={sortCard}
+                            header={header}
+                            items={cards}/>
+                    </div>
+                    <div className={style.pagination}>
+                        <Pagination
+                            cardsTotalCount={cardsTotalCount}
+                            page={page}
+                            pageCount={pageCount}
+                            setPage={setPage}/>
+                        {!cardsTotalCount ? null : <SuperSelect
+                            name="Cards per page"
+                            value={pageCount}
+                            options={options}
+                            onChangeOption={setPageCount}/>}
+                    </div>
                 </div>
-                <ModalUp/>
-                <div className={style.table}>
-                    <Table
-                        sort={sortCards}
-                        onDeleteClickHandler={deleteCard}
-                        onUpdateUpdateHandler={updateCard}
-                        onSortClickHandler={sortCard}
-                        header={header}
-                        items={cards}/>
-                </div>
-                <div className={style.pagination}>
-                    <Pagination
-                        cardsTotalCount={cardsTotalCount}
-                        page={page}
-                        pageCount={pageCount}
-                        setPage={setPage}/>
-                    {!cardsTotalCount ? null : <SuperSelect
-                        name="Cards per page"
-                        value={pageCount}
-                        options={options}
-                        onChangeOption={setPageCount}/>}
-                </div>
-            </div>
-        </ Window>
+            </ Window>
+        </>
     )
 })

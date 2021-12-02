@@ -1,10 +1,10 @@
-import {NavLink} from "react-router-dom";
+import {LinkProps, NavLink, useMatch, useResolvedPath} from "react-router-dom";
 import {PATH} from "../routes/Routes";
-import s from "./Header.module.css"
+import s from "./Header.module.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType} from "../../n2-bll/store/store";
 import {LogoutTC} from "../../n2-bll/reducers/login-reducer";
-import React from "react";
+import React, {FC} from "react";
 
 
 export function Header() {
@@ -17,29 +17,44 @@ export function Header() {
     }
 
     return (
-        <div>
-
-
-            <div className={s.header}>
-                <div className={s.container}>
-                    <h2 className={s.logo}>FunCards</h2>
-                    <div>
-                        <NavLink to={PATH.PROFILE}>Profile</NavLink>
-                        <NavLink to={PATH.PACKS_LIST}>PackList</NavLink>
-                    </div>
-                    <div className={s.linksContainer}>
-                        {!isLogged
-                            ?
-                            <NavLink to={PATH.LOGIN}>Login</NavLink>
-                            :
-                            <a onClick={onLogoutClick}>Logout</a>
-                        }
-                    </div>
-
-
+        <div className={s.header}>
+            <div className={s.container}>
+                <h2 className={s.logo}>FunCards</h2>
+                <div>
+                    <CustomLink to={PATH.PROFILE}>Profile</CustomLink>
+                    <CustomLink to={PATH.PACKS_LIST}>PackList</CustomLink>
                 </div>
+                <div>
+                    {!isLogged
+                        ?
+                        <NavLink to={PATH.LOGIN}>Login</NavLink>
+                        :
+                        <a onClick={onLogoutClick}>Logout</a>
+                    }
+                </div>
+
+
             </div>
         </div>
-
     )
+}
+
+type CustomLinkProps = {
+    to: string
+}
+
+export const CustomLink: FC<CustomLinkProps> = ({children, to, ...props}: LinkProps) => {
+    let resolved = useResolvedPath(to);
+    let match = useMatch({path: resolved.pathname, end: true});
+
+    return (
+
+        <NavLink
+            className={match ? s.current : ""}
+            to={to}
+            {...props}
+        >
+            {children}
+        </NavLink>
+    );
 }

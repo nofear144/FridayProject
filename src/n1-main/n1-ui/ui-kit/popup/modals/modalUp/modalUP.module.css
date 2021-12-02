@@ -1,7 +1,7 @@
 .modalUP {
     position: fixed;
-    top: 80vh;
-    left: 30px;
+    top: 90vh;
+    right: 40px;
     background: #6abfde;
     z-Index: 21;
     width: 35px;
