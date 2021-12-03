@@ -16,21 +16,27 @@
     justify-content: space-between;
     margin-top: 20px;
 }
-.radioButtons{
+
+.radioButtons {
     display: flex;
     flex-direction: column;
-    width:300px
+    width: 300px
 
 }
-.rate{
-    width:300px
+
+.rate {
+    width: 300px
 }
-.radioBox{
+
+.radioBox {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
     width: 300px;
 }
-.question{
 
+.body {
+    display: flex;
+    flex-direction: column;
+    margin:1em;
 }

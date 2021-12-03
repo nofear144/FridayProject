@@ -40,7 +40,6 @@ export const packsReducer = (state: initialStateType = initialState, action: Com
         case "packsCards/SET-PACKS-SORT":
         case "packsCards/SET-PAGE":
         case "packsCards/SET-PAGE-COUNT": {
-            console.log(action.payload)
             return {...state, ...action.payload}
         }
 

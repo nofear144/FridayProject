@@ -15,26 +15,39 @@ export const Answer: FC<PropsType> = memo(({onCancelClick, grade, onGradeChange,
     return (
         <div className={s.container}>
             <h2>Learn</h2>
-            <div className={s.question}>Question: {card.question}</div>
-            <div>Answer: {card.answer}</div>
-            <div className={s.radioBox}>
-                <div className={s.rate}>Rate yourself:</div>
-                <div className={s.radioButtons}>
-                    <label>
-                        <input type={"radio"} value={1} checked={grade === 1 ? true : false} onChange={onGradeChange}/>
-                        Did not know</label>
-                    <label>
-                        <input type={"radio"} value={2} checked={grade === 2 ? true : false} onChange={onGradeChange}/>
-                        Forgot</label>
-                    <label>
-                        <input type={"radio"} value={3} checked={grade === 3 ? true : false} onChange={onGradeChange}/>
-                        A lot of thought</label>
-                    <label>
-                        <input type={"radio"} value={4} checked={grade === 4 ? true : false} onChange={onGradeChange}/>
-                        Confused</label>
-                    <label>
-                        <input type={"radio"} value={5} checked={grade === 5 ? true : false} onChange={onGradeChange}/>
-                        Knew the answer</label>
+            <div className={s.body}>
+                <div><strong>Question:</strong> {card.question}</div>
+                <br/>
+                <div><strong>Answer:</strong> {card.answer}</div>
+                <div className={s.radioBox}>
+                    <div className={s.rate}><strong>Rate yourself:</strong></div>
+                    <div className={s.radioButtons}>
+                        <label>
+                            <input type={"radio"} value={1} checked={grade === 1 ? true : false}
+                                   onChange={onGradeChange}/>
+                            Did not know
+                        </label>
+                        <label>
+                            <input type={"radio"} value={2} checked={grade === 2 ? true : false}
+                                   onChange={onGradeChange}/>
+                            Forgot
+                        </label>
+                        <label>
+                            <input type={"radio"} value={3} checked={grade === 3 ? true : false}
+                                   onChange={onGradeChange}/>
+                            A lot of thought
+                        </label>
+                        <label>
+                            <input type={"radio"} value={4} checked={grade === 4 ? true : false}
+                                   onChange={onGradeChange}/>
+                            Confused
+                        </label>
+                        <label>
+                            <input type={"radio"} value={5} checked={grade === 5 ? true : false}
+                                   onChange={onGradeChange}/>
+                            Knew the answer
+                        </label>
+                    </div>
                 </div>
             </div>
             <div className={s.buttons}>

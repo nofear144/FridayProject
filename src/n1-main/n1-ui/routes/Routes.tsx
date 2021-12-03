@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 
 
-import { Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../../../n2-features/f1-auth/m1-login/Login";
 import {Registration} from "../../../n2-features/f1-auth/m2-registration/Registration";
 import {ResetPassword} from "../../../n2-features/f1-auth/m3-reset-password/ResetPassword";

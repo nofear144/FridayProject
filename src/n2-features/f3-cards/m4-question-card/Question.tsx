@@ -13,7 +13,7 @@ export const Question: FC<PropsType> = memo(({onSetShowClick,onCancelClick,card}
     return (
             <div className={s.container}>
                 <h2>Learn</h2>
-                <div >Question: {card.question}</div>
+                <div><strong>Question:</strong> {card.question}</div>
                 <div className={s.buttons}>
                     <div><SuperButton  onClick={onCancelClick} name={"Cancel"}/></div>
                     <div><SuperButton onClick={onSetShowClick} name={"Show Answer"}/></div>
