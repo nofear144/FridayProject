@@ -2,8 +2,9 @@ import s from "./ProfileBar.module.scss";
 import {NavLink} from "react-router-dom";
 import {Popup} from "../../../n1-main/n1-ui/ui-kit/popup/popup";
 import {EditProfile} from "../../../n1-main/n1-ui/ui-kit/popup/modals/editProfile";
-import React, {memo, useState} from "react";
+import React, {DetailedHTMLProps, memo, useState} from "react";
 import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
+
 
 export const ProfileBar = memo(() => {
     const {name, avatar, _id} = useAppSelector(state => state.profile)

@@ -57,15 +57,16 @@ export const PacksList = memo(() => {
     const onClickHideDelete = () => setShowDeletePopup(false)
     const [searchValue, setSearchValue] = useState("")
     const [showFilter, setShowFilter] = useState(false)
-    const location = useLocation();
-    const locationPath = location.pathname;
+    const locationPath = useLocation().pathname;
+    const isProfilePath = locationPath === PATH.PROFILE;
+
 
 
     useEffect(() => {
-        if (locationPath === PATH.PROFILE) {
+        if (isProfilePath) {
             dispatch(setUserIdPacksAC(_id))
         }
-        if (locationPath === PATH.PACKS_LIST) {
+        if (!isProfilePath) {
             dispatch(setUserIdPacksAC(""))
         }
     }, [locationPath])
@@ -135,8 +136,9 @@ export const PacksList = memo(() => {
                 <div className={s.container}>
 
                     <div onClick={() => setShowFilter(false)} className={`${s.background} ${showFilter && s.show}`}> </div>
+                    {isProfilePath && <div className={s.visible700}><ProfileBar/></div>}
                     <div className={`${s.sideBarContainer} ${showFilter && s.show}`}>
-                        {locationPath === PATH.PROFILE && <ProfileBar/>}
+                        {isProfilePath && <div className={s.hidden700}><ProfileBar/></div>}
                         {locationPath === PATH.PACKS_LIST &&
                         <div className={s.label}>
                             <h3>Show cards packs:</h3>
@@ -159,7 +161,7 @@ export const PacksList = memo(() => {
                     <div className={s.tableContainer}>
                         <h2 className={s.logo}>Packs list</h2>
                         <div className={s.header}>
-                            <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
+                          <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
                             <SuperButton className={s.filterButton} name={"Filter"}
                                          onClick={() => setShowFilter(!showFilter)}/>
                         </div>
