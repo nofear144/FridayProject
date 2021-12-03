@@ -115,6 +115,9 @@ display: flex;
       @media (max-width: $breakpoint-700) {
         flex-direction: column;
       }
+      @media (min-width: $breakpoint-1250) {
+        flex-direction: column;
+      }
     }
 
     .toggle {
