@@ -27,7 +27,6 @@ import {CreateNewPack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/createNe
 import {DeletePack} from "../../../n1-main/n1-ui/ui-kit/popup/modals/deletePack";
 import {Popup} from "../../../n1-main/n1-ui/ui-kit/popup/popup";
 import {ProfileBar} from "./ProfileBar";
-import {ModalUp} from "../../../n1-main/n1-ui/ui-kit/popup/modals/modalUp/modalUP";
 
 
 export const PacksList = memo(() => {
