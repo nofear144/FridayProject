@@ -67,11 +67,14 @@ export const PacksList = memo(() => {
         if (locationPath === PATH.PROFILE) {
             dispatch(setUserIdPacksAC(_id))
         }
+        if (locationPath === PATH.PACKS_LIST) {
+            dispatch(setUserIdPacksAC(""))
+        }
     }, [locationPath])
 
     useEffect(() => {
-        dispatch(getPacksTC())
-    }, [packName, localmaxCardsCount, localminCardsCount, sortPacks, page, pageCount, user_id])
+        if (status !== "loading") dispatch(getPacksTC())
+    }, [packName, localmaxCardsCount, localminCardsCount, sortPacks, page, pageCount, user_id, locationPath])
 
     useEffect(() => {
         let timer = setTimeout(() => dispatch(setPacksNameAC(searchValue)), 500)
@@ -130,41 +133,39 @@ export const PacksList = memo(() => {
 
 
     return (
-        <>
-            <ModalUp/>
+
             <Window>
                 {status === "loading" && <Loader/>}
 
                 <div className={s.container}>
 
-                    <div className={`${s.sideBar} ${showFilter && s.show}`}>
+                    <div onClick={() => setShowFilter(false)} className={`${s.background} ${showFilter && s.show}`}> </div>
+                    <div className={`${s.sideBarContainer} ${showFilter && s.show}`}>
                         {locationPath === PATH.PROFILE && <ProfileBar/>}
                         {locationPath === PATH.PACKS_LIST &&
-                        <div className={s.label}><h3>Show cards packs:</h3>
+                        <div className={s.label}>
+                            <h3>Show cards packs:</h3>
                             <div className={s.toggle}>
                                 <SuperButton className={s.buttons} name={"My"} onClick={myPack}/>
                                 <SuperButton className={s.buttons} name={"All"} onClick={allPack}/>
                             </div>
-
                         </div>}
 
-                        <div className={s.label}><h3>Cards in a pack</h3>
+                        <div className={s.label}>
+                            <h3>Cards in a pack</h3>
                             <Range min={0} max={103} onChange={onRangeChange}/>
                         </div>
-                        {showFilter && <div className={`${s.label} ${s.hidden700}`}>
+                        {showFilter &&
+                        <div className={`${s.label} ${s.hidden700}`}>
                             <SuperButton onClick={() => setShowFilter(false)} name={"Apply"}/>
                         </div>}
                     </div>
                     <div onClick={() => setShowFilter(false)} className={`${s.after} ${showFilter && s.show}`}></div>
-
                     <div className={s.tableContainer}>
-
-                            <h2 className={s.logo}>Packs list</h2>
-
-
+                        <h2 className={s.logo}>Packs list</h2>
                         <div className={s.header}>
                             <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
-                            <SuperButton className={s.filter} name={"Filter"}
+                            <SuperButton className={s.filterButton} name={"Filter"}
                                          onClick={() => setShowFilter(!showFilter)}/>
                             <SuperButton className={s.buttons} name={"Add pack"} onClick={onClickShowCreate}/>
                         </div>
@@ -193,7 +194,7 @@ export const PacksList = memo(() => {
                             sort={sortPacks}
                             onRowClickHandler={routeToCard}
                             onSortClickHandler={sortPack}
-                            onUpdateUpdateHandler={updatePack}
+                            onUpdateClickHandler={updatePack}
                             onDeleteClickHandler={deletePack}
                             items={cardPacks} header={{
                             name: "Name",
@@ -208,7 +209,6 @@ export const PacksList = memo(() => {
                 </div>
 
             </ Window>
-        </>
     )
 })
 

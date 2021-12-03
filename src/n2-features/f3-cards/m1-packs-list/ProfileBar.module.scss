@@ -13,9 +13,10 @@
   height: 180px;
 }
 
+
 .profileBar {
   display: flex;
-  min-width: 300px;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -23,6 +24,13 @@
   padding: 1em;
   @media (max-width: $breakpoint-1250) {
     flex-direction: row;
+  }
+  @media (max-width: $breakpoint-700){
+    width: 100%;
+    flex-direction: column;
+  }
+  @media (max-width: $breakpoint-400) {
+
   }
 }
 

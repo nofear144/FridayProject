@@ -17,6 +17,7 @@ import {initializeTC} from "../../n2-bll/reducers/login-reducer";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../n2-bll/store/store";
 import {Spinner} from "../common/c5-spinner/Spinner";
+import {ModalUp} from "../ui-kit/popup/modals/modalUp/modalUP";
 
 
 export const PATH = {
@@ -51,9 +52,10 @@ export function RoutesPage() {
     return (
 
         <div className={s.container}>
+            <ModalUp/>
             <Routes>
 
-                <Route path={'/'} element={<PacksList/>}/>
+                <Route path={'/'} element={<Navigate to={PATH.PROFILE}/>}/>
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
                 <Route path={PATH.RESET_PASSWORD} element={<ResetPassword/>}/>

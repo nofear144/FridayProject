@@ -107,8 +107,7 @@ export const CardsList = memo(() => {
         return <Navigate to={PATH.LOGIN}/>
     }
 
-    return (<>
-            <ModalUp/>
+    return (
             <Window>
                 {status === "loading" && <Loader/>}
                 <div className={style.main}>
@@ -139,7 +138,7 @@ export const CardsList = memo(() => {
                         <Table
                             sort={sortCards}
                             onDeleteClickHandler={deleteCard}
-                            onUpdateUpdateHandler={updateCard}
+                            onUpdateClickHandler={updateCard}
                             onSortClickHandler={sortCard}
                             header={header}
                             items={cards}/>
@@ -158,6 +157,5 @@ export const CardsList = memo(() => {
                     </div>
                 </div>
             </ Window>
-        </>
     )
 })
