@@ -61,8 +61,6 @@ export const PacksList = memo(() => {
     const isProfilePath = locationPath === PATH.PROFILE;
 
 
-
-
     useEffect(() => {
         if (isProfilePath) {
             dispatch(setUserIdPacksAC(_id))
@@ -134,15 +132,16 @@ export const PacksList = memo(() => {
 
     return (
 
-            <Window>
-                {status === "loading" && <Loader/>}
+        <Window>
+            {status === "loading" && <Loader/>}
 
-                <div className={s.container}>
+            <div className={s.container}>
 
-                    <div onClick={() => setShowFilter(false)} className={`${s.background} ${showFilter && s.show}`}> </div>
-                    {isProfilePath && <div className={s.visible700}><ProfileBar/></div>}
-                    <div className={`${s.sideBarContainer} ${showFilter && s.show}`}>
-                        {isProfilePath && <div className={s.hidden700}><ProfileBar/></div>}
+                <div onClick={() => setShowFilter(false)} className={`${s.background} ${showFilter && s.show}`}></div>
+                {isProfilePath && <div className={s.visible700}><ProfileBar/></div>}
+                <div className={`${s.sideBarContainer} ${showFilter && s.show}`}>
+                    {isProfilePath && <div className={s.hidden700}><ProfileBar/></div>}
+                    <div className={s.sideBarFilter}>
                         {locationPath === PATH.PACKS_LIST &&
                         <div className={s.label}>
                             <h3>Show cards packs:</h3>
@@ -156,59 +155,60 @@ export const PacksList = memo(() => {
                             <h3>Cards in a pack</h3>
                             <Range min={0} max={103} onChange={onRangeChange}/>
                         </div>
-                        {showFilter &&
-                        <div className={`${s.label} ${s.hidden700}`}>
-                            <SuperButton onClick={() => setShowFilter(false)} name={"Apply"}/>
-                        </div>}
-                    </div>
-                    <div className={s.tableContainer}>
-                        <h2 className={s.logo}>Packs list</h2>
-                        <div className={s.header}>
-                          <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
-                            <SuperButton className={s.filterButton} name={"Filter"}
-                                         onClick={() => setShowFilter(!showFilter)}/>
-                            <SuperButton className={s.buttons} name={"Add pack"} onClick={onClickShowCreate}/>
-                        </div>
 
-                        <Popup
-                            isOpened={showUpdatePopup}
-                            onClose={onClickHideUpdate}>
-                            <UpdatePack packId={packId} onClose={onClickHideUpdate}/>
-                        </Popup>
-
-                        <Popup
-                            isOpened={showDeletePopup}
-                            onClose={onClickHideDelete}>
-                            <DeletePack packId={packId} onClose={onClickHideDelete}/>
-                        </Popup>
-
-                         <Popup
-                             onClose={onClickHideCreate}
-                             isOpened={showCreatePopup}>
-                             <CreateNewPack onClose={onClickHideCreate} />
-                         </Popup>
-
-
-                        <Table
-                            onLearnClickHandler={onLearnClick}
-                            sort={sortPacks}
-                            onRowClickHandler={routeToCard}
-                            onSortClickHandler={sortPack}
-                            onUpdateClickHandler={updatePack}
-                            onDeleteClickHandler={deletePack}
-                            items={cardPacks} header={{
-                            name: "Name",
-                            cardsCount: "Cards",
-                            updated: "Updated",
-                            user_name: "Created by",
-                            buttons: ""
-                        }}/>
-                        <Pagination cardPacksTotalCount={cardPacksTotalCount} page={page} pageCount={pageCount}
-                                    setPage={setPage}/>
                     </div>
                 </div>
+                <div className={s.tableContainer}>
 
-            </ Window>
+
+                    <div className={s.header}>
+                        <h2 className={s.title}>Packs list</h2>
+                        <div className={s.buttons}>
+                            <SuperButton className={s.filterButton} name={"Filter"} onClick={() => setShowFilter(!showFilter)}/>
+                            <SuperButton  name={"Add pack"} onClick={onClickShowCreate}/>
+                        </div>
+
+                    </div>
+                    <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
+                    <Popup
+                        isOpened={showUpdatePopup}
+                        onClose={onClickHideUpdate}>
+                        <UpdatePack packId={packId} onClose={onClickHideUpdate}/>
+                    </Popup>
+
+                    <Popup
+                        isOpened={showDeletePopup}
+                        onClose={onClickHideDelete}>
+                        <DeletePack packId={packId} onClose={onClickHideDelete}/>
+                    </Popup>
+
+                    <Popup
+                        onClose={onClickHideCreate}
+                        isOpened={showCreatePopup}>
+                        <CreateNewPack onClose={onClickHideCreate}/>
+                    </Popup>
+
+
+                    <Table
+                        onLearnClickHandler={onLearnClick}
+                        sort={sortPacks}
+                        onRowClickHandler={routeToCard}
+                        onSortClickHandler={sortPack}
+                        onUpdateClickHandler={updatePack}
+                        onDeleteClickHandler={deletePack}
+                        items={cardPacks} header={{
+                        name: "Name",
+                        cardsCount: "Cards",
+                        updated: "Updated",
+                        user_name: "Created by",
+                        buttons: ""
+                    }}/>
+                    <Pagination cardPacksTotalCount={cardPacksTotalCount} page={page} pageCount={pageCount}
+                                setPage={setPage}/>
+                </div>
+            </div>
+
+        </ Window>
     )
 })
 
