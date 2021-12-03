@@ -1,11 +1,12 @@
 .container {
-    padding: 20px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 600px;
+    width: 500px;
     min-height: 300px;
+    line-height: 1.5
 
 }
 
@@ -13,6 +14,7 @@
     display: flex;
     min-width: 300px;
     justify-content: space-between;
+    margin-top: 20px;
 }
 .radioButtons{
     display: flex;
@@ -24,7 +26,11 @@
     width:300px
 }
 .radioBox{
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     width: 300px;
+}
+.question{
+
 }

@@ -47,6 +47,7 @@ $breakpoint-400: 400px;
     }
 
     .header {
+      padding-right: 20px;
       height: 80px;
       width: 100%;
       display: flex;
@@ -130,6 +131,11 @@ $breakpoint-400: 400px;
 .logo {
   padding-left: 1em;
 }
+.addButton{
+  align-self: end;
+  padding-right: 20px;
+
+}
 
 
 
@@ -138,5 +144,6 @@ $breakpoint-400: 400px;
     display: none;
   }
 }
+
 
 

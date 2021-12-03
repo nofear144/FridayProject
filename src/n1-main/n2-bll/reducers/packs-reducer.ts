@@ -1,7 +1,6 @@
 import {packsApi, PackType, RequestPacksType} from "../../n3-dal/packs-api";
 import {AppThunk} from "../store/store";
 import {setAppErrorAC, setIsInitializedAC, setStatusAC} from "./app-reducer";
-import {CardsType} from "../../n3-dal/cards-api";
 
 
 const initialState = {

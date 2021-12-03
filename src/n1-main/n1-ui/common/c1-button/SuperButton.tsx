@@ -24,15 +24,12 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
         e.stopPropagation()
         onClick
         && onClick(e)
-
     }
 
     let buttonStyle = `${s.btn} ${s.btnPrimary}`
     if (variant === "secondary") {
         buttonStyle = `${s.btn} ${s.btnSecondary}`
     }
-
-
 
     return (
         <div className={`${s.btnBox} ${boxClass}`}>

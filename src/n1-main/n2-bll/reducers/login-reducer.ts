@@ -116,6 +116,6 @@ export type CombineActionType =
     | ReturnType<typeof setIsInitializedAC>
     | ReturnType<typeof setAppErrorAC>
     | ReturnType<typeof setUserProfileAC>
-   // | ReturnType<typeof setUserTokenAC>
+
 
 type initialStateType = typeof initialState

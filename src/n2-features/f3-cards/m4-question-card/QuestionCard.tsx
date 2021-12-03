@@ -3,7 +3,6 @@ import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 import {useDispatch} from "react-redux";
 
 import Window from "../../f1-auth/m4-new-password/Window";
-import s from "./QuestionCard.module.css";
 import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {Question} from "./Question";
 import {Answer} from "./Answer";

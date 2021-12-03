@@ -15,7 +15,7 @@ export const Answer: FC<PropsType> = memo(({onCancelClick, grade, onGradeChange,
     return (
         <div className={s.container}>
             <h2>Learn</h2>
-            <div>Question: {card.question}</div>
+            <div className={s.question}>Question: {card.question}</div>
             <div>Answer: {card.answer}</div>
             <div className={s.radioBox}>
                 <div className={s.rate}>Rate yourself:</div>
