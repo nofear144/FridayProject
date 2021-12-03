@@ -26,22 +26,3 @@ export const DeletePack: FC<DeletePackPropsType> = ({packId, onClose}) => {
         </div>
     )
 }
-
-
-//Добавь в PackList
-
-// const [packId, setPackId] = useState("")
-// const [showDeletePopup, setShowDeletePopup] = useState(false);
-// const onClickHideDelete = () => setShowDeletePopup(false)
-// const deletePack = (id: string) => {
-//     setShowDeletePopup(true)
-//     setPackId(id)
-// }
-
-// После ретурна
-// <OverlayingPopup
-//     isOpened={showDeletePopup}
-//     onClose={onClickHideDelete}
-//     message="Do you want to delete this pack ?">
-//     <DeletePack packId={packId} onClose={onClickHideDelete}/>
-// </OverlayingPopup>

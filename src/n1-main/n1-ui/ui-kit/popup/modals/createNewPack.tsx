@@ -43,24 +43,3 @@ export const CreateNewPack: FC<CreatePackPropsType> = ({onClose}) => {
         </form>
     )
 }
-
-
-//Добавь в PackList
-
-// const [showCreatePopup, setShowCreatePopup] = useState(false);
-// const onClickShowCreate = () => setShowCreatePopup(true)
-// const onClickHideCreate = () => setShowCreatePopup(false)
-
-
-// После ретурна
-//     <OverlayingPopup
-// isOpened={showCreatePopup}
-// onClose={onClickHideCreate}
-// message="Create a new card">
-//     <CreateNewPack onClose={onClickHideCreate}/>
-// </OverlayingPopup>
-
-// Замени кнопку этой
-// <SuperButton name={"Add Pack"} onClick={onClickShowCreate}/>
-
-// Надо добавить в InitialState свойство private в колоду карт, а также изменить имя isPrivate в добавлении ПАКА
