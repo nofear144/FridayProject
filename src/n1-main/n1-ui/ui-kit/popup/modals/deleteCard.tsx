@@ -13,6 +13,7 @@ export type DeleteCardPropsType = {
 export const DeleteCard: FC<DeleteCardPropsType> = ({cardId, onClose}) => {
     const dispatch = useDispatch()
     const {id} = useParams<string>()
+
     const deleteCard = () => {
         dispatch(id && deleteCardTC(cardId, id))
         onClose(false)
@@ -23,7 +24,7 @@ export const DeleteCard: FC<DeleteCardPropsType> = ({cardId, onClose}) => {
             <h2>Do you want to delete this card</h2>
             <div className={style.buttons}>
                 <SuperButton variant="secondary" name="Close" onClick={() => onClose(false)}/>
-                <SuperButton style={{backgroundColor: "indianred"}} name="Accept" onClick={deleteCard}/>
+                <SuperButton variant="accept" name="Accept" onClick={deleteCard}/>
             </div>
         </div>
     )

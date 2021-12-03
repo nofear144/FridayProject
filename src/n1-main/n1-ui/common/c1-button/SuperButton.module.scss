@@ -3,6 +3,7 @@ $hl-color: #1e2c39;
 $muted-color: mix(white, $bg-color, 70%);
 $trans-time: 300ms;
 $width: 320px;
+$acc-color: #e70861;
 
 .btn {
   background: #fff;
@@ -58,6 +59,15 @@ $width: 320px;
     &:hover {
       background: darken(#eee, 5%);
       color: mix(black, $muted-color, 80%);
+    }
+  }
+  &.btnAccept {
+    background: #ee0663;
+    color: $hl-color;
+
+    &:hover {
+      background: lighten(#e70861,5%);
+      color: mix(black, $muted-color, 90%);
     }
   }
 }
