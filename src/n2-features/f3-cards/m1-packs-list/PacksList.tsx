@@ -61,8 +61,6 @@ export const PacksList = memo(() => {
     const isProfilePath = locationPath === PATH.PROFILE;
 
 
-    const location = useLocation();
-    const locationPath = location.pathname;
 
 
     useEffect(() => {
