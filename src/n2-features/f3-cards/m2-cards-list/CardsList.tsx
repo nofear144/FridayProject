@@ -25,7 +25,6 @@ import {DeleteCard} from "../../../n1-main/n1-ui/ui-kit/popup/modals/deleteCard"
 import {ModalUp} from "../../../n1-main/n1-ui/ui-kit/popup/modals/modalUp/modalUP";
 import {Popup} from "../../../n1-main/n1-ui/ui-kit/popup/popup";
 
-
 export const CardsList = memo(() => {
     const {status, isInitialize} = useAppSelector(state => state.app);
     const [cardId, setCardId] = useState("")
@@ -37,6 +36,31 @@ export const CardsList = memo(() => {
 
     const dispatch = useDispatch()
 
+    let {id} = useParams<string>()
+    let navigate = useNavigate();
+
+    const previousPageImage = "https://www.kindpng.com/picc/m/58-583580_estrela-logo-back-button-icon-png-transparent-png.png"
+    const cardsPerPage = [1, 3, 5, 7, 10, 20]
+    const header = {
+        question: "Question",
+        answer: "Answer",
+        grade: "Grade",
+        updated: "Updated",
+        buttons: ""
+    }
+
+    const [searchValue, setSearchValue] = useState("")
+    // MODAL MENU
+    const [showCreatePopup, setShowCreatePopup] = useState(false);
+    const onClickShowCreate = () => setShowCreatePopup(true)
+    const onClickHideCreate = () => setShowCreatePopup(false)
+
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const onClickHideUpdate = () => setShowUpdatePopup(false)
+
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const onClickHideDelete = () => setShowDeletePopup(false)
+
     const deleteCard = (id: string) => {
         setCardId(id)
         setShowDeletePopup(true)
@@ -47,26 +71,6 @@ export const CardsList = memo(() => {
         setShowUpdatePopup(true)
         setCardId(id)
     }
-
-    const backImage = "https://www.kindpng.com/picc/m/58-583580_estrela-logo-back-button-icon-png-transparent-png.png"
-    const [searchValue, setSearchValue] = useState("")
-    const options = [1, 3, 5, 7, 10, 20]
-
-    const header = {
-        question: "Question",
-        answer: "Answer",
-        grade: "Grade",
-        updated: "Updated",
-        buttons: ""
-    }
-
-    let {id} = useParams<string>()
-    let navigate = useNavigate();
-
-    function handleClick() {
-        navigate(PATH.PACKS_LIST);
-    }
-
     const sortCard = (param: string) => {
         sortCards[0] === "1"
             ? dispatch(setSortCardsAC(`0${param}`))
@@ -77,6 +81,10 @@ export const CardsList = memo(() => {
     }
     const setPageCount = (pageCount: number) => {
         dispatch(setPageCountAC(pageCount))
+    }
+
+    function handleClick() {
+        navigate(PATH.PACKS_LIST);
     }
 
     useEffect(() => {
@@ -90,19 +98,6 @@ export const CardsList = memo(() => {
         id && dispatch(getAllCardsTC(id))
     }, [cardQuestion, cardAnswer, sortCards, page, pageCount])
 
-
-    // MODAL MENU
-    const [showCreatePopup, setShowCreatePopup] = useState(false);
-    const onClickShowCreate = () => setShowCreatePopup(true)
-    const onClickHideCreate = () => setShowCreatePopup(false)
-
-    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
-    const onClickHideUpdate = () => setShowUpdatePopup(false)
-
-    const [showDeletePopup, setShowDeletePopup] = useState(false);
-    const onClickHideDelete = () => setShowDeletePopup(false)
-
-
     if (isInitialize && !isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
     }
@@ -112,7 +107,7 @@ export const CardsList = memo(() => {
                 {status === "loading" && <Loader/>}
                 <div className={style.main}>
                 <span className={style.image}>
-                    <img style={{cursor: "pointer"}} src={backImage} alt="previous page" onClick={handleClick}/>
+                    <img style={{cursor: "pointer"}} src={previousPageImage} alt="previous page" onClick={handleClick}/>
                        <h2 style={{margin: "-7px 0 20px 20px"}}>Back</h2>
                 </span>
                     <div className={style.header}>
@@ -152,7 +147,7 @@ export const CardsList = memo(() => {
                         {!cardsTotalCount ? null : <SuperSelect
                             name="Cards per page"
                             value={pageCount}
-                            options={options}
+                            options={cardsPerPage}
                             onChangeOption={setPageCount}/>}
                     </div>
                 </div>

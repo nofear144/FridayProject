@@ -44,22 +44,4 @@ export const UpdatePack: FC<UpdatePackPropsType> = ({packId, onClose}) => {
     )
 }
 
-//Добавь в PackList
-
-// const [showUpdatePopup, setShowUpdatePopup] = useState(false);
-// const onClickHideUpdate = () => setShowUpdatePopup(false)
-// const [packId,setPackId]=useState("")
-// const updatePack = (id: string,) => {
-//     setShowUpdatePopup(true)
-//     setPackId(id)
-// }
-
-// После ретурна
-
-// <OverlayingPopup
-//     isOpened={showUpdatePopup}
-//     onClose={onClickHideUpdate}
-//     message="Update a pack">
-//     <UpdatePack packId={packId} onClose={onClickHideUpdate}/>
-// </OverlayingPopup>
 
