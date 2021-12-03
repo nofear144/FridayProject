@@ -37,7 +37,6 @@ export const EditProfile: FC<PortalEditProfileType> = ({onCLoseClick}) => {
         </div>
         <div >
             <SuperInputText name={"Nickname"}/>
-            <SuperInputText name={"Email"}/>
         </div>
         <div className={s.buttons}>
             <SuperButton name={"Cancel"} onClick={onCLoseClick}/>

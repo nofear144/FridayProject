@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import {HashRouter, Navigate} from "react-router-dom";
-import {PATH, RoutesPage} from "./routes/Routes";
+import {HashRouter} from "react-router-dom";
+import {RoutesPage} from "./routes/Routes";
 import {Header} from "./header/Header";
 import {initializeTC} from "../n2-bll/reducers/login-reducer";
 import {useAppSelector} from "../n2-bll/store/store";
@@ -11,7 +11,6 @@ import {Spinner} from "./common/c5-spinner/Spinner";
 
 function App() {
     const dispatch = useDispatch()
-    const isLoggedIn = useAppSelector(state => state.login.isLogged)
     const isInitialize = useAppSelector(state => state.app.isInitialize)
     useEffect(() => {
         if (!isInitialize) {

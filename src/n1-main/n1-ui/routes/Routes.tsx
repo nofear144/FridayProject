@@ -35,7 +35,6 @@ export const PATH = {
 }
 
 export function RoutesPage() {
-    const isLoggedIn = useAppSelector(state => state.login.isLogged);
     const isInitialize = useAppSelector(state => state.app.isInitialize);
     const dispatch = useDispatch()
 

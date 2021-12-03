@@ -50,16 +50,19 @@ export const PacksList = memo(() => {
     const [localMaxValue, setLocalMaxValue] = useState(0)
     const [localMinValue, setLocalMinValue] = useState(103)
     const [showUpdatePopup, setShowUpdatePopup] = useState(false);
-    const [packId, setPackId] = useState("")
     const [showCreatePopup, setShowCreatePopup] = useState(false);
-    const onClickShowCreate = () => setShowCreatePopup(true)
+    const [packId, setPackId] = useState("")
     const [showDeletePopup, setShowDeletePopup] = useState(false);
-    const onClickHideDelete = () => setShowDeletePopup(false)
+
+
     const [searchValue, setSearchValue] = useState("")
     const [showFilter, setShowFilter] = useState(false)
     const locationPath = useLocation().pathname;
     const isProfilePath = locationPath === PATH.PROFILE;
 
+
+    const location = useLocation();
+    const locationPath = location.pathname;
 
 
     useEffect(() => {
@@ -103,6 +106,9 @@ export const PacksList = memo(() => {
         setPackId(id)
     }
     const onClickHideUpdate = () => setShowUpdatePopup(false)
+    const onClickHideCreate = () => setShowCreatePopup(false)
+    const onClickHideDelete = () => setShowDeletePopup(false)
+    const onClickShowCreate = () => setShowCreatePopup(true)
     const updatePack = (id: string,) => {
         setShowUpdatePopup(true)
         setPackId(id)
@@ -157,13 +163,13 @@ export const PacksList = memo(() => {
                             <SuperButton onClick={() => setShowFilter(false)} name={"Apply"}/>
                         </div>}
                     </div>
-
                     <div className={s.tableContainer}>
                         <h2 className={s.logo}>Packs list</h2>
                         <div className={s.header}>
                           <SuperInputText type="text" required onChangeText={setSearchValue} name={"Search"}/>
                             <SuperButton className={s.filterButton} name={"Filter"}
                                          onClick={() => setShowFilter(!showFilter)}/>
+                            <SuperButton className={s.buttons} name={"Add pack"} onClick={onClickShowCreate}/>
                         </div>
 
                         <Popup
@@ -177,6 +183,13 @@ export const PacksList = memo(() => {
                             onClose={onClickHideDelete}>
                             <DeletePack packId={packId} onClose={onClickHideDelete}/>
                         </Popup>
+
+                         <Popup
+                             onClose={onClickHideCreate}
+                             isOpened={showCreatePopup}>
+                             <CreateNewPack onClose={onClickHideCreate} />
+                         </Popup>
+
 
                         <Table
                             onLearnClickHandler={onLearnClick}
