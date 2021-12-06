@@ -1,3 +1,8 @@
+import {AppThunk} from "../store/store";
+import {setAppErrorAC, setStatusAC} from "./app-reducer";
+import {packsApi} from "../../n3-dal/packs-api";
+import {getPacksTC} from "./packs-reducer";
+
 const initialState = {
     _id: "",
     name: "",
@@ -22,7 +27,23 @@ export const setUserProfileAC = (_id: string, name: string, avatar: string | und
 }
 
 //Thunks
+export const updateProfileTC = (name: string, avatar: string): AppThunk => (dispatch) => {
+    dispatch(setStatusAC('loading'))
+    packsApi.updateProfile({name, avatar})
+        .then(res => {
+            console.log(res)
+            dispatch(setUserProfileAC(res.data.updatedUser._id, res.data.updatedUser.name, res.data.updatedUser.avatar))
+            dispatch(setStatusAC('succeeded'))
+        })
+        .catch(e => {
+            dispatch(setAppErrorAC(e.response.data.error))
+            dispatch(setStatusAC('failed'))
+        })
+        .finally(() => {
+            dispatch(setStatusAC('idle'))
+        })
 
+}
 
 //Types
 
@@ -31,6 +52,7 @@ type initialStateType = {
     name: string
     avatar: string | undefined
 }
+
 
 export type CombineProfileActionsType =
     |ReturnType<typeof setUserProfileAC>
