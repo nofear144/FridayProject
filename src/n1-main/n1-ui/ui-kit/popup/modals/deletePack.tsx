@@ -21,7 +21,7 @@ export const DeletePack: FC<DeletePackPropsType> = ({packId, onClose}) => {
             <h2>Delete the pack?</h2>
             <div className={s.buttons}>
                 <SuperButton variant="secondary" name="Close" onClick={() => onClose(false)}/>
-                <SuperButton style={{backgroundColor: "indianred"}} name="Accept" onClick={deletePack}/>
+                <SuperButton variant="accept" name="Accept" onClick={deletePack}/>
             </div>
         </div>
     )

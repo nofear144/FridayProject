@@ -7,7 +7,11 @@ import {useAppSelector} from "../../../n1-main/n2-bll/store/store";
 
 
 export const ProfileBar = memo(() => {
+
     const {name, avatar, _id} = useAppSelector(state => state.profile)
+
+    console.log(name)
+
     const [showEditProfileActive, setShowEditProfileActive] = useState(false);
     const onClickShowEdit = () => setShowEditProfileActive(true)
     const onClickHideEdit = () => setShowEditProfileActive(false)

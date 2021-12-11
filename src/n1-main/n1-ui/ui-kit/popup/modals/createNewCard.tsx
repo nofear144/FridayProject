@@ -19,7 +19,7 @@ export const CreateNewCard: FC<CreateCardPropsType> = ({onClose}) => {
     const [question, setQuestion] = useState('')
 
     const createCard = (e: FormEvent<HTMLFormElement>) => {
-        id && dispatch(createNewCardTC(id, question, answer, 5, 4))
+        id && dispatch(createNewCardTC(id, question, answer, 1, 0))
         onClose(false)
         e.preventDefault()
     }
